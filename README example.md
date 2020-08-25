@@ -1,38 +1,23 @@
-# MedPlan
-Ironhack Project 3
+# Backlog Quest
 
-# Description
-Web app available for doctors and individuals (patients).
-It enables individuals to book doctor appointments online.
-Then the patient can view his appointments (and delete the incoming ones) but also, once the appointment has occured, he will have access to the visit report and the prescriptions.
-The prescriptions will also be available in a Medication Planner where all the medications, time and quantities will be viewable in a schedule.
+<br>
 
-On his side, the doctor can receive bookings, upload the visit report, and add the medications.
-This app offers more visiliby to his business and make it easier for the individuals to view the doctors availabilities and book appointments 24/7.
+## Description
+
+This is an app that organizes and manages backlog for different types of media. Mainly from streaming and other monthly services.
 
 ## User Stories
 
 -  **404:** As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
--  **Signup:** As an anon I can sign up in the platform 
--  **Login:** As a user I can login to the platform
+-  **Signup:** As an anon I can sign up in the platform so that I can start creating and managing my backlog
+-  **Login:** As a user I can login to the platform so that I can start creating and managing my backlog
 -  **Logout:** As a user I can logout from the platform so no one else can modify my information
-
-* Patient interface
--  **Appointment booking** As a patient I can book doctor appointments
--  **Appointment cancellation** As a patient I can cancel doctor appointments
--  **Medecines planer** As a patient I can access my medecines planner
--  **Profile editing** As a patient I can modify my health and personnal details
--  **Appointment report** As a patient I can download the report of each appointment (uploaded by the doctor)
-
-* Health profesionnal interface
--  **Appointment booking** As a doctor I can check my schedule of patients appointments
--  **Appointment cancellation** As a doctor I can cancel patients appointments
--  **Medecines planer** As a doctor I can add prescriptions to my patients
--  **Profile editing** As a doctor I can modify my profesionnal public page details
--  **Appointment report** As a doctor I uploaded check the report for each appointment
--  **Opening times/schedule** As a doctor I can change my opening times to update my appointment calendar
-
-
+-  **Toogle media** As a user I can toogle between different types of media
+-  **Add elements** As a user I can add elements to my backlog
+-  **Delete elements** As a user I can delete elements from my backlog
+-  **Mark elements** As a user I can mark elements in my backlog as done
+-  **Random element** As a user I can get a random element from my backlog
+-  **Check profile** As a user I can check my profile and stats
 
 ## Backlog
 
@@ -87,6 +72,10 @@ This app offers more visiliby to his business and make it easier for the individ
 - ElementInfo
 
 - Stats
+
+
+
+  
 
  
 
@@ -175,14 +164,16 @@ Media model
 <br>
 
 
-
 ## Links
 
-### Trello
+### Trello/Kanban
 
 [Link to your trello board](https://trello.com/b/iloDccrZ/backlog-quest) 
+or picture of your physical board
 
 ### Git
+
+The url to your repository and to your deployed project
 
 [Client repository Link](https://github.com/jorgeberrizbeitia/backlog-quest)
 
@@ -191,5 +182,7 @@ Media model
 [Deployed App Link](https://backlog-quest.herokuapp.com/login)
 
 ### Slides
+
+The url to your presentation slides
 
 [Slides Link](https://docs.google.com/presentation/d/1zndKZ8DC-_i391alptPKsAKanCSXTrLVL39L3xtEjz8/edit?usp=sharing)
