@@ -36,15 +36,14 @@ This app offers more visiliby to his business and make it easier for the individ
 
 ## Backlog
 
-- Friends list
-- Recommendations from friends
-- Books media
-- Comics media
+- Video chat
+- 
 
 <br>
 
 
 # Client / Frontend
+
 
 ## React Router Routes (React App)
 |Path|Components|Permissions|Behavior|
@@ -60,9 +59,8 @@ This app offers more visiliby to his business and make it easier for the individ
 | /doctor/calendar| Navbar, Doctor calendar (Calendar)| doctor | Doctor can check his appointments calendar and click on details |
 | /doctor/calendar/:appointmentId | Navbar, Appointment details | doctor | Doctor can check the details of an appointment, add report and prescription, he can also cancel the appointment |
 | /doctor/calendar/:appointmentId/prescription | Navbar, Prescription form, Prescription card, Add medication form | doctor |Doctor can add the prescription (each item = a medication) |
-| /doctor/private| Navbar, Doctor edit profile| doctor |Doctor can edit his profile and calendar |
-
-
+| /doctor/private| Navbar, Doctor edit profile| doctor |Doctor can edit his profile and calendar |             |
+          
 
 ## Components
 
@@ -101,7 +99,7 @@ This app offers more visiliby to his business and make it easier for the individ
 - Prescription form
 
 - Prescription card
- 
+
 - Add medication form
 
 - Doctor edit profile
@@ -110,30 +108,7 @@ This app offers more visiliby to his business and make it easier for the individ
 
 - Footer (computer view)
 
-
-
-<!-- ## Services
-
-- Auth Service
-  - auth.login(user)
-  - auth.signup(user)
-  - auth.logout()
-  - auth.me()
-
-- Backlog Service
-  - backlog.filter(type, status) // for different types of media and if they are done or not
-  - backlog.detail(id)
-  - backlog.add(id)
-  - backlog.delete(id)
-  - backlog.update(id)
-  
-- External API
-  - API for games
-  - API for series
-  - API for films -->
-
-
-<br>
+ 
 
 
 # Server / Backend
@@ -148,6 +123,7 @@ This app offers more visiliby to his business and make it easier for the individ
 - address: string
 - alergies: [string]
 - history: [string]
+- prescriptions: [prescription: {string, ref:prescription}]
 
 ### Doctor
 - name: {string, required}
@@ -168,8 +144,9 @@ This app offers more visiliby to his business and make it easier for the individ
 
 ### Prescription
 
-- [medicine: {name: string, dosePerTake: number, frequency: {perDay: number, days: number}, startDate: date, endDate: date, comments: string]
+- [medication: {name: string, dosePerTake: number, frequency: {perDay: number, days: number}, startDate: date, endDate: date, comments: string]
 - timestamp
+
 
 <br>
 
@@ -178,20 +155,24 @@ This app offers more visiliby to his business and make it easier for the individ
 
 | HTTP Method | URL                         | Request Body                 | Success status | Error Status | Description                                                  |
 | ----------- | --------------------------- | ---------------------------- | -------------- | ------------ | ------------------------------------------------------------ |
-| GET         | `/auth/profile    `           | Saved session                | 200            | 404          | Check if user is logged in and return profile page           |
-| POST        | `/auth/signup`                | {name, email, password}      | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
-| POST        | `/auth/login`                 | {username, password}         | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session    |
+| POST        | `/auth/signup`                | {name, email, password, usertype, allergies, history}      | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password on the appropiate collection, and store user and usertype in session |
+| POST        | `/auth/login`                 | {email, password}         | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user and usertype in session    |
 | POST        | `/auth/logout`                | (empty)                      | 204            | 400          | Logs out the user                                            |
-| POST        | `/search/add`                 | {platform, title, type, id}  |                | 400          | Add new backlog element and add to user                                               |
-| GET         | `/backlog/series`             |                              |                | 400          | Show series elements                                           |
-| GET         | `/backlog/films`              |                              |                |              | Show film elements                                           |
-| GET         | `/backlog/games`              |                              |                |              | Show games elements                                          |
-| GET         | `/media/:id`                        |                              | 201            | 400          | Show specific element                                        |
-| PUT         | `/media/:id`                 |                              | 200            | 400          | edit element                                                 |
-| DELETE      | `/media/:id`                 |                              | 201            | 400          | delete element                                               |
-| GET         | `/done/series`                |                              |                | 400          | Show series elements                                         |
-| GET         | `/done/films`                 |                              |                |              | Show film elements                                           |
-| GET         | `/done/games`                 |                              |                |              | Show games elements                                          |
+| GET        | `/doctor/search`                 | {speciality, city}  |                | 400          | Returns the entries on doctor collection that match with the speciality and/or city                                             |
+| GET         | `/doctor/:doctorId`             |                              |                |           | Returns all the information of the doctor                                           |
+| GET         | `/doctor/:doctorId/appointments`              |                              |                |              | Returns all the appointments with the doctor's id                                       |
+| PATCH         | `/doctor/:doctorId`                 |                              |                |              | Edit the corresponding value on the doctor's profile |
+| POST         | `/patient/:doctorId/appointments`              |      calendar event                        |                |              | Creates an appointment with the doctor's and the session's id and the calendar event data                                         |
+| PATCH         | `/patient/:doctorId/appointments`                        |     calendar event                         |             |           | Edit appointment if its patient id is the same as the user and the start date is more than 48h in the future                                       |                                       |
+| DELETE      | `/patient/:doctorId/appointments`                 |       calendar event                       |             |           | Delete appointment if its patient id is the same as the user and the start date is more than 48h in the future                                                  |
+| GET         | `/patient/:id/profile`                |                              |                |           | Returns all the information of the patient                                       |
+| PATCH         | `/patient/:id/profile`                 |                              |                |              | Edit the corresponding value on the patient's profile                                        |
+| GET         | `/patient/appointments`                 |       {doctor, specialty, date}                       |                |              |Returns all the appointments with the patient’s id that fit the search criteria                                          |
+| GET         | `/patient/appointments/:id/report`                 |                              |                |              |Get the medical report from the appointment                                       |
+| GET         | `/patient/planner/`                 |       date                      |                |              |Get all the patient's prescriptions for that day                                        |
+| POST         | `/doctor/appointment/:id/report`                 |        report file                      |                |              |Stores the medical report in the appointment                                        |
+| DELETE         | `/doctor/appointment/:id/cancel`                 |                             |                |              | Deletes the appointment                                        |
+| POST         | `/doctor/appointment/:id/prescription`                 |                             |                |              |Creates the prescription                                        |
 
 
 
@@ -203,16 +184,16 @@ This app offers more visiliby to his business and make it easier for the individ
 
 ### Trello
 
-[Link to your trello board](https://trello.com/b/iloDccrZ/backlog-quest) 
+[Link to your trello board](https://trello.com/b/JXZNSlqs/medplan) 
 
 ### Git
 
-[Client repository Link](https://github.com/jorgeberrizbeitia/backlog-quest)
+[Client repository Link](https://github.com/maevamerrou/medplan)
 
-[Server repository Link](https://github.com/jorgeberrizbeitia/backlog-quest-server)
+[Server repository Link](https://github.com/rlaz133/medplan-server)
 
-[Deployed App Link](https://backlog-quest.herokuapp.com/login)
+[Deployed App Link]()
 
 ### Slides
 
-[Slides Link](https://docs.google.com/presentation/d/1zndKZ8DC-_i391alptPKsAKanCSXTrLVL39L3xtEjz8/edit?usp=sharing)
+[Slides Link]()
