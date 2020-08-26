@@ -36,10 +36,8 @@ This app offers more visiliby to his business and make it easier for the individ
 
 ## Backlog
 
-- Friends list
-- Recommendations from friends
-- Books media
-- Comics media
+- Video chat
+- 
 
 <br>
 
@@ -47,25 +45,6 @@ This app offers more visiliby to his business and make it easier for the individ
 # Client / Frontend
 
 ## React Router Routes (React App)
-
-
-|Path|Component|Permissions|Behavior|
-| ------------------------- | --------------------           | ----------- | ------------------------------------------------------------ |
-| /| Header,  Navbar (if logged in), Home search bar, Search card| public| 
-                                        |
-| /signup| Header, Signup form| public| Signup form, link to login, redirect to login page |
-| /login| Header,  Login form| public| Login form, link to sign up, redirect to home page  |
-| /logout| n/a| patient, doctor  | Navigate to homepage after logout, expire session|
-| /doctor/:id| Navbar, Doctor public profile (Calendar)| patient, doctor  | Show doctor details and calendar to book|
-| /user/:id| Navbar, Patient profile| patient| Show patient details and edit buttons|
-| /user/:id/appointments| Navbar, Appointments (Appointment search bar, Appointment card) | Patient can check his appointments, reports, and cancel/edit appointments |
-| /user/:id/medication-planner| Navbar, Medication schedule (Medication card) | Patient can check his medications and add a check button to follow up|
-| /doctor/:id/calendar| Navbar, Doctor calendar (Calendar)| Doctor can check his appointments calendar and click on details |
-| /doctor/:id/calendar/:id | Navbar, Appointment details | Doctor can check the details of an appointment and add report and prescription, also can cancel the appointment |
-| /doctor/:id/calendar/:id/prescription | Navbar, Prescription form, Prescription card, Add medication form | Doctor can add the prescription (each item = a medication) |
-| /doctor/:id/private| Navbar, Doctor edit profile| Doctor can edit his profile and calendar |
-
-
 
 
 | Path                      | Component                      | Permissions | Behavior                                                     |
@@ -140,33 +119,36 @@ This app offers more visiliby to his business and make it easier for the individ
 
 ## Models
 
-User model
+### Patient
+- name: {string, required}
+- email: {string, required, unique}
+- passwordHash: {string, required}
+- address: string
+- alergies: [string]
+- history: [string]
+- prescriptions: [prescription: {string, ref:prescription}]
 
-```javascript
-{
-  username: {type: String, required: true, unique: true},
-  email: {type: String, required: true, unique: true},
-  password: {type: String, required: true},
-  platform: [platforms]
-  elements: [{type: Schema.Types.ObjectId,ref:'Media'}]
-}
-```
+### Doctor
+- name: {string, required}
+- email: {string, required, unique}
+- passwordHash: {string, required}
+- address: string
+- speciality: {string, enum}
+- businessHours: {daysofWeek:[number, enum], startTime: string, endTime: string}
+- phone: string
+- picture: string
 
+### Appointment
+- doctor: {string, ref:doctor}
+- patient: {string, ref:patient}
+- time: date
+- reason: string
+- prescription: {string, ref:prescription}
 
+### Prescription
 
-Media model
-
-```javascript
- {
-   title: {type: String, required: true},
-   type: {type: String, required: true},
-   done: {type: Boolean, required: true},
-   platform: {type: String, required: true},
-   image: {type: String, required: true}
-   description: {type, String, required: true}
-   user: {type: Schema.Types.ObjectId,ref:'User'},
- }
-```
+- [medication: {name: string, dosePerTake: number, frequency: {perDay: number, days: number}, startDate: date, endDate: date, comments: string]
+- timestamp
 
 
 <br>
@@ -176,20 +158,24 @@ Media model
 
 | HTTP Method | URL                         | Request Body                 | Success status | Error Status | Description                                                  |
 | ----------- | --------------------------- | ---------------------------- | -------------- | ------------ | ------------------------------------------------------------ |
-| GET         | `/auth/profile    `           | Saved session                | 200            | 404          | Check if user is logged in and return profile page           |
-| POST        | `/auth/signup`                | {name, email, password}      | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
-| POST        | `/auth/login`                 | {username, password}         | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session    |
+| POST        | `/auth/signup`                | {name, email, password, usertype, allergies, history}      | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password on the appropiate collection, and store user and usertype in session |
+| POST        | `/auth/login`                 | {email, password}         | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user and usertype in session    |
 | POST        | `/auth/logout`                | (empty)                      | 204            | 400          | Logs out the user                                            |
-| POST        | `/search/add`                 | {platform, title, type, id}  |                | 400          | Add new backlog element and add to user                                               |
-| GET         | `/backlog/series`             |                              |                | 400          | Show series elements                                           |
-| GET         | `/backlog/films`              |                              |                |              | Show film elements                                           |
-| GET         | `/backlog/games`              |                              |                |              | Show games elements                                          |
-| GET         | `/media/:id`                        |                              | 201            | 400          | Show specific element                                        |
-| PUT         | `/media/:id`                 |                              | 200            | 400          | edit element                                                 |
-| DELETE      | `/media/:id`                 |                              | 201            | 400          | delete element                                               |
-| GET         | `/done/series`                |                              |                | 400          | Show series elements                                         |
-| GET         | `/done/films`                 |                              |                |              | Show film elements                                           |
-| GET         | `/done/games`                 |                              |                |              | Show games elements                                          |
+| GET        | `/doctor/search`                 | {speciality, city}  |                | 400          | Returns the entries on doctor collection that match with the speciality and/or city                                             |
+| GET         | `/doctor/:doctorId`             |                              |                |           | Returns all the information of the doctor                                           |
+| GET         | `/doctor/:doctorId/appointments`              |                              |                |              | Returns all the appointments with the doctor's id                                       |
+| PATCH         | `/doctor/:doctorId`                 |                              |                |              | Edit the corresponding value on the doctor's profile |
+| POST         | `/patient/:doctorId/appointments`              |      calendar event                        |                |              | Creates an appointment with the doctor's and the session's id and the calendar event data                                         |
+| PATCH         | `/patient/:doctorId/appointments`                        |     calendar event                         |             |           | Edit appointment if its patient id is the same as the user and the start date is more than 48h in the future                                       |                                       |
+| DELETE      | `/patient/:doctorId/appointments`                 |       calendar event                       |             |           | Delete appointment if its patient id is the same as the user and the start date is more than 48h in the future                                                  |
+| GET         | `/patient/:id/profile`                |                              |                |           | Returns all the information of the patient                                       |
+| PATCH         | `/patient/:id/profile`                 |                              |                |              | Edit the corresponding value on the patient's profile                                        |
+| GET         | `/patient/appointments`                 |       {doctor, specialty, date}                       |                |              |Returns all the appointments with the patient’s id that fit the search criteria                                          |
+| GET         | `/patient/appointments/:id/report`                 |                              |                |              |Get the medical report from the appointment                                       |
+| GET         | `/patient/planner/`                 |       date                      |                |              |Get all the patient's prescriptions for that day                                        |
+| POST         | `/doctor/appointment/:id/report`                 |        report file                      |                |              |Stores the medical report in the appointment                                        |
+| DELETE         | `/doctor/appointment/:id/cancel`                 |                             |                |              | Deletes the appointment                                        |
+| POST         | `/doctor/appointment/:id/prescription`                 |                             |                |              |Creates the prescription                                        |
 
 
 
