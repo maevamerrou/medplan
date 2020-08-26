@@ -68,25 +68,49 @@ This app offers more visiliby to his business and make it easier for the individ
 
 ## Components
 
-- LoginPage
+- Header
 
-- SignupPage
+- Navbar
 
-- NavBar
+- Login form
 
-- FooterBar
+- Signup form
 
-- BackBar
+- Home search bar
 
-- ElementList
+- Search card
 
-- SearchForm
+- Doctor public profile
 
-- SearchResults
+- Patient profile
 
-- ElementInfo
+- Appointments
 
-- Stats
+- Appointment search bar
+
+- Appointment card
+
+- Medication schedule
+
+- Medication card
+
+- Doctor calendar
+
+- Appointment details
+
+- Delete appointment pop-up (backlog)
+
+- Prescription form
+
+- Prescription card
+
+- Add medication form
+
+- Doctor edit profile
+
+- Calendar
+
+- Footer (computer view)
 
  
 
