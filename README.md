@@ -50,8 +50,8 @@ This app offers more visiliby to his business and make it easier for the individ
 | Path                      | Component                      | Permissions | Behavior                                                     |
 | ------------------------- | --------------------           | ----------- | ------------------------------------------------------------ |
 | `/`                       | SplashPage                     | public `<Route>`            | Home page                                        |
-| `/signup`                 | SignupPage                     | anon only  `<AnonRoute>`    | Signup form, link to login, navigate to homepage after signup |
-| `/login`                  | LoginPage                      | anon only `<AnonRoute>`     | Login form, link to signup, navigate to homepage after login  |
+| `/signup`| SignupPage| anon only  `<AnonRoute>`    | Signup form, link to login, navigate to homepage after signup |
+| `/login`| LoginPage                      | anon only `<AnonRoute>`     | Login form, link to signup, navigate to homepage after login  |
 | `/logout`                 | n/a                            | user only `<PrivateRoute>`  | Navigate to homepage after logout, expire session             |
 | `/backlog/series`         | NavBar, ElementList, FooterBar | user only `<PrivateRoute>`  | Shows all tv series on backlog                                |
 | `/backlog/films`          | NavBar, ElementList, FooterBar | user only `<PrivateRoute>`  | Shows all films on backlog                                    |
