@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,28 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+
+.index-logo {
+  width: 150px;
+}
+
+.button {
+  background-color: #51B8F9;
+  color: white;
+  border-radius: 5px;
+  border-color: #0079c4;
+  margin: 10px 3px;
+  width: 100%;
+
+}
+
+
+.sign-log-form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 85%;
+  margin: 10px;
 }
