@@ -4,6 +4,10 @@ import NavBar from './components/NavBar'
 import HomePage from './components/HomePage'
 import Signup from './components/Signup'
 import Login from './components/Login'
+import PatientProfile from './components/PatientProfile'
+import PatientAppointments from './components/PatientAppointments'
+import PatientMedPlanner from './components/PatientMedPlanner'
+import DoctorCalendar from './components/DoctorCalendar'
 
 
 import './App.css';
@@ -18,61 +22,51 @@ class App extends React.Component {
 
   state = {
     loggedInUser: null,
-    usertype: null,
-    filtered: []
+    usertype: null
   }
 
-  
+
+
   componentDidMount(){
-    axios.get(`${API_URL}/...`)
-      .then((res) => {
-          this.setState({
-            loggedInUser: res.data
-          })
-      })
     if (!this.state.loggedInUser){
-      axios.get(`${API_URL}/...`, {withCredentials: true})
+      axios.get(`${API_URL}/user`, {withCredentials: true})
       .then((res) => {
           this.setState({
-            loggedInUser: res.data
+            loggedInUser: res.data.loggedInUser,
+            usertype: res.data.usertype
           })
       })
-    }  
+    } 
   }
 
-  
 
 
 
   handleSignUp = (e) => {
     e.preventDefault();
-    const {email, password, usertype, allergies, history} = e.currentTarget;
+    console.log("signing up")
+    const {email, password, usertype, allergies, history, username} = e.currentTarget;
 
     axios.post(`${API_URL}/auth/signup`, {
-      email: email.value, 
+      username: username.value,
+      email: email.value,
       password: password.value,
       usertype: usertype.value,
-      allergies: allergies.value,
-      history: history.value
-    },  {withCredentials: true})
+      // allergies: allergies.value,
+      // history: history.value
+      // to check if withCredentials is needed and state change
+    })
+    // ,  {withCredentials: true}
       .then((res) => {
-
-        // to be confirmed
-        this.setState({
-          loggedInUser: res.data,
-          usertype: usertype.value,
-        }, () => {
-          // redirect
-          this.props.history.push('/')
-        })
-      })  
+        this.props.history.push('/login')
+      })
   }
 
   
   handleLogIn = (e) => {
     e.preventDefault(); 
     const {email, password, usertype} = e.currentTarget;
-  
+    console.log(email.value, password.value, usertype.value)
     axios.post(`${API_URL}/auth/login`, {
       email: email.value, 
       password: password.value,
@@ -92,20 +86,16 @@ class App extends React.Component {
 
 
   handleLogOut = (e) => {
+    //{withCredentials: true} is not false ???
     axios.post(`${API_URL}/auth/logout`, {}, {withCredentials: true})
       .then(() => {
         this.setState({
-          loggedInUser: null
+          loggedInUser: null,
+          usertype: null,
         }, ()=>{
           this.props.history.push('/')
         })
-      })
-    
-  }
-
-
-  handleSearch = (e) => {
-
+      })    
   }
 
 
@@ -114,7 +104,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="body">
              
 
         <NavBar />
@@ -125,8 +115,9 @@ class App extends React.Component {
 
         <Switch>
 
+
           <Route exact path="/" render={() => {
-            return <HomePage/>
+            return <HomePage  doctorList1={this.state.doctorList} />
           }} />
 
           {/* <Route exact path="/" /> */}
@@ -137,6 +128,23 @@ class App extends React.Component {
           <Route path="/login" render={() => {
             return <Login onLogIn={this.handleLogIn}/>
           }}/>
+
+          <Route path="/profile" render={(routeProps) => {
+            return <PatientProfile loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
+          }}/>
+
+          <Route path="/appointments" render={(routeProps) => {
+            return <PatientAppointments loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
+          }}/>
+
+          <Route path="/medication-planner" render={(routeProps) => {
+            return <PatientMedPlanner loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
+          }}/>
+
+          <Route path="/calendar" render={(routeProps) => {
+            return <DoctorCalendar loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
+          }}/>
+
 
         </Switch>
 

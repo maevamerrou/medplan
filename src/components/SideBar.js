@@ -11,24 +11,25 @@ export default class SideBar extends Component {
                 <nav>                
 
                     {
-                        this.props.loggedInUser ? (
+                        this.props.loggedInUser  ? (
 
-                        <>
-                            <Link to="/">Search for a doctor</Link>
-                            <Link to="/">Profile</Link>
-                            <Link to="/">Appointments</Link>
-                            <Link to="/">Medication planner</Link>
-
-                            <button onClick={this.props.onLogout}>LOG OUT</button>
+                        <>                        
+                            <ul>
+                                <li><Link to="/">Search for a doctor</Link></li>
+                                <li><Link to="/profile">Profile</Link></li>
+                                <li><Link to="/appointments">Appointments</Link></li>
+                                <li><Link to="/medication-planner">Medication planner</Link></li>                                  
+                            </ul>
+                            <button onClick={this.props.onLogout} className="button">LOG OUT</button>
                         </>
 
                         ) : (
 
                         <>
-                            <Link to="/signup"><button class="button">SIGN UP</button></Link>
-                            <Link to="/login"><button class="button">LOG IN</button></Link>
+                            <Link to="/signup"><button className="button">SIGN UP</button></Link>
+                            <Link to="/login"><button className="button">LOG IN</button></Link>
                         </>
-                        
+
                         )
                     }
                           

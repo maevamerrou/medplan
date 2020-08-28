@@ -1,19 +1,17 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
-import NavBar from './NavBar'
 
 
 export default class Signup extends Component {
 
 
+
     render() {
         return (
             <>
-                <NavBar />
-
                 <h1>Sign Up</h1>
 
-                <form onSubmit={this.props.onSignUp} class="sign-log-form">
+                <form onSubmit={this.props.onSignUp} className="sign-log-form">
 
 
                     <div>
@@ -26,20 +24,26 @@ export default class Signup extends Component {
                     </div>
                     <br/>
 
+                    <label>Full name</label>
+                    <input name="username" type="text"></input>
+
                     <label>Email</label>
                     <input name="email" type="email"></input>
 
                     <label>Password</label>
                     <input name="password" type="password"></input>
 
-                    <label>Allergies</label>
+
+                    {/* <label>Allergies</label>
                     <input name="allergies" type="text"></input>
 
                     <label>Medical history</label>
-                    <input name="history" type="text"></input>
+                    <input name="history" type="text"></input> */}
 
-                    <button class="button" type="submit">Submit</button>
-                    <Link to="/login"><button class="button">Already an account? Then log in!</button></Link>
+{/* add condition to render different forms for patient and doctor and update the server routes as well */}
+
+                    <button className="button" type="submit">Submit</button>
+                    <Link to="/login"><button className="button">Or log in!</button></Link>
 
                 </form>
 

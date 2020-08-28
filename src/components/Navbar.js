@@ -10,7 +10,7 @@ export default class NavBar extends Component {
             <>
                 <header>
 
-                    <Link to="/"><img src="../images/logo.jpg" alt="logo" class="header-logo"/></Link> 
+                    <Link to="/"><img src="../images/logo.jpg" alt="logo" className="header-logo"/></Link> 
 
                 </header>
             </>
