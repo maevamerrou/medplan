@@ -190,7 +190,7 @@ This app offers more visiliby to his business and make it easier for the individ
 
 [Client repository Link](https://github.com/maevamerrou/medplan)
 
-[Server repository Link](https://github.com/rlaz133/medplan-serverr)
+[Server repository Link](https://github.com/rlaz133/medplan-server)
 
 [Deployed App Link]()
 
