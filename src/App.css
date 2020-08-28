@@ -38,8 +38,13 @@
 } */
 
 
-.index-logo {
-  width: 150px;
+.body {
+  margin: 5px;
+  align-items: center;
+}
+
+.header-logo {
+  width: 200px;
 }
 
 .button {
@@ -48,7 +53,7 @@
   border-radius: 5px;
   border-color: #0079c4;
   margin: 10px 3px;
-  width: 100%;
+  width: 100px;
 
 }
 
@@ -59,4 +64,31 @@
   text-align: center;
   width: 85%;
   margin: 10px;
+}
+
+
+.home-result-card {
+  border: solid 2px #0079c4;
+  width: 100%;
+}
+
+.home-doctor-card {
+  border: solid 1px #0079c4;
+}
+
+
+.index-info-card {
+  display: flex;
+}
+
+.index-info-card img {
+  width: 120px;
+}
+
+.index-img-card {
+  font-size: 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

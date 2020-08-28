@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
-import NavBar from './Navbar'
 
 
 
@@ -11,7 +10,6 @@ export default class Login extends Component {
         return (
             <>
 
-                <NavBar />
                 <h1>Login</h1>
 
                 <form onSubmit={this.props.onLogIn} className="sign-log-form">
@@ -27,7 +25,6 @@ export default class Login extends Component {
                     </div>
                     <br/>
 
-
                     <label>Email</label>
                     <input name="email" type="email"></input>
 
@@ -35,7 +32,7 @@ export default class Login extends Component {
                     <input name="password" type="password"></input>
 
                     <button className="button" type="submit">Submit</button>
-                    <Link to="/signup"><button className="button">No account yet? Then sign up!</button></Link>
+                    <Link to="/signup"><button className="button">Or sign up!</button></Link>
 
                 </form>
 
