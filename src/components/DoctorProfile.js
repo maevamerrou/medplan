@@ -39,7 +39,7 @@ export default class DoctorProfile extends Component {
     let buttons = e.getElementsByTagName('BUTTON')
     let field= e.getElementsByTagName('INPUT')[0].value
     for (let button of buttons){button.classList.toggle('hidden-button')}
-    this.setState({editing: !this.state.editing, unedited: field}, ()=>console.log(this.state))
+    this.setState({editing: !this.state.editing, unedited: field})
     }
   }
      
@@ -51,14 +51,16 @@ export default class DoctorProfile extends Component {
     this.setState({editing: !this.state.editing, doctor: {...this.state.doctor, [field]: this.state.unedited, updatedField:{}}})
   }
 
-    handleEdit = (e) => {
+    handleEdit = (e, d) => {
       let keyName= Object.keys(e)[0]
       let value = Object.values(e)[0]
       axios.patch(`${API_URL}/doctor/${this.props.match.params.doctorId}`, {[keyName]: value}, {withCredentials:true})
+      let buttons = d.getElementsByTagName('BUTTON')
+      for (let button of buttons){button.classList.toggle('hidden-button')}
     }
 
     handleDateSelect = (selectInfo) => {
-      let title = prompt('Please enter a new title for your event')
+      let title = prompt('Please enter the reason for the appointment: ')
       let calendarApi = selectInfo.view.calendar
   
       calendarApi.unselect() // clear date selection
@@ -69,7 +71,7 @@ export default class DoctorProfile extends Component {
           title,
           start: selectInfo.startStr,
           end: selectInfo.endStr,
-          patient: '00000011111',
+          patient: this.props.loggedInUser._id,
           editable: true
         })
       }
@@ -86,7 +88,18 @@ export default class DoctorProfile extends Component {
         currentEvents: events
       })
     }
-  
+
+    appoCreate= (event) =>{
+      axios.post(`${API_URL}/patient/appointments/${this.props.match.params.doctorId}`, 
+        {time: event.event.start, eventId: event.event.id, reason: event.event.title}, {withCredentials:true})
+    }
+    appoEdit= (event) =>{
+      axios.patch(`${API_URL}/patient/appointments/${this.props.match.params.doctorId}`, 
+        {time: event.event.start, eventId: event.event.id, reason: event.event.title}, {withCredentials:true})
+    }
+    appoCancel= (event) =>{
+      axios.delete(`${API_URL}/patient/appointments/${this.props.match.params.doctorId}/${event.event.id}`, {withCredentials:true})
+    }
 
   
     render() {
@@ -104,8 +117,8 @@ export default class DoctorProfile extends Component {
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
             <>
             <button onClick={()=>this.handleEnable(document.getElementById('name-profile'))}>Edit</button>
-            <button className='hidden-button'onClick={()=>this.handleDisable(document.getElementById('name-profile'))}>Cancel</button>
-            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField)}>Confirm</button>
+            <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('name-profile'))}>Cancel</button>
+            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('name-profile'))}>Confirm</button>
             </>
           :null}
           </div>
@@ -115,8 +128,8 @@ export default class DoctorProfile extends Component {
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
             <>
             <button onClick={()=>this.handleEnable(document.getElementById('speciality-profile'))}>Edit</button>
-            <button className='hidden-button'onClick={()=>this.handleDisable(document.getElementById('speciality-profile'))}>Cancel</button>
-            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField)}>Confirm</button>
+            <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('speciality-profile'))}>Cancel</button>
+            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('speciality-profile'))}>Confirm</button>
             </>
           :null}
           </div>
@@ -126,8 +139,8 @@ export default class DoctorProfile extends Component {
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
             <>
             <button onClick={()=>this.handleEnable(document.getElementById('city-profile'))}>Edit</button>
-            <button className='hidden-button'onClick={()=>this.handleDisable(document.getElementById('city-profile'))}>Cancel</button>
-            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField)}>Confirm</button>
+            <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('city-profile'))}>Cancel</button>
+            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('city-profile'))}>Confirm</button>
             </>
           :null}
           </div>
@@ -137,8 +150,8 @@ export default class DoctorProfile extends Component {
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
             <>
             <button onClick={()=>this.handleEnable(document.getElementById('address-profile'))}>Edit</button>
-            <button className='hidden-button'onClick={()=>this.handleDisable(document.getElementById('address-profile'))}>Cancel</button>
-            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField)}>Confirm</button>
+            <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('address-profile'))}>Cancel</button>
+            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('address-profile'))}>Confirm</button>
             </>
           :null}
           </div>
@@ -148,8 +161,8 @@ export default class DoctorProfile extends Component {
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
             <>
             <button onClick={()=>this.handleEnable(document.getElementById('email-profile'))}>Edit</button>
-            <button className='hidden-button'onClick={()=>this.handleDisable(document.getElementById('email-profile'))}>Cancel</button>
-            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField)}>Confirm</button>  
+            <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('email-profile'))}>Cancel</button>
+            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('email-profile'))}>Confirm</button>  
             </>
           :null}
           </div>
@@ -159,8 +172,8 @@ export default class DoctorProfile extends Component {
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
             <>
             <button onClick={()=>this.handleEnable(document.getElementById('phone-profile'))}>Edit</button>
-            <button className='hidden-button'onClick={()=>this.handleDisable(document.getElementById('phone-profile'))}>Cancel</button>
-            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField)}>Confirm</button>
+            <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('phone-profile'))}>Cancel</button>
+            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('phone-profile'))}>Confirm</button>
             </>
           :null}
           </div>
@@ -193,9 +206,9 @@ export default class DoctorProfile extends Component {
               eventClick={this.handleEventClick}
               eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
               //  you can update a remote database when these fire:
-              eventAdd={function(event){console.log(event)}}
-              eventChange={function(event){console.log(event)}}
-              eventRemove={function(event){console.log(event)}}
+              eventAdd={(event)=>this.appoCreate(event)}
+              eventChange={(event)=>this.appoEdit(event)}
+              eventRemove={(event)=>this.appoCancel(event)}
             />
           
         </div>
