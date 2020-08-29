@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 
 
@@ -20,9 +20,9 @@ export default class HomeSeachResult extends Component {
                                 <p>{doctor.city}</p>
 
                                 {/* Add link to doctor page */}
-                                {/* <Link to={`/doctor/${doctor._id}`}> */}
+                                <Link to={`/doctor/${doctor._id}`}>
                                 <button className="button">Book an appointment</button>
-                                {/* </Link> */}
+                                </Link>
 
                             </div>
                     })
