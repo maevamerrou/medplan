@@ -8,6 +8,7 @@ import PatientProfile from './components/PatientProfile'
 import PatientAppointments from './components/PatientAppointments'
 import PatientMedPlanner from './components/PatientMedPlanner'
 import DoctorProfile from './components/DoctorProfile'
+import DoctorCalendar from './components/DoctorCalendar'
 
 
 import './App.css';
@@ -114,7 +115,7 @@ class App extends React.Component {
         <NavBar />
                 
         {/* add condition to render only if logged in */}
-        <SideBar loggedInUser= {this.state.loggedInUser} onLogout={this.handleLogOut}/>
+        <SideBar loggedInUser= {this.state.loggedInUser} usertype= {this.state.usertype} onLogout={this.handleLogOut}/>
 
         <Switch>
 
@@ -129,9 +130,14 @@ class App extends React.Component {
             </>
             : null}
           
-          {/* Routes for logged in users */}
-          {(this.state.loggedInUser)?
+        
+
+            {/* Routes for doctors */}
+          {(this.state.usertype==='doctor')?
             <>
+              <Route path="/calendar" render={(routeProps) => {
+                return <DoctorCalendar loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
+              }}/>
               <Route path="/doctor/:doctorId" render={routeProps=> <DoctorProfile loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
               }/>
             </>
@@ -151,8 +157,12 @@ class App extends React.Component {
               <Route path="/medication-planner" render={(routeProps) => {
                 return <PatientMedPlanner loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
               }}/>
+              <Route path="/doctor/:doctorId" render={routeProps=> <DoctorProfile loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
+              }/>
             </>
             : null }
+
+            
         </Switch>
 
     </div>

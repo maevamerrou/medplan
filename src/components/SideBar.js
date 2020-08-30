@@ -27,7 +27,7 @@ export default class SideBar extends Component {
                 <>
                     <nav>
                         <ul>
-                            <li><Link to="/doctor/calendar">Calendar</Link></li>
+                            <li><Link to="/calendar">Calendar</Link></li>
                             <li><Link to="/doctor/private">Profile</Link></li>
                             <li><Link to="/">Search for a doctor</Link></li>
                         </ul>

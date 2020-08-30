@@ -266,7 +266,7 @@ export default class DoctorProfile extends Component {
               headerToolbar={{
                 left: 'prev,next today',
                 center: 'title',
-                right: 'timeGridWeek'
+                right: 'timeGridWeek, timeGridDay'
               }}
               initialView='timeGridWeek'
               selectable={true}
