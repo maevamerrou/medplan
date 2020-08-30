@@ -88,12 +88,10 @@ export default class HomePage extends Component {
                         <figcaption>Access your prescriptions in your planner and follow up easily.</figcaption>
                     </div> 
                     
-                </div>
-
-                   
+                </div>                  
                     
                     
-                    <input onChange={this.handleChange} name="speciality" type="text" placeholder="Type doctor speciality"></input>
+                <input onChange={this.handleChange} name="speciality" type="text" placeholder="Type doctor speciality"></input>
                 <input onChange={this.handleChange} name="city" type="text" placeholder="Type city"></input>
                 <br/>
                 <br/>
