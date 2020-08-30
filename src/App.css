@@ -103,3 +103,10 @@
   padding: 4px;
   outline:none;
 }
+
+
+.appointment-card {
+  border: solid 2px blue;
+  padding: 5px;
+  margin: 5px;
+}

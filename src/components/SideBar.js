@@ -32,7 +32,7 @@ export default class SideBar extends Component {
                         <h6>Welcome {this.props.loggedInUser.username} on your Doctor menu</h6>
 
                         <ul>
-                            <li><Link to="/doctor/calendar">Calendar</Link></li>
+                            <li><Link to="/calendar">Calendar</Link></li>
                             <li><Link to="/doctor/private">Profile</Link></li>
                             <li><Link to="/">Search for a doctor</Link></li>
                         </ul>

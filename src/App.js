@@ -115,9 +115,7 @@ class App extends React.Component {
         <NavBar />
                 
         {/* add condition to render only if logged in */}
-        <SideBar loggedInUser= {this.state.loggedInUser} usertype={this.state.usertype} onLogout={this.handleLogOut}/>
-
-
+        <SideBar loggedInUser= {this.state.loggedInUser} usertype= {this.state.usertype} onLogout={this.handleLogOut}/>
 
         <Switch>
 
@@ -133,10 +131,6 @@ class App extends React.Component {
             </>
             : null}
           
-
-          {/* Routes for logged in users */}
-
-            
 
           {/* Routes for doctors */}
           {(this.state.usertype==='doctor')?
