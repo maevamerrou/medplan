@@ -24,11 +24,11 @@ export default class DoctorProfile extends Component {
   componentDidMount(){
     axios.get(`${API_URL}/doctor/${this.props.match.params.doctorId}`, {withCredentials: true})
       .then((res)=>{
-        this.setState({doctor: res.data})
+        this.setState({doctor: res.data}, ()=>{console.log(this.state.doctor, new Date(this.state.doctor.openingTime))})
       })
       axios.get(`${API_URL}/doctor/appointments/${this.props.match.params.doctorId}`, {withCredentials: true})
       .then((res)=>{
-        this.setState({appointments: res.data, events: res.data.map(appointment=>{return {title: appointment.reason, start:appointment.time, id:appointment.eventId, editable: false}})}) 
+        this.setState({appointments: res.data, events: res.data.map(appointment=>{return {title: appointment.reason, start:appointment.time, id:appointment.eventId, editable: false, patient: appointment.patient}})}, ()=>console.log(this.state)) 
       })
   }
   
@@ -69,8 +69,30 @@ export default class DoctorProfile extends Component {
     let value = Object.values(e)[0]
     axios.patch(`${API_URL}/doctor/${this.props.match.params.doctorId}`, {[keyName]: value}, {withCredentials:true})
     let buttons = d.getElementsByTagName('BUTTON')
+    d.getElementsByTagName('INPUT')[0].classList.toggle('readonly-field')
     for (let button of buttons){button.classList.toggle('hidden-button')}
+    this.setState({editing: !this.state.editing})
   }
+
+  handleImgEnable= (e)=>{
+
+      // e.getElementById('image-controls').classList.toggle('hidden-button')
+      e.getElementsByTagName('INPUT')[0].classList.toggle('hidden-button')
+      e.getElementsByTagName('BUTTON')[1].classList.toggle('hidden-button')
+      this.setState({editing: !this.state.editing})
+  }
+
+  handleImgEdit =(e)=>{
+    if (e){
+    let image = e.getElementsByTagName('INPUT')[0].files[0]
+    let uploadData = new FormData()
+    uploadData.append('imageUrl', image)
+    let uppicture
+    axios.post(`${API_URL}/upload`, uploadData)
+    .then((res)=> {uppicture= res.data.image; axios.patch(`${API_URL}/doctor/${this.props.match.params.doctorId}`, {picture: res.data.image}, {withCredentials:true})})
+    .then((res)=>{console.log (res);this.setState({doctor:{...this.state.doctor, picture: uppicture}})})
+    
+  }}
 
   //Calendar methods 
   handleDateSelect = (selectInfo) => {
@@ -85,7 +107,8 @@ export default class DoctorProfile extends Component {
         start: selectInfo.startStr,
         end: selectInfo.endStr,
         patient: this.props.loggedInUser._id,
-        editable: true,
+        startEditable: true,
+        eventDurationEditable: false
       })
     }}
     else{
@@ -96,9 +119,10 @@ export default class DoctorProfile extends Component {
   
   
   handleEventClick = (clickInfo) => {
-    // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove()
-  }
+    if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+      if (clickInfo.event.extendedProps.patient === this.props.loggedInUser._id)  {clickInfo.event.remove()}
+     
+  }}
     
   
   handleEvents = (events) => {
@@ -128,11 +152,21 @@ export default class DoctorProfile extends Component {
       if (!this.state.doctor){
         return <p>Loading ....</p>
     }
-      const {username, speciality, city, address, email, phone} = this.state.doctor
+      const {username, speciality, city, address, email, phone, openingTime, closingTime, picture} = this.state.doctor
+    
+      
   
       return (
         //Profile
         <div>
+          <div id='image-profile'>
+              <img src={picture} alt=''/>
+              <button onClick={()=>this.handleImgEnable(document.getElementById('image-profile'))}>Edit</button>
+              <input  type="file" className="form-control hidden-button" name="image" id="image" />
+              <button type='submit' className='hidden-button' onClick={()=>this.handleImgEdit(document.getElementById('image-profile'))}>Submit</button>
+              
+          </div>
+
           <div id='name-profile'>
             <label>Name</label>
             <input className='readonly-field' readOnly={true} name="username" type="text" value={username}  onChange={this.handleChange}></input>
@@ -199,10 +233,35 @@ export default class DoctorProfile extends Component {
             </>
           :null}
           </div>
-
+          
+          <div id='opening-profile'>
+            <label>Opening time</label>
+            <input className='readonly-field' readOnly={true} name="city" type="text" value={openingTime} onChange={this.handleChange}></input>
+            <small>Please use a 24h format, without AM or PM. Example: 10:00 - 17:00</small>
+            {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+            <>
+            <button onClick={()=>this.handleEnable(document.getElementById('opening-profile'))}>Edit</button>
+            <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('opening-profile'))}>Cancel</button>
+            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('opening-profile'))}>Confirm</button>
+            </>
+          :null}
+          </div>
+          
+          <div id='closing-profile'>
+            <label>Opening time</label>
+            <input className='readonly-field' readOnly={true} name="city" type="text" value={closingTime} onChange={this.handleChange}></input>
+            {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+            <>
+            <button onClick={()=>this.handleEnable(document.getElementById('closing-profile'))}>Edit</button>
+            <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('closing-profile'))}>Cancel</button>
+            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('closing-profile'))}>Confirm</button>
+            </>
+          :null}
+          </div>
 
           {/*Calendar  */}
-          <FullCalendar
+          {(this.props.usertype==='patient') ? 
+           <FullCalendar
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
               headerToolbar={{
                 left: 'prev,next today',
@@ -213,15 +272,17 @@ export default class DoctorProfile extends Component {
               selectable={true}
               selectMirror={true}
               dayMaxEvents={true}
-              slotMinTime= '09:00'
-              slotMaxTime= '19:00'
-              businessHours = {{
-                // days of week. an array of zero-based day of week integers (0=Sunday)
-                daysOfWeek: [ 1, 2, 3, 4 ], // Monday - Thursday
+              allDaySlot= {false}
+              eventDurationEditable={false}
+              slotMinTime= '08:00'
+              slotMaxTime= '20:00'
+              businessHours = {{businessHours: {
+                  // days of week. an array of zero-based day of week integers (0=Sunday)
+                  daysOfWeek: [ 1, 2, 3, 4, 5 ], // Monday - Thursday
 
-                startTime: '10:00', // a start time (10am in this example)
-                endTime: '18:00', // an end time (6pm in this example)
-              }}
+                  startTime: this.state.doctor.openingTime, // a start time (10am in this example)
+                  endTime: this.state.doctor.closingTime, // an end time (6pm in this example)
+                }}}
               weekends={this.state.weekendsVisible}
               events={this.state.events} // alternatively, use the `events` setting to fetch from a feed
               select={this.handleDateSelect}
@@ -232,15 +293,17 @@ export default class DoctorProfile extends Component {
               eventAdd={(event)=>this.appoCreate(event)}
               eventChange={(event)=>this.appoEdit(event)}
               eventRemove={(event)=>this.appoCancel(event)}
-              duration= '00:30'
-              eventConstraint='businessHours'
-              selectConstraint='businessHours'
+              // duration= '00:30'
             />
+            :null}
+          
+         
           
         </div>
 
         
       )
+    
     }
   }
   // Auxiliary function for rendering the events in the calendar
