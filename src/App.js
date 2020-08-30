@@ -76,9 +76,14 @@ class App extends React.Component {
         this.setState({
           loggedInUser: res.data,
           usertype: usertype.value,
-        }, () => {
-          // redirect
-          this.props.history.push('/')
+        }, () => {       
+          if (this.state.usertype === "patient"){
+            console.log("usertype is patient")
+            this.props.history.push('/profile')
+          } else if (this.state.usertype === "doctor"){
+            console.log("usertype is doctor")
+            this.props.history.push('/doctor/private')
+          }
         })
       })  
   }

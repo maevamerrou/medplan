@@ -3,7 +3,7 @@ import {API_URL} from '../config'
 import axios from 'axios'
 import Login from "./Login"
 
-export default class PatientProfile extends Component {
+export default class PatientProfileEdit extends Component {
 
     render() {
         return (
