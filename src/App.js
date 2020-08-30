@@ -7,6 +7,7 @@ import Login from './components/Login'
 import PatientProfile from './components/PatientProfile'
 import PatientAppointments from './components/PatientAppointments'
 import PatientMedPlanner from './components/PatientMedPlanner'
+import DoctorProfile from './components/DoctorProfile'
 import DoctorCalendar from './components/DoctorCalendar'
 
 
@@ -110,47 +111,68 @@ class App extends React.Component {
   render() {
     return (
       <div className="body">
-             
 
         <NavBar />
                 
         {/* add condition to render only if logged in */}
-        <SideBar loggedInUser= {this.state.loggedInUser} onLogout={this.handleLogOut}/>
+        <SideBar loggedInUser= {this.state.loggedInUser} usertype={this.state.usertype} onLogout={this.handleLogOut}/>
+
 
 
         <Switch>
 
-
-          <Route exact path="/" render={() => {
-            return <HomePage  doctorList1={this.state.doctorList} />
-          }} />
-
-          {/* <Route exact path="/" /> */}
-          <Route path="/signup" render={() => {
-            return <Signup onSignUp={this.handleSignUp}/>
-          }}/>
-
-          <Route path="/login" render={() => {
-            return <Login onLogIn={this.handleLogIn}/>
-          }}/>
-
-          <Route path="/profile" render={(routeProps) => {
-            return <PatientProfile loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
-          }}/>
-
-          <Route path="/appointments" render={(routeProps) => {
-            return <PatientAppointments loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
-          }}/>
-
-          <Route path="/medication-planner" render={(routeProps) => {
-            return <PatientMedPlanner loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
-          }}/>
-
-          <Route path="/calendar" render={(routeProps) => {
-            return <DoctorCalendar loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
-          }}/>
+          {/* Public routes */}
+          <Route exact path="/" render={() => <HomePage  doctorList1={this.state.doctorList}/>}/>      
 
 
+          {/* Routes for logged out users */}
+          {(!this.state.loggedInUser) ?
+            <>
+              <Route path="/login" render={() => <Login onLogIn={this.handleLogIn}/>}/> 
+              <Route path="/signup" render={() => <Signup onSignUp={this.handleSignUp}/>}/>
+            </>
+            : null}
+          
+
+          {/* Routes for logged in users */}
+
+            
+
+          {/* Routes for doctors */}
+          {(this.state.usertype==='doctor')?
+          <>
+              <Route path="/doctor/calendar" render={(routeProps) => {
+                return <DoctorCalendar loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
+              }}/>
+              
+              <Route path="/doctor/:doctorId" render={routeProps=> <DoctorProfile loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
+              }/>
+
+          </>          
+          : null }
+
+ 
+          {/* Routes for patients */}
+          {(this.state.usertype==='patient')?
+            <>
+              <Route path="/profile" render={(routeProps) => {
+                return <PatientProfile loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
+              }}/>
+
+              <Route path="/appointments" render={(routeProps) => {
+                return <PatientAppointments loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
+              }}/>
+
+              <Route path="/medication-planner" render={(routeProps) => {
+                return <PatientMedPlanner loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
+              }}/>
+              
+              <Route path="/doctor/:doctorId" render={routeProps=> <DoctorProfile loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
+            }/>
+            </>
+            : null }
+        
+           
         </Switch>
 
     </div>

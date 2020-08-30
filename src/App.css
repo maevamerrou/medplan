@@ -92,3 +92,14 @@
   flex-direction: column;
   align-items: center;
 }
+
+.hidden-button{
+  display: none
+}
+
+.readonly-field{
+  background-color:transparent;
+  border: none;
+  padding: 4px;
+  outline:none;
+}
