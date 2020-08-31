@@ -16,36 +16,30 @@ export default class PatientProfile extends Component {
                         <>
 
                             <h1>Profile</h1>
+
+                            <em></em>
                     
-                            <label>Full Name</label>
-                            <p>{this.props.loggedInUser && this.props.loggedInUser.username}</p>
+                            <p><strong>Full Name: </strong><em>{this.props.loggedInUser && this.props.loggedInUser.username}</em></p>
+                            
 
-                            <label>Birth Date</label>
-                            <p>{this.props.loggedInUser && this.props.loggedInUser.birthDate}</p>
+                            <p><strong>Birth Date: </strong><em>{this.props.loggedInUser && this.props.loggedInUser.birthDate}</em></p>
 
-                            <label>Height</label>
-                            <p>{this.props.loggedInUser && this.props.loggedInUser.height}</p>
+                            <p><strong>Height: </strong><em>{this.props.loggedInUser && this.props.loggedInUser.height}</em></p>
 
-                            <label>Weight</label>
-                            <p>{this.props.loggedInUser && this.props.loggedInUser.weight}</p>
+                            <p><strong>Weight: </strong><em>{this.props.loggedInUser && this.props.loggedInUser.weight}</em></p>
 
-                            <label>Allergies</label>
-                            <p>{this.props.loggedInUser && this.props.loggedInUser.allergies}</p>
+                            <p><strong>Allergies: </strong><em>{this.props.loggedInUser && this.props.loggedInUser.allergies}</em></p>
 
-                            <label>Medical History</label>
-                            <p>{this.props.loggedInUser && this.props.loggedInUser.history}</p>
+                            <p><strong>Medical History: </strong><em>{this.props.loggedInUser && this.props.loggedInUser.history}</em></p>
 
-                            <label>Phone number</label>
-                            <p>{this.props.loggedInUser && this.props.loggedInUser.phoneNumber}</p>
+                            <p><strong>Phone number: </strong><em>{this.props.loggedInUser && this.props.loggedInUser.phoneNumber}</em></p>
 
-                            <label>Address</label>
-                            <p>{this.props.loggedInUser && this.props.loggedInUser.address}</p>
+                            <p><strong>Address: </strong><em>{this.props.loggedInUser && this.props.loggedInUser.address}</em></p>
 
-                            <label>Email</label>
-                            <p>{this.props.loggedInUser && this.props.loggedInUser.email}</p>
+                            <p><strong>Email: </strong><em>{this.props.loggedInUser && this.props.loggedInUser.email}</em></p>
 
                             {/* <label>Password</label>
-                            <p>********</p> */}
+                            ********</h5> */}
 
                         </>
 
