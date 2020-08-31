@@ -6,7 +6,7 @@ export default class SideBar extends Component {
 
     render() {
 
-        if (this.props.usertype == "patient"){
+        if (this.props.usertype === "patient"){
             return (
                 <>    
                     <nav>
@@ -22,7 +22,7 @@ export default class SideBar extends Component {
             )
 
 
-        } else if (this.props.usertype == "doctor"){
+        } else if (this.props.usertype === "doctor"){
             return (
                 <>
                     <nav>

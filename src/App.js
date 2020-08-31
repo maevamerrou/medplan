@@ -9,6 +9,7 @@ import PatientAppointments from './components/PatientAppointments'
 import PatientMedPlanner from './components/PatientMedPlanner'
 import DoctorProfile from './components/DoctorProfile'
 import DoctorCalendar from './components/DoctorCalendar'
+import AppointmentDetails from './components/AppointmentDetails'
 
 
 import './App.css';
@@ -16,6 +17,7 @@ import {API_URL} from './config'
 import axios from 'axios'
 
 import {Switch, Route, withRouter} from 'react-router-dom'
+import CreatePrescription from './components/CreatePrescription';
 
 
 
@@ -46,7 +48,7 @@ class App extends React.Component {
   handleSignUp = (e) => {
     e.preventDefault();
     console.log("signing up")
-    const {email, password, usertype, allergies, history, username} = e.currentTarget;
+    const {email, password, usertype, username} = e.currentTarget;
 
     axios.post(`${API_URL}/auth/signup`, {
       username: username.value,
@@ -135,10 +137,15 @@ class App extends React.Component {
             {/* Routes for doctors */}
           {(this.state.usertype==='doctor')?
             <>
-              <Route path="/calendar" render={(routeProps) => {
+              <Route exact path="/calendar" render={(routeProps) => {
                 return <DoctorCalendar loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
               }}/>
+              <Route path="/calendar/:appointmentId" render={(routeProps) => {
+                return <AppointmentDetails loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
+              }}/>
               <Route path="/doctor/:doctorId" render={routeProps=> <DoctorProfile loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
+              }/>
+              <Route path="/create-prescription/:appointmentId" render={routeProps=> <CreatePrescription loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
               }/>
             </>
             :null}
