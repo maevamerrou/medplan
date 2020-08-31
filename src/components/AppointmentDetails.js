@@ -28,8 +28,8 @@ export default class AppointmentDetails extends Component {
   loadReport=(e)=>{
     let report = e.getElementsByTagName('INPUT')[0].files[0]
     let uploadData = new FormData()
-    uploadData.append('reportUrl', report)
-    axios.post(`${API_URL}/uploadReport`, uploadData)
+    uploadData.append('imageUrl', report)
+    axios.post(`${API_URL}/upload`, uploadData)
       .then((res)=> {axios.patch(`${API_URL}/doctor/appointment/report/${this.props.match.params.appointmentId}`, {report: res.data.report}, {withCredentials:true})})
       .then(()=>this.toggleLoader(e))
   }
