@@ -38,8 +38,9 @@
 } */
 
 
+
+
 .body {
-  margin: 5px;
   align-items: center;
 }
 
@@ -53,7 +54,14 @@
   border-radius: 5px;
   border-color: #0079c4;
   margin: 10px 3px;
+  padding: 5px;
   width: 100px;
+
+}
+
+.disabled {
+  background-color: rgb(165, 165, 165);
+  border-color: #5c5e69;
 
 }
 

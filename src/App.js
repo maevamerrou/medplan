@@ -85,7 +85,7 @@ class App extends React.Component {
             this.props.history.push('/profile')
           } else if (this.state.usertype === "doctor"){
             console.log("usertype is doctor")
-            this.props.history.push('/doctor/private')
+            this.props.history.push(`/doctor/${this.state.loggedInUser._id}`)
           }
         })
       })  

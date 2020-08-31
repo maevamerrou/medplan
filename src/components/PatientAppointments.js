@@ -10,6 +10,8 @@ export default class PatientAppointments extends Component {
     state = {
         loggedInUser: this.props.loggedInUser,
         usertype: this.props.usertype,
+        appointments: null,
+        report: null,
     }
 
   
@@ -18,10 +20,11 @@ export default class PatientAppointments extends Component {
         axios.get(`${API_URL}/patient/appointments` , {withCredentials: true})
         .then((res) => {
             this.setState({
-            appointments: res.data,
+            appointments: res.data            
             })
         })
     }
+    
 
 
     
@@ -29,11 +32,12 @@ export default class PatientAppointments extends Component {
         e.preventDefault();
         axios.get(`${API_URL}/patient/appointment/report/${appointmentId}`, {withCredentials: true})
         .then((res) => {
+            console.log(res.data.report)
             this.setState({
                 report: res.data.report,
             })
-            console.log("report:", res.data.report)
             window.open(this.state.report, '_blank')
+
         })    
     }
 
@@ -86,11 +90,47 @@ export default class PatientAppointments extends Component {
 
                                 {         
                                     moment(fullAppDate).isBefore(today) ? (
+                                        <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Edit/Cancel</button></Link>
+                                        ) : (appointment.report? 
+                                        
+                                            <button className="button" onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>:
+                                            <button className="button disabled" disabled>No Report</button>)
+                                                                            
+                                } 
+
+
+
+                                {/* {         
+                                    moment(fullAppDate).isBefore(today) ? (
                                         <Link to={`/doctor/${appointment.doctor._id}`}><button>Edit/Cancel</button></Link>
                                         ) : (
-                                            <button onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>
+                                            <button disabled={this.state.disabledBtn} onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>
                                         )                                    
-                                } 
+                                }  */}
+
+
+                                   {/* {        
+                                    if (moment(fullAppDate).isBefore(today)) {
+                                        return (
+                                            <>
+                                                <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Edit/Cancel</button></Link>
+                                            </>
+                                        )
+                                        
+                                    } else if (!moment(fullAppDate).isBefore(today) && this.state.report === null){
+                                        return (
+                                            <>
+                                                <button className="button" disabled onClick={(e) => this.handleDownload(e, appointment._id)}>No Report Available</button>
+                                            </>
+                                        )                                      
+                                    } else {
+                                        return (
+                                            <>
+                                                <button className="button" onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>
+                                            </>   
+                                        )                                                                    
+                                    }                                                                  
+                                }  */}
 
 
                             </div>
