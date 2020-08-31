@@ -16,7 +16,7 @@ export default class AppointmentDetails extends Component {
 
   cancelAppointment=(appointment)=>{
     if (window.confirm(`Are you sure you want to cancel the appointment?`)){
-      axios.delete(`${API_URL}/cancel/${appointment}`, {withCredentials:true})
+      axios.delete(`${API_URL}/cancel/${this.props.match.params.appointmentId}`, {withCredentials:true})
       .then(()=>this.props.history.push('/calendar'))
     }
   }
