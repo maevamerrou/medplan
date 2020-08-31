@@ -16,8 +16,6 @@ export default class PatientProfile extends Component {
                         <>
 
                             <h1>Profile</h1>
-
-
                     
                             <label>Full Name</label>
                             <p>{this.props.loggedInUser && this.props.loggedInUser.username}</p>
@@ -30,7 +28,6 @@ export default class PatientProfile extends Component {
 
                             <label>Weight</label>
                             <p>{this.props.loggedInUser && this.props.loggedInUser.weight}</p>
-
 
                             <label>Allergies</label>
                             <p>{this.props.loggedInUser && this.props.loggedInUser.allergies}</p>
@@ -47,27 +44,8 @@ export default class PatientProfile extends Component {
                             <label>Email</label>
                             <p>{this.props.loggedInUser && this.props.loggedInUser.email}</p>
 
-                            <label>Password</label>
-                            <p>********</p>
-
-
-
-
-
-
-{/* 
-                            <form method="POST" action="/my-profile/{{currentUser._id}}/edit">
-
-                                <label for="username">Username</label>
-                                <input id="username" type="text" name="username" value={{currentUser.username}} class="input-signup"/>
-
-                                <label for="email">Email</label>
-                                <input id="email" type="email" name="email" value={{currentUser.email}} class="input-signup"/>
-
-
-                                <button type="submit" class="btn btn-hover">Submit</button>
-
-                            </form> */}
+                            {/* <label>Password</label>
+                            <p>********</p> */}
 
                         </>
 

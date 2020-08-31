@@ -85,7 +85,7 @@ class App extends React.Component {
             this.props.history.push('/profile')
           } else if (this.state.usertype === "doctor"){
             console.log("usertype is doctor")
-            this.props.history.push('/doctor/private')
+            this.props.history.push(`/doctor/${this.state.loggedInUser._id}`)
           }
         })
       })  
@@ -124,6 +124,7 @@ class App extends React.Component {
           {/* Public routes */}
           <Route exact path="/" render={() => <HomePage  doctorList1={this.state.doctorList}/>}/>      
 
+
           {/* Routes for logged out users */}
           {(!this.state.loggedInUser) ?
             <>
@@ -132,9 +133,8 @@ class App extends React.Component {
             </>
             : null}
           
-        
 
-            {/* Routes for doctors */}
+          {/* Routes for doctors */}
           {(this.state.usertype==='doctor')?
             <>
               <Route exact path="/calendar" render={(routeProps) => {
@@ -150,6 +150,7 @@ class App extends React.Component {
             </>
             :null}
 
+ 
           {/* Routes for patients */}
           {(this.state.usertype==='patient')?
             <>
@@ -164,12 +165,13 @@ class App extends React.Component {
               <Route path="/medication-planner" render={(routeProps) => {
                 return <PatientMedPlanner loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
               }}/>
+              
               <Route path="/doctor/:doctorId" render={routeProps=> <DoctorProfile loggedInUser={this.state.loggedInUser} usertype={this.state.usertype} {...routeProps}/>
-              }/>
+            }/>
             </>
             : null }
-
-            
+        
+           
         </Switch>
 
     </div>
