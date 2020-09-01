@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import HomeSeachResult from './HomeSeachResult'
 
+
+import MapContainer from './MapContainer'
+import { Map, GoogleApiWrapper } from 'google-maps-react';
+
 import {API_URL} from '../config'
 import axios from 'axios'
 
@@ -91,9 +95,12 @@ export default class HomePage extends Component {
                 </div>  
 
                 <div className="home-search-bar">
-                    <input onChange={this.handleChange} name="speciality" type="text" placeholder="Type doctor speciality"></input>
-                    <input onChange={this.handleChange} name="city" type="text" placeholder="Type city"></input>
+                    <input onChange={this.handleChange} name="speciality" type="text" placeholder="Search by speciality"></input>
+                    <input onChange={this.handleChange} name="city" type="text" placeholder="Search by city"></input>
                 </div>
+
+             
+                <MapContainer />
 
                 <HomeSeachResult doctorList={this.state.filteredDoctors} />
 
@@ -103,3 +110,4 @@ export default class HomePage extends Component {
         )
     }
 }
+

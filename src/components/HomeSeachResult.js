@@ -8,7 +8,7 @@ export default class HomeSeachResult extends Component {
         return (
 
 
-            <div className="home-result-card">
+            <div className="main-content">
 
 
 

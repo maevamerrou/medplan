@@ -1,5 +1,11 @@
 
 
+
+body {
+  background-color: #faf5e3; 
+
+}
+
 *:focus {
   outline: none;
 }
@@ -19,6 +25,8 @@
 
 h1 {
   font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 0px;
 }
 
 
@@ -45,22 +53,26 @@ p {
 }
 
 .header-logo {
-  width: 200px;
+  width: 250px;
 }
 
 .button {
   background-color: #51B8F9;
   font-size: 10px;
+  font-weight: bold;
   color: white;
   border-radius: 5px;
   border-color: #0079c4;
   margin: 10px 3px;
-  padding: 3px;
-  width: 80px;
+  padding: 7px;
+  width: 90px;
+  min-height: 30px;
 }
 
 .button:hover {
-  background-color: #0079c4;
+  background-color: #1298eb;
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.26);
+
 }
 
 
@@ -75,29 +87,37 @@ p {
 }
 
 
-.sign-log-form {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  max-width: 600px;
-  margin: 10px;
-}
-
-
-.home-result-card {
+.main-content {
+  margin-top: 20px;
   width: 100%;
   max-width: 500px;
   min-width: 300px;
 }
 
+
+.sign-log-form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 20px 0px;
+  max-width: 300px;
+  min-width: 300px;
+}
+
+.login-label {
+  margin: 8px;
+}
+
 .home-doctor-card {
   width: 100%;
-  border: solid 1px #0079c4;  
+  border: 2px solid #51B8F9;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.26);
   margin: 10px 0px;
   border-radius: 10px;
+  background-color: white;
 }
 
 .home-doctor-card > * {
@@ -139,14 +159,16 @@ p {
 }
 
 
+
 .appointment-card {
-  width: 300px;
   padding: 5px;
   margin: 5px;
   border-radius: 10px;
-  border: solid 1px #0079c4;  
+  border: 2px solid #51B8F9;
+  box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.212);
+
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -164,8 +186,6 @@ p {
 }
 
 
-
-
 .img-edit-btn-profile {
   width: 18px;
   margin: 0px;
@@ -181,11 +201,13 @@ p {
   display: flex;
   justify-content: space-between;
   margin: 10px 0px;
-
 }
+
 
 .patient-cal-date-field {
   display: flex;
+  align-items: center;
+
 }
 
 hr {
@@ -193,7 +215,6 @@ hr {
 }
 
 .patient-cal-day-times {
-  width: 300px;
   padding: 5px;
   margin: 5px;
   border-radius: 10px;
@@ -201,7 +222,9 @@ hr {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  border: solid 2px #0079c4;  
+  border: 2px solid #51B8F9;
+  box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.212);
+
 }
 
 .user-type-choice {
@@ -209,8 +232,9 @@ hr {
 }
 
 .prescription-form{
-  border: solid 1px #0079c4; 
-  width: 300px;
+  border: 2px solid #51B8F9;
+  box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.212);
+  width: 100%;
   padding: 0px 10px; 
   border-radius: 10px;
 }
@@ -226,20 +250,96 @@ hr {
 }
 
 .save-pres-btn {
-  width: 100%;
+  width: 60%;
 }
-
 
 
 .profile-page-content {
-  /* border: 2px solid #0079c4; */
-  margin: 10px 0px;
+  background-color: white;
   border: 2px solid #51B8F9;
+  box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.212);
   padding: 0 15px;
   border-radius: 20px;
-
-
-  
-  
-
 }
+
+
+.calendar-day {
+  margin: 0 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.profile-label {
+  width: 30%;
+}
+
+
+.appointment-details-card {
+  border: 2px solid #51B8F9;
+  box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.212);
+  border-radius: 20px;
+}
+
+.top-card-app-details {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.bottom-card-app-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.btn-app-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.report-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+#report-group {
+  width: auto;
+}
+
+.prescrition-form-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 15px;
+  border-radius: 20px;
+}
+
+.medications-added-card {
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.added-med {
+  font-size: 12px;
+  border: 2px solid #51B8F9;
+  box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.212);
+  border-radius: 20px;
+  margin: 5px;
+  padding: 5px;
+  min-width: 200px;
+  background-color: white;
+}
+
+
+.add-med-btn {
+  background-color: transparent;
+  border-color: transparent;
+  width: 100%;
+}
+

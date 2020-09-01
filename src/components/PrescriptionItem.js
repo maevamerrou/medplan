@@ -5,15 +5,20 @@ export default class PrescriptionItem extends Component {
     return (
       <>
 
-        <p>Medication: {this.props.medication.name}</p>
-        <p>Dose per take: {this.props.medication.dosePerTake}</p>
-        <p>Takes per day: {this.props.medication.takesPerDay}</p>
-        <p>Days per take: {this.props.medication.daysPerTake}</p>
-        <p>Start date: {this.props.medication.startDate}</p>
-        <p>End date: {this.props.medication.endDate}</p>
-        <p>Comments: {this.props.medication.comments}</p>
+        <div className="added-med">
 
-        <button className="button" onClick={()=>this.props.onDelete(this.props.id)}>Delete</button>
+          <p><strong>Medication: </strong>{this.props.medication.name}</p>
+          <p><strong>Dose per take: </strong>{this.props.medication.dosePerTake}</p>
+          <p><strong>Takes per day: </strong>{this.props.medication.takesPerDay}</p>
+          <p><strong>Days per take: </strong>{this.props.medication.daysPerTake}</p>
+          <p><strong>Start date: </strong>{this.props.medication.startDate}</p>
+          <p><strong>End date: </strong>{this.props.medication.endDate}</p>
+          <p><strong>Comments: </strong>{this.props.medication.comments}</p>
+
+          <button className="button" onClick={()=>this.props.onDelete(this.props.id)}>Delete</button> 
+
+        </div>
+        
       </>
     )
   }

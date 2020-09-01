@@ -75,15 +75,15 @@ export default class PatientAppointments extends Component {
                         let fullAppDate = `${appDay}/${appMonth}/${appYear}`
 
                         return (
-                            <div className="appointment-card">  
+                            <div className="main-content appointment-card">  
 
                             <div>
-                                <p>On: {fullAppDate} at {appTime}, {moment(fullAppDate, "DD/MM/YYYY/").fromNow()}</p>
+                                <p><strong>On {fullAppDate} at {appTime}, {moment(fullAppDate, "DD/MM/YYYY/").fromNow()}</strong></p>
 
-                                <p>Purpose: {appointment.reason}</p>
-                                <p>With Dr. {appointment.doctor.username}</p>
-                                <p>Specialized in: {appointment.doctor.speciality}</p>
-                                <p>Located at: {appointment.doctor.address}</p>
+                                <p>With <strong>Dr. {appointment.doctor.username}</strong></p>
+                                <p><strong>Specialized in: </strong>{appointment.doctor.speciality}</p>
+                                <p><strong>Purpose: </strong>{appointment.reason}</p>
+                                <p><strong>Located at: </strong>{appointment.doctor.address}</p>
                             </div>
 
                                 {         

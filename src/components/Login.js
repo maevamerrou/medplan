@@ -4,32 +4,34 @@ import {Link} from 'react-router-dom'
 
 
 export default class Login extends Component {
+    
 
 
     render() {
+
+        
         return (
 
             <>
 
                 <h1>Log In</h1>
 
-                <form onSubmit={this.props.onLogIn} className="sign-log-form">
+                <form onSubmit={this.props.onLogIn} className="main-content sign-log-form">
 
 
-                    <div>
-                        <label for="usertype">I am a</label><br/>
-                        <select name="usertype">
-                            <option value="patient">Patient</option>
-                            <option value="doctor">Doctor</option>
+                    <div className="user-type-choice">
+                        <label for="usertype">I am a </label>
+                        <select className="button" name="usertype">
+                            <option className="user-type-choice" value="patient">Patient</option>
+                            <option className="user-type-choice" value="doctor">Doctor</option>
                             
                         </select>
                     </div>
-                    <br/>
 
-                    <label>Email</label>
+                    <label className="login-label">Email</label>
                     <input name="email" type="email"></input>
 
-                    <label>Password</label>
+                    <label className="login-label">Password</label>
                     <input name="password" type="password"></input>
 
                     <div className="sign-log-btn-line">
@@ -40,6 +42,8 @@ export default class Login extends Component {
                     
 
                 </form>
+
+                <p>{this.props.errorMsg}</p>
 
                 
             </>
