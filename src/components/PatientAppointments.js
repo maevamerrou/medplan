@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import {API_URL} from '../config'
-import axios from 'axios'
-import {Link} from 'react-router-dom'
+import React, { Component } from 'react';
+import {API_URL} from '../config';
+import axios from 'axios';
+import {Link} from 'react-router-dom';
+import moment from 'moment';
 
 export default class PatientAppointments extends Component {
 
@@ -9,51 +10,37 @@ export default class PatientAppointments extends Component {
     state = {
         loggedInUser: this.props.loggedInUser,
         usertype: this.props.usertype,
+        appointments: null,
+        report: null,
     }
 
   
+
     componentDidMount(){
         axios.get(`${API_URL}/patient/appointments` , {withCredentials: true})
         .then((res) => {
-            console.log(res)
             this.setState({
-            appointments: res.data,
+            appointments: res.data            
             })
         })
     }
-
-
-
-    deleteAppointment = (e) => {
-        e.preventDefault();
-        console.log("delete event")
-
-
-    }
-
+    
 
 
     
-    handleLogOut = (e) => {
-        axios.delete(`${API_URL}/patient/appointments/:doctorId/:eventId`, {withCredentials: true})
+    handleDownload = (e, appointmentId) => {
+        e.preventDefault();
+        axios.get(`${API_URL}/patient/appointment/report/${appointmentId}`, {withCredentials: true})
         .then((res) => {
+            console.log(res.data.report)
             this.setState({
-                appointments: res.data,
+                report: res.data.report,
             })
+            window.open(this.state.report, '_blank')
+
         })    
     }
 
-
-    // router.delete('/patient/appointments/:doctorId/:eventId', isPatient, (req, res)=>{
-    // AppointmentModel.findOneAndRemove({eventId: req.params.eventId})
-    //     .then((appo)=>{res.status(200).json(appo)})
-    //     .catch((err) => {
-    //     res.status(500).json({
-    //         error: 'Something went wrong',
-    //         message: err
-    //     })
-    //     })
-    // })
 
 
     render() {
@@ -71,26 +58,79 @@ export default class PatientAppointments extends Component {
                 {
 
                     this.state.appointments.map(appointment => {
+
+
+                        // get the today date in correct format
+                        let today = new Date();
+                        {/* let dd = String(today.getDate()).padStart(2, '0');
+                        let mm = String(today.getMonth() + 1).padStart(2, '0');
+                        let yyyy = today.getFullYear();
+                        let newToday = `${dd}/${mm}/${yyyy}`; */}
+
+
+                        // get the appointment date in correct format
+                        let dateApp = appointment.time
+                        let appYear = dateApp.slice(0, 4)
+                        let appMonth = dateApp.slice(5, 7)
+                        let appDay = dateApp.slice(8, 10)
+                        let appTime= dateApp.slice(11, 16)
+                        let fullAppDate = `${appDay}/${appMonth}/${appYear}`
+
+
                         return (
-                            <div className="appointment-card">                    
-                                <p>Date: {appointment.time}</p>
-                                <p>Reason: {appointment.reason}</p>
-                                <p>Doctor Name: Dr. {appointment.doctor.username}</p>
-                                <p>Doctor Speciality: {appointment.doctor.speciality}</p>
-                                <p>Address: {appointment.doctor.address}</p>
+                            <div className="appointment-card">   
+                                                            
+                                <p>On: {fullAppDate} at {appTime}, {moment(fullAppDate, "DD/MM/YYYY/").fromNow()}</p>
+
+                                <p>Purpose: {appointment.reason}</p>
+                                <p>With Dr. {appointment.doctor.username}</p>
+                                <p>Specialized in: {appointment.doctor.speciality}</p>
+                                <p>Located at: {appointment.doctor.address}</p>
 
 
-{/* 
-                                {
-                                    if (moment(appointment.date).isBefore(new Date())){
-                                        return <button onClick={this.deleteAppointment}>Cancel Appointment</button>
+                                {         
+                                    moment(fullAppDate).isBefore(today) ? (
+                                        <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Edit/Cancel</button></Link>
+                                        ) : (appointment.report? 
+                                        
+                                            <button className="button" onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>:
+                                            <button className="button disabled" disabled>No Report</button>)
+                                                                            
+                                } 
+
+
+
+                                {/* {         
+                                    moment(fullAppDate).isBefore(today) ? (
+                                        <Link to={`/doctor/${appointment.doctor._id}`}><button>Edit/Cancel</button></Link>
+                                        ) : (
+                                            <button disabled={this.state.disabledBtn} onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>
+                                        )                                    
+                                }  */}
+
+
+                                   {/* {        
+                                    if (moment(fullAppDate).isBefore(today)) {
+                                        return (
+                                            <>
+                                                <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Edit/Cancel</button></Link>
+                                            </>
+                                        )
+                                        
+                                    } else if (!moment(fullAppDate).isBefore(today) && this.state.report === null){
+                                        return (
+                                            <>
+                                                <button className="button" disabled onClick={(e) => this.handleDownload(e, appointment._id)}>No Report Available</button>
+                                            </>
+                                        )                                      
                                     } else {
-                                        <Link to="/myfile.pdf" target="_blank" download><button>See Report</button></Link>
-                                    }                            
-
-                                } */}
-
-                                                              
+                                        return (
+                                            <>
+                                                <button className="button" onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>
+                                            </>   
+                                        )                                                                    
+                                    }                                                                  
+                                }  */}
 
 
                             </div>

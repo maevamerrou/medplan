@@ -1,6 +1,6 @@
 import React from 'react';
 import SideBar from './components/SideBar'
-import NavBar from './components/Navbar'
+import NavBar from './components/NavBar'
 import HomePage from './components/HomePage'
 import Signup from './components/Signup'
 import Login from './components/Login'

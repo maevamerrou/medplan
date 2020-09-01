@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import {API_URL} from '../config'
 import { Link } from 'react-router-dom'
+import moment from 'moment';
+
 
 export default class AppointmentDetails extends Component {
   state={
@@ -40,42 +42,45 @@ export default class AppointmentDetails extends Component {
     if (!this.state.appointment){
       return <p>Loading ....</p>
   }
-  const{username, phoneNumber, email} = this.state.appointment.patient
+  const{username, phoneNumber, email, allergies, history} = this.state.appointment.patient
   const {time, reason} = this.state.appointment
+  let dateApp = time
+  let appYear = dateApp.slice(0, 4)
+  let appMonth = dateApp.slice(5, 7)
+  let appDay = dateApp.slice(8, 10)
+  let appTime= dateApp.slice(11, 16)
+  let fullAppDate = `${appDay}/${appMonth}/${appYear}`
+
     return (
-      <div>
-      <h1> Appointment Details</h1>
+      <>
+        <h1> Appointment Details</h1>
 
-      <div>
-        <h2>Patient information</h2>
-        <p>Name: {username}</p>
-        <p>Phone: {phoneNumber}</p>
-        <p>Email: {email}</p>
+        <div>
+          <p>On: {fullAppDate} at {appTime}, {moment(fullAppDate, "DD/MM/YYYY/").fromNow()}</p>
+          <p>Reason: {reason}</p>
 
-      </div>
-
-      <div>
-        <h2>Appointment information</h2>
-        <p>Time: {time}</p>
-        <p>Reason: {reason}</p>
-      </div>
-
-      <div>
+          <h2>Patient information</h2>
+          <p>Name: {username}</p>
+          <p>Phone: {phoneNumber}</p>
+          <p>Email: {email}</p>
+          <p>Allergies: {allergies}</p>
+          <p>Medical History: {history}</p>    
+        </div>
         
-        <button onClick={()=>this.toggleLoader(document.getElementById('report-group'))}>Load Report</button>
-        <Link to={`/create-prescription/${this.props.match.params.appointmentId}`}><button>Create Prescription</button></Link>
-        <button onClick={()=>this.cancelAppointment(this.props.match.params.appointmentId)}>Cancel appointment</button>
-      </div>
+        <div>        
+          <button className="button" onClick={()=>this.toggleLoader(document.getElementById('report-group'))}>Load Report</button>
+          <Link to={`/create-prescription/${this.props.match.params.appointmentId}`}><button className="button">Create Prescription</button></Link>
+          <button className="button" onClick={()=>this.cancelAppointment(this.props.match.params.appointmentId)}>Cancel appointment</button>
+        </div>
 
-      <div className='hidden-button' id='report-group'>
-            <button  onClick={()=>this.loadReport(document.getElementById('report-group'))}>Submit</button>
-            <input type='file' name='report' className="form-control"/>
-      </div>
+        <div className='hidden-button button' id='report-group'>
+              <button className="button" onClick={()=>this.loadReport(document.getElementById('report-group'))}>Submit</button>
+              <input type='file' name='report' className="form-control"/>
+        </div>
+
+      </>
 
 
-
-        
-      </div>
     )
   }
 }

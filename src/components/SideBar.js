@@ -10,7 +10,7 @@ export default class SideBar extends Component {
             return (
                 <>    
                     <nav>
-                    <h6>Welcome {this.props.loggedInUser.username} on your Patient menu</h6>
+                    <h6>Patient: {this.props.loggedInUser.username}</h6>
                     
                         <ul>
                             <li><Link to="/">Search for a doctor</Link></li>
@@ -29,7 +29,7 @@ export default class SideBar extends Component {
                 <>
                     <nav>
 
-                        <h6>Welcome {this.props.loggedInUser.username} on your Doctor menu</h6>
+                        <h6>Doctor: {this.props.loggedInUser.username}</h6>
 
                         <ul>
                             <li><Link to="/calendar">Calendar</Link></li>

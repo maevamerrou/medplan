@@ -177,85 +177,92 @@ export default class DoctorProfile extends Component {
             </>
           :null}
         </div>
-          <div id='speciality-profile'>
-            <label>Speciality</label>
-            <input className='readonly-field' readOnly={true} name="speciality" type="text" value={speciality}  onChange={this.handleChange}></input>
-            {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+
+        <div id='speciality-profile'>
+          <label>Speciality</label>
+          <input className='readonly-field' readOnly={true} name="speciality" type="text" value={speciality}  onChange={this.handleChange}></input>
+          {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
             <>
-            <button onClick={()=>this.handleEnable(document.getElementById('speciality-profile'))}>Edit</button>
-            <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('speciality-profile'))}>Cancel</button>
-            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('speciality-profile'))}>Confirm</button>
+              <button onClick={()=>this.handleEnable(document.getElementById('speciality-profile'))}>Edit</button>
+              <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('speciality-profile'))}>Cancel</button>
+              <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('speciality-profile'))}>Confirm</button>
             </>
           :null}
-          </div>
-          <div id='city-profile'>
-            <label>City</label>
-            <input className='readonly-field' readOnly={true} name="city" type="text" value={city} onChange={this.handleChange}></input>
-            {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+        </div>
+
+        <div id='city-profile'>
+          <label>City</label>
+          <input className='readonly-field' readOnly={true} name="city" type="text" value={city} onChange={this.handleChange}></input>
+          {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
             <>
-            <button onClick={()=>this.handleEnable(document.getElementById('city-profile'))}>Edit</button>
-            <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('city-profile'))}>Cancel</button>
-            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('city-profile'))}>Confirm</button>
+              <button onClick={()=>this.handleEnable(document.getElementById('city-profile'))}>Edit</button>
+              <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('city-profile'))}>Cancel</button>
+              <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('city-profile'))}>Confirm</button>
+            </>
+         :null}
+        </div>
+
+        <div id='address-profile'>
+          <label>Address</label>
+          <input className='readonly-field' readOnly={true} name="phone" type="text" value={address} onChange={this.handleChange}></input>
+          {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+            <>
+              <button onClick={()=>this.handleEnable(document.getElementById('address-profile'))}>Edit</button>
+              <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('address-profile'))}>Cancel</button>
+              <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('address-profile'))}>Confirm</button>
             </>
           :null}
-          </div>
-          <div id='address-profile'>
-            <label>Address</label>
-            <input className='readonly-field' readOnly={true} name="phone" type="text" value={address} onChange={this.handleChange}></input>
-            {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+        </div>
+
+        <div id='email-profile'>
+          <label>E-Mail</label>
+          <input className='readonly-field' readOnly={true} name="email"  type="email" value={email} onChange={this.handleChange}></input>
+          {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
             <>
-            <button onClick={()=>this.handleEnable(document.getElementById('address-profile'))}>Edit</button>
-            <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('address-profile'))}>Cancel</button>
-            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('address-profile'))}>Confirm</button>
+              <button onClick={()=>this.handleEnable(document.getElementById('email-profile'))}>Edit</button>
+              <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('email-profile'))}>Cancel</button>
+              <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('email-profile'))}>Confirm</button>  
             </>
           :null}
-          </div>
-          <div id='email-profile'>
-            <label>E-Mail</label>
-            <input className='readonly-field' readOnly={true} name="email"  type="email" value={email} onChange={this.handleChange}></input>
-            {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+        </div>
+
+        <div id='phone-profile'>
+        <label>Telephone</label>
+          <input className='readonly-field' readOnly={true} name="phone" type="text" value={phone} onChange={this.handleChange}></input>
+          {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
             <>
-            <button onClick={()=>this.handleEnable(document.getElementById('email-profile'))}>Edit</button>
-            <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('email-profile'))}>Cancel</button>
-            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('email-profile'))}>Confirm</button>  
+              <button onClick={()=>this.handleEnable(document.getElementById('phone-profile'))}>Edit</button>
+              <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('phone-profile'))}>Cancel</button>
+              <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('phone-profile'))}>Confirm</button>
+            </>
+          :null}        
+        </div>
+        
+        <div id='opening-profile'>
+          <label>Opening time</label>
+          <input className='readonly-field' readOnly={true} name="city" type="text" value={openingTime} onChange={this.handleChange}></input>
+          {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+            <>
+              <button onClick={()=>this.handleEnable(document.getElementById('opening-profile'))}>Edit</button>
+              <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('opening-profile'))}>Cancel</button>
+              <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('opening-profile'))}>Confirm</button>
             </>
           :null}
-          </div>
-          <div id='phone-profile'>
-          <label>Telephone</label>
-            <input className='readonly-field' readOnly={true} name="phone" type="text" value={phone} onChange={this.handleChange}></input>
-            {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+        </div>
+        
+        <div id='closing-profile'>
+          <label>Opening time</label>
+          <input className='readonly-field' readOnly={true} name="city" type="text" value={closingTime} onChange={this.handleChange}></input>
+          {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
             <>
-            <button onClick={()=>this.handleEnable(document.getElementById('phone-profile'))}>Edit</button>
-            <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('phone-profile'))}>Cancel</button>
-            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('phone-profile'))}>Confirm</button>
+              <button onClick={()=>this.handleEnable(document.getElementById('closing-profile'))}>Edit</button>
+              <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('closing-profile'))}>Cancel</button>
+              <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('closing-profile'))}>Confirm</button>
             </>
           :null}
-          </div>
-          
-          <div id='opening-profile'>
-            <label>Opening time</label>
-            <input className='readonly-field' readOnly={true} name="city" type="text" value={openingTime} onChange={this.handleChange}></input>
-            {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
-            <>
-            <button onClick={()=>this.handleEnable(document.getElementById('opening-profile'))}>Edit</button>
-            <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('opening-profile'))}>Cancel</button>
-            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('opening-profile'))}>Confirm</button>
-            </>
-          :null}
-          </div>
-          
-          <div id='closing-profile'>
-            <label>Opening time</label>
-            <input className='readonly-field' readOnly={true} name="city" type="text" value={closingTime} onChange={this.handleChange}></input>
-            {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
-            <>
-            <button onClick={()=>this.handleEnable(document.getElementById('closing-profile'))}>Edit</button>
-            <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('closing-profile'))}>Cancel</button>
-            <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('closing-profile'))}>Confirm</button>
-            </>
-          :null}
-          </div>
+        </div>
+
+        
 
           {/*Calendar  */}
           {(this.props.usertype==='patient') ? 
