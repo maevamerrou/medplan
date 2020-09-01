@@ -56,7 +56,7 @@ export default class AppointmentDetails extends Component {
         <h1> Appointment Details</h1>
 
         <div>
-          <p>On: {fullAppDate} at {appTime}, {moment(fullAppDate, "DD/MM/YYYY/").fromNow()}</p>
+          <p>On: {fullAppDate} at {appTime}, {moment(fullAppDate, "DD/MM/YYYY").fromNow()}</p>
           <p>Reason: {reason}</p>
 
           <h2>Patient information</h2>
