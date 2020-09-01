@@ -112,12 +112,17 @@ class App extends React.Component {
 
   render() {
     return (
+
+
+
       <div className="body">
 
         <NavBar />
                 
         {/* add condition to render only if logged in */}
         <SideBar loggedInUser= {this.state.loggedInUser} usertype= {this.state.usertype} onLogout={this.handleLogOut}/>
+
+        
 
         <Switch>
 
@@ -173,6 +178,11 @@ class App extends React.Component {
         
            
         </Switch>
+
+        <footer>
+          <p>Take care of your health!</p>
+        </footer>
+
 
     </div>
     )

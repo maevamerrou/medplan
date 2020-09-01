@@ -15,15 +15,19 @@ export default class Signup extends Component {
 
 
                     <div>
-                        <label for="usertype">I am a</label><br/>
-                        <select name="usertype">
-                            <option value="patient">Patient</option>
-                            <option value="doctor">Doctor</option>
-                            
+                        <label for="usertype">I am a </label> 
+                        <select className="button" name="usertype">
+                            <option className="user-type-choice" value="patient">Patient</option> 
+                            <option className="user-type-choice" value="doctor">Doctor</option>                            
                         </select>
+
+
                     </div>
+
+
                     <br/>
 
+                    
                     <label>Full name</label>
                     <input name="username" type="text"></input>
 
@@ -42,8 +46,12 @@ export default class Signup extends Component {
 
 {/* add condition to render different forms for patient and doctor and update the server routes as well */}
 
-                    <button className="button" type="submit">Submit</button>
-                    <Link to="/login"><button className="button">Or log in!</button></Link>
+
+                    <div className="sign-log-btn-line">
+                        <button className="button" type="submit">Submit</button>
+                        <Link to="/login"><button className="button">Or Log In!</button></Link>
+                    </div>
+                    
 
                 </form>
 

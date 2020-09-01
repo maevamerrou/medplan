@@ -11,7 +11,7 @@ export default class Login extends Component {
 
             <>
 
-                <h1>Login</h1>
+                <h1>Log In</h1>
 
                 <form onSubmit={this.props.onLogIn} className="sign-log-form">
 
@@ -32,8 +32,12 @@ export default class Login extends Component {
                     <label>Password</label>
                     <input name="password" type="password"></input>
 
-                    <button className="button" type="submit">Submit</button>
-                    <Link to="/signup"><button className="button">Or sign up!</button></Link>
+                    <div className="sign-log-btn-line">
+                        <button className="button" type="submit">Submit</button>
+                        <Link to="/signup"><button className="button">Or Sign Up!</button></Link>
+                    </div>
+
+                    
 
                 </form>
 

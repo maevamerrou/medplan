@@ -56,9 +56,7 @@ export default class PatientAppointments extends Component {
                 <h2>Appointments of {this.state.loggedInUser.username}</h2>
 
                 {
-
                     this.state.appointments.map(appointment => {
-
 
                         // get the today date in correct format
                         let today = new Date();
@@ -76,62 +74,29 @@ export default class PatientAppointments extends Component {
                         let appTime= dateApp.slice(11, 16)
                         let fullAppDate = `${appDay}/${appMonth}/${appYear}`
 
-
                         return (
-                            <div className="appointment-card">   
-                                                            
+                            <div className="appointment-card">  
+
+                            <div>
                                 <p>On: {fullAppDate} at {appTime}, {moment(fullAppDate, "DD/MM/YYYY/").fromNow()}</p>
 
                                 <p>Purpose: {appointment.reason}</p>
                                 <p>With Dr. {appointment.doctor.username}</p>
                                 <p>Specialized in: {appointment.doctor.speciality}</p>
                                 <p>Located at: {appointment.doctor.address}</p>
-
+                            </div>
 
                                 {         
-                                    moment(fullAppDate).isBefore(today) ? (
+                                    moment(fullAppDate, appTime).isBefore(today) ? (
                                         <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Edit/Cancel</button></Link>
+
                                         ) : (appointment.report? 
                                         
                                             <button className="button" onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>:
-                                            <button className="button disabled" disabled>No Report</button>)
-                                                                            
+                                            <button className="button disabled" disabled>No Report</button>
+
+                                            )
                                 } 
-
-
-
-                                {/* {         
-                                    moment(fullAppDate).isBefore(today) ? (
-                                        <Link to={`/doctor/${appointment.doctor._id}`}><button>Edit/Cancel</button></Link>
-                                        ) : (
-                                            <button disabled={this.state.disabledBtn} onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>
-                                        )                                    
-                                }  */}
-
-
-                                   {/* {        
-                                    if (moment(fullAppDate).isBefore(today)) {
-                                        return (
-                                            <>
-                                                <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Edit/Cancel</button></Link>
-                                            </>
-                                        )
-                                        
-                                    } else if (!moment(fullAppDate).isBefore(today) && this.state.report === null){
-                                        return (
-                                            <>
-                                                <button className="button" disabled onClick={(e) => this.handleDownload(e, appointment._id)}>No Report Available</button>
-                                            </>
-                                        )                                      
-                                    } else {
-                                        return (
-                                            <>
-                                                <button className="button" onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>
-                                            </>   
-                                        )                                                                    
-                                    }                                                                  
-                                }  */}
-
 
                             </div>
                         )                      
