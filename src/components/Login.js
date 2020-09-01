@@ -37,6 +37,8 @@ export default class Login extends Component {
 
                 </form>
 
+                <p>{this.props.errorMsg}</p>
+
                 
             </>
         )

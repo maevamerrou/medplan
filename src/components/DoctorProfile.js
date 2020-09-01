@@ -30,6 +30,7 @@ export default class DoctorProfile extends Component {
       .then((res)=>{
         this.setState({appointments: res.data, events: res.data.map(appointment=>{return {title: appointment.reason, start:appointment.time, id:appointment.eventId, editable: false, patient: appointment.patient}})}, ()=>console.log(this.state)) 
       })
+      
   }
   
 
@@ -142,9 +143,13 @@ export default class DoctorProfile extends Component {
   }
   
   render() {
+
+    
+
     if (!this.state.doctor){
       return <p>Loading ....</p>
     }
+    
     const {username, speciality, city, address, email, phone, openingTime, closingTime, picture} = this.state.doctor
  
     return (

@@ -25,7 +25,8 @@ class App extends React.Component {
 
   state = {
     loggedInUser: null,
-    usertype: null
+    usertype: null,
+    errorMsg:''
   }
 
 
@@ -88,7 +89,13 @@ class App extends React.Component {
             this.props.history.push(`/doctor/${this.state.loggedInUser._id}`)
           }
         })
-      })  
+      })
+      .catch(err=>{
+        console.log(err.response)
+        this.setState({
+          errorMsg: err.response.data.error
+        }, console.log(this.state.errorMsg))
+      }) 
   }
 
 
@@ -128,7 +135,7 @@ class App extends React.Component {
           {/* Routes for logged out users */}
           {(!this.state.loggedInUser) ?
             <>
-              <Route path="/login" render={() => <Login onLogIn={this.handleLogIn}/>}/> 
+              <Route path="/login" render={() => <Login errorMsg={this.state.errorMsg} onLogIn={this.handleLogIn}/>}/> 
               <Route path="/signup" render={() => <Signup onSignUp={this.handleSignUp}/>}/>
             </>
             : null}
