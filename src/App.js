@@ -16,7 +16,7 @@ import './App.css';
 import {API_URL} from './config'
 import axios from 'axios'
 
-import {Switch, Route, withRouter} from 'react-router-dom'
+import {Switch, Route, withRouter, Redirect} from 'react-router-dom'
 import CreatePrescription from './components/CreatePrescription';
 
 
@@ -26,7 +26,8 @@ class App extends React.Component {
   state = {
     loggedInUser: null,
     usertype: null,
-    errorMsg:''
+    errorMsg:'',
+    desiredUrl: null
   }
 
 
@@ -39,16 +40,17 @@ class App extends React.Component {
             loggedInUser: res.data.loggedInUser,
             usertype: res.data.usertype
           })
-      })
-    } 
+        })
+    }
   }
+  
+  
 
 
 
 
   handleSignUp = (e) => {
     e.preventDefault();
-    console.log("signing up")
     const {email, password, usertype, username} = e.currentTarget;
 
     axios.post(`${API_URL}/auth/signup`, {
@@ -64,6 +66,11 @@ class App extends React.Component {
       .then((res) => {
         this.props.history.push('/login')
       })
+      .catch(err=>{
+        this.setState({
+          errorMsg: err.response.data.errorMessage
+        }, ()=>console.log(this.state.errorMsg, err.response))
+      }) 
   }
 
   
@@ -80,21 +87,25 @@ class App extends React.Component {
         this.setState({
           loggedInUser: res.data,
           usertype: usertype.value,
+          errorMsg: null
         }, () => {       
           if (this.state.usertype === "patient"){
             console.log("usertype is patient")
-            this.props.history.push('/profile')
-          } else if (this.state.usertype === "doctor"){
+            if (window.location.pathname.includes('doctor')){
+              this.props.history.push(window.location.pathname)
+            } 
+            else if (!window.location.pathname.includes('doctor')) (this.props.history.push('/profile'))
+          } 
+          else if (this.state.usertype === "doctor"){
             console.log("usertype is doctor")
             this.props.history.push(`/doctor/${this.state.loggedInUser._id}`)
           }
         })
       })
       .catch(err=>{
-        console.log(err.response)
         this.setState({
           errorMsg: err.response.data.error
-        }, console.log(this.state.errorMsg))
+        })
       }) 
   }
 
@@ -107,6 +118,7 @@ class App extends React.Component {
         this.setState({
           loggedInUser: null,
           usertype: null,
+          desiredUrl: null
         }, ()=>{
           this.props.history.push('/')
         })
@@ -136,7 +148,8 @@ class App extends React.Component {
           {(!this.state.loggedInUser) ?
             <>
               <Route path="/login" render={() => <Login errorMsg={this.state.errorMsg} onLogIn={this.handleLogIn}/>}/> 
-              <Route path="/signup" render={() => <Signup onSignUp={this.handleSignUp}/>}/>
+              <Route path="/signup" render={() => <Signup errorMsg={this.state.errorMsg} onSignUp={this.handleSignUp}/>}/>
+              <Route path="/doctor/:doctorId" render={routeProps=> <Login errorMsg={this.state.errorMsg} onLogIn={this.handleLogIn}/>}/>
             </>
             : null}
           

@@ -13,7 +13,7 @@ export default class Signup extends Component {
         let lowerCase = new RegExp (/^(?=.*[a-z])/)
         let upperCase = new RegExp (/(?=.*[A-Z])/)
         let number = new RegExp (/(?=.*[0-9])/)
-        let especial = new RegExp (/(?=.*[!@#\$%\^&\*])/)  
+        let especial = new RegExp (/(?=.*[!@#$%^&*])/)  
         let amount = new RegExp (/(?=.{8,})/)
         
         let password= e.currentTarget.value
@@ -56,6 +56,7 @@ export default class Signup extends Component {
                     <input name="email" type="email"></input>
 
                     <label>Password</label>
+                    <small>Password needs to be at least 8 characters, and include both lower and upper cases, numbers and special signs.</small>
                     <input onChange={this.handlePass} name="password" type="password"></input>
                     <small>{this.state.passwordStrength}</small>
 
@@ -71,6 +72,9 @@ export default class Signup extends Component {
                     <Link to="/login"><button className="button">Or log in!</button></Link>
 
                 </form>
+
+
+                <p>{this.props.errorMsg}</p>
 
             </>
         )

@@ -28,7 +28,12 @@ export default class DoctorProfile extends Component {
       })
       axios.get(`${API_URL}/doctor/appointments/${this.props.match.params.doctorId}`, {withCredentials: true})
       .then((res)=>{
-        this.setState({appointments: res.data, events: res.data.map(appointment=>{return {title: appointment.reason, start:appointment.time, id:appointment.eventId, editable: false, patient: appointment.patient}})}, ()=>console.log(this.state)) 
+        this.setState({appointments: res.data, events: res.data.map(appointment=>{
+          console.log ('ids:', appointment.patient, this.props.loggedInUser._id)
+          let eventColor= appointment.patient._id===this.props.loggedInUser._id? '#3788d8': 'gray'
+          return {title: appointment.reason, start:appointment.time, id:appointment.eventId, editable: false, patient: appointment.patient, color: eventColor}})},
+         ()=>{console.log(this.state)}
+         ) 
       })
       
   }
@@ -95,9 +100,15 @@ export default class DoctorProfile extends Component {
   //Calendar methods 
   handleDateSelect = (selectInfo) => {
     if (!moment(new Date(selectInfo.startStr)).isBefore(Date.now())) {
+      let calendarApi = selectInfo.view.calendar
+      calendarApi.unselect()
+      
+      if (selectInfo.end-selectInfo.start>1800000) {
+        alert('Appointments must have a duration of half an hour')
+        return
+      }
+
     let title = prompt('Please enter the reason for the appointment: ')
-    let calendarApi = selectInfo.view.calendar
-    calendarApi.unselect() // clear date selection
     if (title) {
       calendarApi.addEvent({
         id: createEventId(),
@@ -106,7 +117,7 @@ export default class DoctorProfile extends Component {
         end: selectInfo.endStr,
         patient: this.props.loggedInUser._id,
         startEditable: true,
-        eventDurationEditable: false
+        editable: false
       })
     }}
     else{
@@ -116,7 +127,8 @@ export default class DoctorProfile extends Component {
   }
   
   handleEventClick = (clickInfo) => {
-    if (clickInfo.event.extendedProps.patient._id === this.props.loggedInUser._id){
+    console.log (clickInfo.event)
+    if (clickInfo.event.extendedProps.patient._id === this.props.loggedInUser._id || clickInfo.event.extendedProps.patient === this.props.loggedInUser._id){
       if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`))   {clickInfo.event.remove()}
      
   }}
@@ -129,6 +141,7 @@ export default class DoctorProfile extends Component {
 
   //Linking of calendar with database
   appoCreate= (event) =>{
+    console.log (event.event)
     axios.post(`${API_URL}/patient/appointments/${this.props.match.params.doctorId}`, 
       {time: event.event.start, eventId: event.event.id, reason: event.event.title}, {withCredentials:true})
   }
@@ -139,6 +152,7 @@ export default class DoctorProfile extends Component {
   }
 
   appoCancel= (event) =>{
+    console.log (event.event)
     axios.delete(`${API_URL}/patient/appointments/${this.props.match.params.doctorId}/${event.event.id}`, {withCredentials:true})
   }
   
@@ -271,14 +285,14 @@ export default class DoctorProfile extends Component {
               headerToolbar={{
                 left: 'prev,next today',
                 center: 'title',
-                right: 'timeGridWeek, timeGridDay'
+                right: 'timeGridWeek'
               }}
               initialView='timeGridWeek'
               selectable={true}
-              selectMirror={true}
+              selectMirror={false}
               dayMaxEvents={true}
               allDaySlot= {false}
-              eventDurationEditable={false}
+              eventStartEditable={true}
               slotMinTime= '08:00'
               slotMaxTime= '20:00'
               businessHours = {{businessHours: {
@@ -295,6 +309,7 @@ export default class DoctorProfile extends Component {
               eventAdd={(event)=>this.appoCreate(event)}
               eventChange={(event)=>this.appoEdit(event)}
               eventRemove={(event)=>this.appoCancel(event)}
+              defaultTimedEventDuration= '00:30'
             />
             :null}
           
