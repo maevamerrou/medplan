@@ -49,36 +49,30 @@ export default class PatientMedPlanner extends Component {
           }
 
         return (
-            <div>
+            <>
                 <h1>Medication Planner</h1>
 
-                <div>
-                    <button onClick={()=>this.previousDay()}>Previous day</button>
-                    <h1>{this.state.currentday.format("Do MMM, YYYY").toString()}</h1>
-                    <button onClick={()=>this.nextDay()}>Next day</button>
+                <div className="patient-cal-date-field">
+                    <button className="button" onClick={()=>this.previousDay()}>Previous day</button>
+                    <h4>{this.state.currentday.format("Do MMM, YYYY").toString()}</h4>
+                    <button className="button" onClick={()=>this.nextDay()}>Next day</button>
                 </div>
 
-                <h2>Morning</h2>
+                <div className="patient-cal-day-times">
 
-                {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===2){return <div>Medication: {med.name}</div>}})}
+                    <h4>Morning</h4>
+                    {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===2){return <div>Medication: {med.name}</div>}})}
+                    <hr></hr>
 
-                <hr></hr>
+                    <h4>Noon</h4>
+                    {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===1){return <div>Medication: {med.name}</div>}})}
+                    <hr/>
 
-                <h2>Noon</h2>
-
-                {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===1){return <div>Medication: {med.name}</div>}})}
-
-
-                <hr/>
-
-                <h2>Night</h2>
-
-                {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===2){return <div>Medication: {med.name}</div>}})}
-
-
-                <hr/>
-
-            </div>
+                    <h4>Night</h4>
+                    {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===2){return <div>Medication: {med.name}</div>}})}
+                </div>
+            
+            </>
         )
     }
 }

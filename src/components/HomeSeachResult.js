@@ -10,24 +10,34 @@ export default class HomeSeachResult extends Component {
 
             <div className="home-result-card">
 
+
+
                 {
                     this.props.doctorList.map((doctor) => {
-                        return  <div className="home-doctor-card">
+                        return  (
+                            <div className="home-doctor-card">
 
-                                <p>{doctor.username}</p>
-                                <p>{doctor.speciality}</p>
-                                <p>{doctor.email}</p>
-                                <p>{doctor.city}</p>
+                                <img className="doc-img" src={doctor.picture} alt="profile picture"/>
+                                <div className="search-doc-details-text">
+                                    <p><strong>{doctor.username}</strong></p>
+                                    <p>{doctor.speciality}</p>
+                                    <p>Address: <em>{doctor.address}</em></p>
+                                    <p>Available from {doctor.openingTime} to {doctor.closingTime}</p>
+                                </div>                                
 
-                                {/* Add link to doctor page */}
                                 <Link to={`/doctor/${doctor._id}`}>
                                 <button className="button">Book an appointment</button>
                                 </Link>
 
                             </div>
+
+                        )
+                              
                     })
                 }
 
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" type="text/javascript"></script>
+                
             </div>
 
                 

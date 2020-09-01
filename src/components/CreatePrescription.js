@@ -61,18 +61,25 @@ export default class CreatePrescription extends Component {
 
   render() {
     return (
-      <div>
-      Please fill in all the fields
-      <PrescriptionForm onCommit={this.handleSubmit}/>
+      <>
+        <h1>Prescription Form</h1>
 
-      <button onClick={this.handleCreate}>Finish and save prescription</button>
+        
+        <p>Please fill in all the fields</p>
+        <br/>
 
+        <div>
+          <PrescriptionForm onCommit={this.handleSubmit}/>
 
-      <hr/>
-      
-      {this.state.prescription.medications.map((medication, id)=>{return <><PrescriptionItem key={id} id={id} medication={medication} onDelete={this.handleDelete}/> <hr/></>})
-      }
-      </div>
+          <button className="button save-pres-btn" onClick={this.handleCreate}>Save prescription</button>
+          
+          {this.state.prescription.medications.map((medication, id)=>{return <><PrescriptionItem key={id} id={id} medication={medication} onDelete={this.handleDelete}/> <hr/></>})
+          }
+
+        </div>
+
+       
+      </>
     )
   }
 }

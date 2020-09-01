@@ -84,79 +84,86 @@ export default class PatientProfile extends Component {
 
     return (
       <>
-        <h1>Profile</h1>
+        <h1>Patient Profile</h1>
 
-        <div id='name-profile'>
-          <label>Full Name</label>
-          <input className='readonly-field' readOnly={true} name="username" type="text" value={username}  onChange={this.handleChange}></input>
-          <button onClick={()=>this.handleEnable(document.getElementById('name-profile'))}>Edit</button>
-          <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('name-profile'))}>Cancel</button>
-          <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('name-profile'))}>Confirm</button>
+
+        <div className="profile-page-content">
+
+          <div className="profile-field" id='name-profile'>
+            <label>Full Name</label>
+            <input className='readonly-field' readOnly={true} name="username" type="text" value={username}  onChange={this.handleChange}></input>
+            <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('name-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+            <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('name-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+            <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('name-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+          </div>
+
+          <div className="profile-field" id='birthDate-profile'>
+            <label>Birth Date</label>
+            <input className='readonly-field' readOnly={true} name="birthDate" type="text" value={birthDate}  onChange={this.handleChange}></input>
+            <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('birthDate-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+          <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('birthDate-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+            <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('birthDate-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+          </div>
+    
+          <div className="profile-field" id='address-profile'>
+            <label>Address</label>
+            <input className='readonly-field' readOnly={true} name="phone" type="text" value={address} onChange={this.handleChange}></input>
+            <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('address-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+          <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('address-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+            <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('address-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+          </div>
+
+          <div className="profile-field" id='email-profile'>
+            <label>E-Mail</label>
+            <input className='readonly-field' readOnly={true} name="email"  type="email" value={email} onChange={this.handleChange}></input>
+            <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('email-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+          <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('email-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+            <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('email-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>  
+          </div>
+
+          <div className="profile-field" id='phoneNumber-profile'>
+            <label>Telephone</label>
+            <input className='readonly-field' readOnly={true} name="phoneNumber" type="text" value={phoneNumber} onChange={this.handleChange}></input>
+            <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('phoneNumber-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+          <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('phoneNumber-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+            <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('phoneNumber-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+          </div>
+
+          <div className="profile-field" id='height-profile'>
+            <label>Height</label>
+            <input className='readonly-field' readOnly={true} name="height" type="text" value={height} onChange={this.handleChange}></input>
+            <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('height-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+          <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('height-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+            <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('height-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+          </div>
+
+          <div className="profile-field" id='weight-profile'>
+            <label>Weight</label>
+            <input className='readonly-field' readOnly={true} name="weight" type="text" value={weight} onChange={this.handleChange}></input>
+            <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('weight-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+          <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('weight-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+            <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('weight-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+          </div>
+
+          <div className="profile-field" id='allergies-profile'>
+            <label>Allergies</label>
+            <input className='readonly-field' readOnly={true} name="allergies" type="text" value={allergies} onChange={this.handleChange}></input>
+            <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('allergies-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+            <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('allergies-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+            <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('allergies-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+          </div>
+
+          <div className="profile-field" id='history-profile'>
+            <label>Medical History</label>
+            <input className='readonly-field' readOnly={true} name="history" type="text" value={history} onChange={this.handleChange}></input>
+            <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('history-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+          <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('history-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+            <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('history-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+          </div>
+
         </div>
 
-        <div id='birthDate-profile'>
-          <label>Birth Date</label>
-          <input className='readonly-field' readOnly={true} name="birthDate" type="text" value={birthDate}  onChange={this.handleChange}></input>
-          <button onClick={()=>this.handleEnable(document.getElementById('birthDate-profile'))}>Edit</button>
-          <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('birthDate-profile'))}>Cancel</button>
-          <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('birthDate-profile'))}>Confirm</button>
-        </div>
-  
-        <div id='address-profile'>
-          <label>Address</label>
-          <input className='readonly-field' readOnly={true} name="phone" type="text" value={address} onChange={this.handleChange}></input>
-          <button onClick={()=>this.handleEnable(document.getElementById('address-profile'))}>Edit</button>
-          <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('address-profile'))}>Cancel</button>
-          <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('address-profile'))}>Confirm</button>
-        </div>
-
-        <div id='email-profile'>
-          <label>E-Mail</label>
-          <input className='readonly-field' readOnly={true} name="email"  type="email" value={email} onChange={this.handleChange}></input>
-          <button onClick={()=>this.handleEnable(document.getElementById('email-profile'))}>Edit</button>
-          <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('email-profile'))}>Cancel</button>
-          <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('email-profile'))}>Confirm</button>  
-        </div>
-
-        <div id='phoneNumber-profile'>
-          <label>Telephone</label>
-          <input className='readonly-field' readOnly={true} name="phoneNumber" type="text" value={phoneNumber} onChange={this.handleChange}></input>
-          <button onClick={()=>this.handleEnable(document.getElementById('phoneNumber-profile'))}>Edit</button>
-          <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('phoneNumber-profile'))}>Cancel</button>
-          <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('phoneNumber-profile'))}>Confirm</button>
-        </div>
-
-        <div id='height-profile'>
-          <label>Height</label>
-          <input className='readonly-field' readOnly={true} name="height" type="text" value={height} onChange={this.handleChange}></input>
-          <button onClick={()=>this.handleEnable(document.getElementById('height-profile'))}>Edit</button>
-          <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('height-profile'))}>Cancel</button>
-          <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('height-profile'))}>Confirm</button>
-        </div>
-
-        <div id='weight-profile'>
-          <label>Weight</label>
-          <input className='readonly-field' readOnly={true} name="weight" type="text" value={weight} onChange={this.handleChange}></input>
-          <button onClick={()=>this.handleEnable(document.getElementById('weight-profile'))}>Edit</button>
-          <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('weight-profile'))}>Cancel</button>
-          <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('weight-profile'))}>Confirm</button>
-        </div>
-
-        <div id='allergies-profile'>
-          <label>Allergies</label>
-          <input className='readonly-field' readOnly={true} name="allergies" type="text" value={allergies} onChange={this.handleChange}></input>
-          <button onClick={()=>this.handleEnable(document.getElementById('allergies-profile'))}>Edit</button>
-          <button className='hidden-button button' onClick={()=>this.handleDisable(document.getElementById('allergies-profile'))}>Cancel</button>
-          <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('allergies-profile'))}>Confirm</button>
-        </div>
-
-        <div id='history-profile'>
-          <label>Medical History</label>
-          <input className='readonly-field' readOnly={true} name="history" type="text" value={history} onChange={this.handleChange}></input>
-          <button onClick={()=>this.handleEnable(document.getElementById('history-profile'))}>Edit</button>
-          <button className='hidden-button' onClick={()=>this.handleDisable(document.getElementById('history-profile'))}>Cancel</button>
-          <button type='submit' className='hidden-button' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('history-profile'))}>Confirm</button>
-        </div>
+        
 
       </>
     )

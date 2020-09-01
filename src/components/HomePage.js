@@ -75,29 +75,29 @@ export default class HomePage extends Component {
 
                     <div className="index-img-card">
                         <img src="/images/doctors.png" alt="img"/> 
-                        <figcaption>Access to thousands of doctors contacts. </figcaption>
+                        <p>Access to thousands of doctors contacts.</p>
                     </div>
 
                     <div className="index-img-card">
                         <img src="/images/online-booking.png" alt="img"/>
-                        <figcaption>Book online without struggle and 24/7!</figcaption>
+                        <p>Book online without struggle and 24/7!</p>
                     </div>
 
                     <div className="index-img-card">
                         <img src="/images/prescription.png" alt="img"/>
-                        <figcaption>Access your prescriptions in your planner and follow up easily.</figcaption>
+                        <p>Access your prescriptions in your planner and follow up easily.</p>
                     </div> 
                     
-                </div>                  
-                    
-                    
-                <input onChange={this.handleChange} name="speciality" type="text" placeholder="Type doctor speciality"></input>
-                <input onChange={this.handleChange} name="city" type="text" placeholder="Type city"></input>
-                <br/>
-                <br/>
+                </div>  
+
+                <div className="home-search-bar">
+                    <input onChange={this.handleChange} name="speciality" type="text" placeholder="Type doctor speciality"></input>
+                    <input onChange={this.handleChange} name="city" type="text" placeholder="Type city"></input>
+                </div>
 
                 <HomeSeachResult doctorList={this.state.filteredDoctors} />
 
+               
                 
             </>
         )
