@@ -30,10 +30,10 @@ export default class Login extends Component {
                     <br/>
 
                     <label>Email</label>
-                    <input name="email" type="email"></input>
+                    <input onChange={this.props.onClear} name="email" type="email"></input>
 
                     <label>Password</label>
-                    <input name="password" type="password"></input>
+                    <input onChange={this.props.onClear} name="password" type="password"></input>
 
                     <div className="sign-log-btn-line">
                         <button className="button" type="submit">Submit</button>

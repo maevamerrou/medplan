@@ -289,11 +289,12 @@ export default class DoctorProfile extends Component {
            <FullCalendar
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
               headerToolbar={{
-                left: 'prev,next today',
+                left: 'prev,next',
                 center: 'title',
-                right: 'timeGridWeek'
+                right: ''
               }}
               initialView='timeGridWeek'
+              
               selectable={true}
               selectMirror={false}
               dayMaxEvents={true}

@@ -61,15 +61,15 @@ export default class PatientMedPlanner extends Component {
                 <div className="patient-cal-day-times">
 
                     <h4>Morning</h4>
-                    {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===2){return <div>Medication: {med.name}</div>}})}
+                    {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===2){return <div><h5>{med.name} -  {med.dosePerTake}</h5><small>{med.comments}</small></div>}})}
                     <hr></hr>
 
                     <h4>Noon</h4>
-                    {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===1){return <div>Medication: {med.name}</div>}})}
+                    {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===1){return <div><h5>{med.name} -  {med.dosePerTake}</h5><small>{med.comments}</small></div>}})}
                     <hr/>
 
                     <h4>Night</h4>
-                    {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===2){return <div>Medication: {med.name}</div>}})}
+                    {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===2){return <div><h5>{med.name} -  {med.dosePerTake}</h5><small>{med.comments}</small></div>}})}
                 </div>
             
             </>

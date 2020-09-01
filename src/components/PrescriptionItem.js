@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class PrescriptionItem extends Component {
   render() {
     return (
-      <>
+      <article>
 
         <p>Medication: {this.props.medication.name}</p>
         <p>Dose per take: {this.props.medication.dosePerTake}</p>
@@ -14,7 +14,7 @@ export default class PrescriptionItem extends Component {
         <p>Comments: {this.props.medication.comments}</p>
 
         <button className="button" onClick={()=>this.props.onDelete(this.props.id)}>Delete</button>
-      </>
+      </article>
     )
   }
 }

@@ -27,7 +27,8 @@ class App extends React.Component {
     loggedInUser: null,
     usertype: null,
     errorMsg:'',
-    desiredUrl: null
+    desiredUrl: null,
+    passwordStrength: ''
   }
 
 
@@ -125,6 +126,33 @@ class App extends React.Component {
       })    
   }
 
+  handlePass=(e)=>{
+    let strength = 0
+    let lowerCase = new RegExp (/^(?=.*[a-z])/)
+    let upperCase = new RegExp (/(?=.*[A-Z])/)
+    let number = new RegExp (/(?=.*[0-9])/)
+    let especial = new RegExp (/(?=.*[!@#$%^&*])/)  
+    let amount = new RegExp (/(?=.{8,})/)
+    
+    let password= e.currentTarget.value
+    if (lowerCase.test(password)) {strength++}
+    if (upperCase.test(password)) {strength++}
+    if (number.test(password)) {strength++}
+    if (especial.test(password)) {strength++}
+    if (amount.test(password)) {strength++}
+    
+    if (strength===0) this.setState({passwordStrength: ''})
+    if (strength<3 && strength>0) this.setState({passwordStrength: 'Your password is too weak.'})
+    if (strength<5 && strength>=3) this.setState({passwordStrength: 'Almost there, you just need to increase your password strength a little more.'})
+    if (strength>=5) this.setState({passwordStrength: 'Your password is good to go!'})
+
+    if (e.currentTarget.value==='') this.setState({errorMsg: ''})
+}
+
+clearError=(e)=>{
+  if (e.currentTarget.value==='') this.setState({errorMsg: ''})
+}
+
 
 
 
@@ -152,9 +180,9 @@ class App extends React.Component {
           {/* Routes for logged out users */}
           {(!this.state.loggedInUser) ?
             <>
-              <Route path="/login" render={() => <Login errorMsg={this.state.errorMsg} onLogIn={this.handleLogIn}/>}/> 
-              <Route path="/signup" render={() => <Signup errorMsg={this.state.errorMsg} onSignUp={this.handleSignUp}/>}/>
-              <Route path="/doctor/:doctorId" render={routeProps=> <Login errorMsg={this.state.errorMsg} onLogIn={this.handleLogIn}/>}/>
+              <Route path="/login" render={() => <Login errorMsg={this.state.errorMsg} onClear={this.clearError} onLogIn={this.handleLogIn}/>}/> 
+              <Route path="/signup" render={() => <Signup onPass={this.handlePass} passwordStrength={this.state.passwordStrength} onClear={this.clearError} errorMsg={this.state.errorMsg} onSignUp={this.handleSignUp}/>}/>
+              <Route path="/doctor/:doctorId" render={routeProps=> <Login onClear={this.clearError} errorMsg={this.state.errorMsg} onLogIn={this.handleLogIn}/>}/>
             </>
             : null}
           
