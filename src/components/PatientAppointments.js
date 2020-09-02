@@ -81,7 +81,7 @@ export default class PatientAppointments extends Component {
 
                                     {         
                                     moment(appointment.time).isBefore(Date.now()) ? (
-                                        <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Edit/Cancel</button></Link>
+                                        <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Cancel</button></Link>
 
                                             ) : (appointment.report? 
                                             

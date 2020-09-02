@@ -33,7 +33,8 @@ export default class DoctorProfile extends Component {
         this.setState({appointments: res.data, events: res.data.map(appointment=>{
           console.log ('ids:', appointment.patient, this.props.loggedInUser._id)
           let eventColor= appointment.patient._id===this.props.loggedInUser._id? '#3788d8': 'gray'
-          return {title: appointment.reason, start:appointment.time, id:appointment.eventId, editable: false, patient: appointment.patient, color: eventColor}})},
+          let proper = appointment.patient._id===this.props.loggedInUser._id? true : false
+          return {title: appointment.reason, start:appointment.time, id:appointment.eventId, startEditable: proper, patient: appointment.patient, color: eventColor}})},
          ()=>{console.log(this.state)}
          ) 
       })
@@ -131,9 +132,9 @@ export default class DoctorProfile extends Component {
   }
   
   handleEventClick = (clickInfo) => {
-    console.log (clickInfo.event)
+    console.log (clickInfo.event.startStr)
     if ((clickInfo.event.extendedProps.patient._id === this.props.loggedInUser._id || clickInfo.event.extendedProps.patient === this.props.loggedInUser._id)
-      // && moment(clickInfo.startTime)>moment(Date.now())
+      && moment(clickInfo.event.startStr).isAfter(moment(Date.now()))
       ){
       if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`))   {clickInfo.event.remove()}
      
@@ -312,6 +313,10 @@ export default class DoctorProfile extends Component {
                   startTime: this.state.doctor.openingTime, 
                   endTime: this.state.doctor.closingTime, 
                 }}}
+              eventConstraint= {{
+                  start: Date.now(),
+                  end: '2100-01-01' // hard coded goodness unfortunately
+                }}
               weekends={this.state.weekendsVisible}
               events={this.state.events} 
               select={this.handleDateSelect}
