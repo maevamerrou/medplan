@@ -382,10 +382,20 @@ hr {
 }
 
 
+/* FULL CALENDAR */
 
+/* Here you can style the title of the calendar */
+.fc-toolbar-title{
+  font-size: 1em!important;
+}
 
-/* CALENDAR */
+.fc-timegrid-slot{
+  background-color: white!important
+}
+
 
 /* .fc-non-business {
   background-color: red;
 } */
+
+

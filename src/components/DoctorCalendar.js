@@ -5,6 +5,7 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import axios from 'axios'
 import {API_URL} from '../config'
+import momentPlugin from '@fullcalendar/moment'
 
 
 export default class DoctorCalendar extends Component {
@@ -56,6 +57,7 @@ export default class DoctorCalendar extends Component {
               center: 'title',
               right: 'next'
             }}
+            titleFormat = 'Do MMM YYYY'
             initialView='timeGridDay'
             selectMirror={true}
             dayMaxEvents={true}

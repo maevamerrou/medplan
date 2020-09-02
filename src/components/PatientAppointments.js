@@ -19,9 +19,12 @@ export default class PatientAppointments extends Component {
     componentDidMount(){
         axios.get(`${API_URL}/patient/appointments` , {withCredentials: true})
         .then((res) => {
+            let ordered = JSON.parse(JSON.stringify(res.data))
+            ordered.sort((a, b)=> moment(a.time) - moment(b.time)) 
+            console.log (ordered)
             this.setState({
-            appointments: res.data            
-            })
+            appointments: ordered           
+            }, ()=> console.log(this.state.appointments))
         })
     }
     
@@ -58,29 +61,17 @@ export default class PatientAppointments extends Component {
                 {
                     this.state.appointments.map(appointment => {
 
-                        // get the today date in correct format
-                        let today = new Date();
-                        {/* let dd = String(today.getDate()).padStart(2, '0');
-                        let mm = String(today.getMonth() + 1).padStart(2, '0');
-                        let yyyy = today.getFullYear();
-                        let newToday = `${dd}/${mm}/${yyyy}`; */}
-
-
-                        // get the appointment date in correct format
-                        let dateApp = appointment.time
-                        let appYear = dateApp.slice(0, 4)
-                        let appMonth = dateApp.slice(5, 7)
-                        let appDay = dateApp.slice(8, 10)
-                        let appTime= dateApp.slice(11, 16)
-                        let fullAppDate = `${appDay}/${appMonth}/${appYear}`
+                        let dateApp = moment(appointment.time).local().format('Do MMM YYYY')
+                        let timeApp =  moment(appointment.time).local().format('HH:mm')
+                        let timeToApp
+                        (appointment.time > Date.now()) ? timeToApp=moment(appointment.time).local().toNow(): timeToApp=moment(appointment.time).local().fromNow()
 
                         return (
                             <div className="main-content">  
 
                                 <div className="appointment-card">
-
                                     <div>
-                                        <p><strong>On {fullAppDate} at {appTime}, {moment(fullAppDate, "DD/MM/YYYY/").fromNow()}</strong></p>
+                                        <p><strong>On: {dateApp} at {timeApp}, {timeToApp}</strong></p>
 
                                         <p>With <strong>Dr. {appointment.doctor.username}</strong></p>
                                         <p><strong>Specialized in: </strong>{appointment.doctor.speciality}</p>
@@ -89,8 +80,8 @@ export default class PatientAppointments extends Component {
                                     </div>
 
                                     {         
-                                        moment(fullAppDate, appTime).isBefore(today) ? (
-                                            <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Edit/Cancel</button></Link>
+                                    moment(appointment.time).isBefore(Date.now()) ? (
+                                        <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Edit/Cancel</button></Link>
 
                                             ) : (appointment.report? 
                                             
@@ -99,9 +90,7 @@ export default class PatientAppointments extends Component {
 
                                                 )
                                     } 
-
-                                </div>                            
-
+                                </div>
                             </div>
                         )                      
                     })

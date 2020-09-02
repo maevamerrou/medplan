@@ -48,7 +48,7 @@ export default class AppointmentDetails extends Component {
   let dateApp = moment(time).local().format('Do MMM YYYY')
   let timeApp =  moment(time).local().format('HH:mm')
   let timeToApp
-  moment(time)<moment(Date.now())? timeToApp=moment(time).local().toNow(): timeToApp=moment(time).local().fromNow()
+  (time > Date.now())? timeToApp=moment(time).local().toNow(): timeToApp=moment(time).local().fromNow()
 
     return (
       <>
@@ -74,12 +74,13 @@ export default class AppointmentDetails extends Component {
 
             <div className="btn-app-details">
               <Link to={`/create-prescription/${this.props.match.params.appointmentId}`}><button className="button">Create Prescription</button></Link>
-              <button className="button" onClick={()=>this.cancelAppointment(this.props.match.params.appointmentId)}>Cancel appointment</button>
+              {moment(this.state.appointment.time)>moment(Date.now())?
+              <button className="button" onClick={()=>this.cancelAppointment(this.props.match.params.appointmentId)}>Cancel appointment</button>: <button disabled className="button disabled" onClick={()=>this.cancelAppointment(this.props.match.params.appointmentId)}>Cancel appointment</button>}
             </div>
           </div>
 
           <div className="report-upload">
-            <button className="button" onClick={()=>this.toggleLoader(document.getElementById('report-group'))}>Upload Report</button>
+            <button className="button" onClick={()=>this.toggleLoader(document.getElementById('report-group'))}>{this.state.appointment.report? 'Replace Report':'Upload Report'}</button>
 
             <div className='hidden-button' id='report-group'>
               <input type='file' name='report' className="form-control"/>
