@@ -40,7 +40,7 @@ export default class AppointmentDetails extends Component {
   render() {
 
     if (!this.state.appointment){
-      return <p>Loading ....</p>
+      return <img src="../images/loader.gif" alt="loader"/>
   }
   const{username, phoneNumber, email, allergies, history} = this.state.appointment.patient
   const {time, reason} = this.state.appointment
@@ -63,7 +63,6 @@ export default class AppointmentDetails extends Component {
           </div>
 
           <div className="bottom-card-app-details">
-          
             <div>
               <h3>Patient information</h3>
               <p>Name: {username}</p>

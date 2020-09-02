@@ -46,38 +46,39 @@ export default class DoctorCalendar extends Component {
 
     render() {
         return (
-            <div>
-                <h1>Calendar</h1>
+          <>
+            <h1>Calendar</h1>
 
-                <FullCalendar
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              headerToolbar={{
-                left: 'prev',
-                center: 'title',
-                right: 'next'
-              }}
-              initialView='timeGridDay'
-              selectMirror={true}
-              dayMaxEvents={true}
-              allDaySlot= {false}
-              eventDurationEditable={false}
-              slotMinTime= '08:00'
-              slotMaxTime= '20:00'
-              businessHours = {{businessHours: {
-                  // days of week. an array of zero-based day of week integers (0=Sunday)
-                  daysOfWeek: [ 1, 2, 3, 4, 5 ], // Monday - Thursday
+            <FullCalendar
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            headerToolbar={{
+              left: 'prev',
+              center: 'title',
+              right: 'next'
+            }}
+            initialView='timeGridDay'
+            selectMirror={true}
+            dayMaxEvents={true}
+            allDaySlot= {false}
+            eventDurationEditable={false}
+            slotMinTime= '08:00'
+            slotMaxTime= '20:00'
+            businessHours = {{businessHours: {
+                // days of week. an array of zero-based day of week integers (0=Sunday)
+                daysOfWeek: [ 1, 2, 3, 4, 5 ], // Monday - Thursday
 
-                  startTime: this.state.doctor.openingTime, // a start time (10am in this example)
-                  endTime: this.state.doctor.closingTime, // an end time (6pm in this example)
-                }}}
-              weekends={this.state.weekendsVisible}
-              events={this.state.events} // alternatively, use the `events` setting to fetch from a feed
-              eventContent={renderEventContent} // custom render function
-              eventClick={this.handleEventClick}
-              eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
-              defaultTimedEventDuration= '00:30'
+                startTime: this.state.doctor.openingTime, // a start time (10am in this example)
+                endTime: this.state.doctor.closingTime, // an end time (6pm in this example)
+              }}}
+            weekends={this.state.weekendsVisible}
+            events={this.state.events} // alternatively, use the `events` setting to fetch from a feed
+            eventContent={renderEventContent} // custom render function
+            eventClick={this.handleEventClick}
+            eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
+            defaultTimedEventDuration= '00:30'
             />
-            </div>
+            
+          </>
         )
     }
 }

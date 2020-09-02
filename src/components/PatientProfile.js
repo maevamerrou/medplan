@@ -76,7 +76,7 @@ export default class PatientProfile extends Component {
     }
 
     if (!this.state.patient){
-      return <p>Loading ....</p>
+      return <img src="../images/loader.gif" alt="loader"/>
     }
 
 
@@ -84,7 +84,7 @@ export default class PatientProfile extends Component {
 
     return (
       <>
-        <h1>Patient Profile</h1>
+        <h1>Profile</h1>
 
 
         <div className="main-content profile-page-content">

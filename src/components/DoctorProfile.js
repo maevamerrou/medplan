@@ -162,7 +162,7 @@ export default class DoctorProfile extends Component {
     
 
     if (!this.state.doctor){
-      return <p>Loading ....</p>
+      return <img src="../images/loader.gif" alt="loader"/>
     }
     
     const {username, speciality, city, address, email, phone, openingTime, closingTime, picture} = this.state.doctor

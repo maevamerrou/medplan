@@ -45,7 +45,7 @@ export default class PatientMedPlanner extends Component {
     render() {
 
         if (!this.state.currentmeds){
-            return <p>Loading ....</p>
+            return <img src="../images/loader.gif" alt="loader"/>
           }
 
         return (
@@ -60,16 +60,16 @@ export default class PatientMedPlanner extends Component {
 
                 <div className="main-content patient-cal-day-times">
 
-                    <h4>Morning</h4>
-                    {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===2){return <div><h5>{med.name} -  {med.dosePerTake}</h5><small>{med.comments}</small></div>}})}
-                    <hr></hr>
-
-                    <h4>Noon</h4>
-                    {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===1){return <div><h5>{med.name} -  {med.dosePerTake}</h5><small>{med.comments}</small></div>}})}
+                    <h4 className="time-planner">Morning</h4>
+                    {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===2){return <div><p>{med.name} -  {med.dosePerTake} - Note: {med.comments}</p></div>}})}
                     <hr/>
 
-                    <h4>Night</h4>
-                    {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===2){return <div><h5>{med.name} -  {med.dosePerTake}</h5><small>{med.comments}</small></div>}})}
+                    <h4 className="time-planner">Noon</h4>
+                    {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===1){return <div><p>{med.name} -  {med.dosePerTake} - Note: {med.comments}</p></div>}})}
+                    <hr/>
+
+                    <h4 className="time-planner">Night</h4>
+                    {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===2){return <div><p>{med.name} -  {med.dosePerTake} - Note: {med.comments}</p></div>}})}
                 </div>
             
             </>

@@ -6,6 +6,7 @@ export default class PrescriptionForm extends Component {
       <>
 
         <form className='prescription-form' onSubmit={this.props.onCommit}>
+        
           <small>Please fill in all the fields</small>
 
           <div className="presription-inputs">

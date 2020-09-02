@@ -218,7 +218,7 @@ class App extends React.Component {
         </Switch>
 
         <footer>
-          <p>Take care of your health!</p>
+          <h4><strong>Take care of your health!</strong></h4>
         </footer>
       
       </div>

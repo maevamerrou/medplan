@@ -20,7 +20,7 @@ export default class Login extends Component {
 
 
                     <div className="user-type-choice">
-                        <label for="usertype">I am a </label>
+                        <label className="label-user" for="usertype">I am a </label>
                         <select className="button" name="usertype">
                             <option className="user-type-choice" value="patient">Patient</option>
                             <option className="user-type-choice" value="doctor">Doctor</option>

@@ -2,7 +2,7 @@
 
 
 body {
-  background-color: #faf5e3; 
+  background-color: #b5f1fc; 
 
 }
 
@@ -19,14 +19,20 @@ body {
   align-items: center;
   align-self: center;
   font-size: 14px;
-  line-height: 15px;
+  line-height: 20px;
 }
 
 
 h1 {
-  font-size: 20px;
+  text-align: center;
+  font-size: 22px;
   margin-top: 20px;
   margin-bottom: 0px;
+}
+
+h4 {
+  text-align: center;
+  font-size: 15px;
 }
 
 
@@ -58,7 +64,7 @@ p {
 
 .button {
   background-color: #51B8F9;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: bold;
   color: white;
   border-radius: 5px;
@@ -84,6 +90,8 @@ p {
 .disabled:hover {
   background-color: rgb(165, 165, 165);
   border-color: #5c5e69;
+  box-shadow: none;
+
 }
 
 
@@ -106,6 +114,11 @@ p {
 
 .login-label {
   margin: 8px;
+  font-weight: bold;
+}
+
+.label-user {
+  font-size: 13px;
 }
 
 .home-doctor-card {
@@ -132,14 +145,18 @@ p {
 .index-info-card {
   display: flex;
   justify-content: space-between ;
+  width: 100%;
+  max-width: 550px;
+  justify-self: center;
 }
 
 .index-info-card img {
-  width: 120px;
+  width: 125px;
 }
 
 .index-img-card {
   max-width: 200px;
+  width: 30%;
   font-size: 12px;
   text-align: center;
   display: flex;
@@ -162,11 +179,10 @@ p {
 
 .appointment-card {
   padding: 5px;
-  margin: 5px;
   border-radius: 10px;
   border: 2px solid #51B8F9;
+  background-color: white;
   box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.212);
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -177,7 +193,6 @@ p {
   min-height: 80px;  
   object-fit: cover;
   border-radius: 50%;
-
 }
 
 .edit-profile {
@@ -189,13 +204,18 @@ p {
 .img-edit-btn-profile {
   width: 18px;
   margin: 0px;
-
 }
 
 
 .home-search-bar {
-  margin: 20px 0px;
+  margin: 40px 0px 0px 0px;
 }
+
+
+.input-search {
+  height: 20px;
+}
+
 
 .profile-field {
   display: flex;
@@ -207,11 +227,18 @@ p {
 .patient-cal-date-field {
   display: flex;
   align-items: center;
-
+  
 }
 
 hr {
   width: 100%;
+  height: 1px;
+  background-color: #51B8F9;
+  border-color: transparent;
+}
+
+.time-planner {
+  margin-top: 0px;
 }
 
 .patient-cal-day-times {
@@ -223,6 +250,7 @@ hr {
   flex-direction: column;
   justify-content: space-evenly;
   border: 2px solid #51B8F9;
+  background-color: white;
   box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.212);
 
 }
@@ -234,6 +262,7 @@ hr {
 .prescription-form{
   border: 2px solid #51B8F9;
   box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.212);
+  background-color: white;
   width: 100%;
   padding: 0px 10px; 
   border-radius: 10px;
@@ -281,6 +310,7 @@ hr {
 
 .appointment-details-card {
   border: 2px solid #51B8F9;
+  background-color: white;
   box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.212);
   border-radius: 20px;
 }
@@ -303,9 +333,12 @@ hr {
 }
 
 .report-upload {
+  /* border: 2px solid red; */
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-self: center;
+  padding: 5px;
 }
 
 
@@ -348,3 +381,11 @@ hr {
   width: 100%;
 }
 
+
+
+
+/* CALENDAR */
+
+/* .fc-non-business {
+  background-color: red;
+} */

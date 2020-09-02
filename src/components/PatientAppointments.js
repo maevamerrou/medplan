@@ -47,13 +47,13 @@ export default class PatientAppointments extends Component {
 
 
         if (!this.state.appointments){
-            return <p>loading...</p>
+            return <img src="../images/loader.gif" alt="loader"/>
         }
 
         return (
             <>
 
-                <h2>Appointments of {this.state.loggedInUser.username}</h2>
+                <h1>Appointments</h1>
 
                 {
                     this.state.appointments.map(appointment => {
@@ -75,28 +75,32 @@ export default class PatientAppointments extends Component {
                         let fullAppDate = `${appDay}/${appMonth}/${appYear}`
 
                         return (
-                            <div className="main-content appointment-card">  
+                            <div className="main-content">  
 
-                            <div>
-                                <p><strong>On {fullAppDate} at {appTime}, {moment(fullAppDate, "DD/MM/YYYY/").fromNow()}</strong></p>
+                                <div className="appointment-card">
 
-                                <p>With <strong>Dr. {appointment.doctor.username}</strong></p>
-                                <p><strong>Specialized in: </strong>{appointment.doctor.speciality}</p>
-                                <p><strong>Purpose: </strong>{appointment.reason}</p>
-                                <p><strong>Located at: </strong>{appointment.doctor.address}</p>
-                            </div>
+                                    <div>
+                                        <p><strong>On {fullAppDate} at {appTime}, {moment(fullAppDate, "DD/MM/YYYY/").fromNow()}</strong></p>
 
-                                {         
-                                    moment(fullAppDate, appTime).isBefore(today) ? (
-                                        <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Edit/Cancel</button></Link>
+                                        <p>With <strong>Dr. {appointment.doctor.username}</strong></p>
+                                        <p><strong>Specialized in: </strong>{appointment.doctor.speciality}</p>
+                                        <p><strong>Purpose: </strong>{appointment.reason}</p>
+                                        <p><strong>Located at: </strong>{appointment.doctor.address}</p>
+                                    </div>
 
-                                        ) : (appointment.report? 
-                                        
-                                            <button className="button" onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>:
-                                            <button className="button disabled" disabled>No Report</button>
+                                    {         
+                                        moment(fullAppDate, appTime).isBefore(today) ? (
+                                            <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Edit/Cancel</button></Link>
 
-                                            )
-                                } 
+                                            ) : (appointment.report? 
+                                            
+                                                <button className="button" onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>:
+                                                <button className="button disabled" disabled>No Report</button>
+
+                                                )
+                                    } 
+
+                                </div>                            
 
                             </div>
                         )                      

@@ -81,24 +81,24 @@ export default class HomePage extends Component {
 
                     <div className="index-img-card">
                         <img src="/images/doctors.png" alt="img"/> 
-                        <p>Access to thousands of doctors contacts.</p>
+                        <p>Thousands of doctors available on the platform.</p>
                     </div>
 
                     <div className="index-img-card">
                         <img src="/images/online-booking.png" alt="img"/>
-                        <p>Book online without struggle and 24/7!</p>
+                        <p>Easy online booking without struggle and 24/7!</p>
                     </div>
 
                     <div className="index-img-card">
                         <img src="/images/prescription.png" alt="img"/>
-                        <p>Access your prescriptions in your planner and follow up easily.</p>
+                        <p>Direct access to your prescriptions.</p>
                     </div> 
                     
                 </div>  
 
                 <div className="home-search-bar">
-                    <input onChange={this.handleChange} name="speciality" type="text" placeholder="Search by speciality"></input>
-                    <input onChange={this.handleChange} name="city" type="text" placeholder="Search by city"></input>
+                    <input className="input-search" onChange={this.handleChange} name="speciality" type="text" placeholder="Search by speciality"></input>
+                    <input className="input-search" onChange={this.handleChange} name="city" type="text" placeholder="Search by city"></input>
                 </div>
 
              
