@@ -347,4 +347,11 @@ hr {
   border-color: transparent;
   width: 100%;
 }
+/* Here you can style the title of the calendar */
+.fc-toolbar-title{
+  font-size: 1em!important;
+}
 
+.fc-timegrid-slot{
+  background-color: white!important
+}

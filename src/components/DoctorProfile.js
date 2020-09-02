@@ -93,6 +93,8 @@ export default class DoctorProfile extends Component {
     let uploadData = new FormData()
     uploadData.append('imageUrl', image)
     let uppicture
+    e.getElementsByTagName('INPUT')[0].classList.toggle('hidden-button')
+    e.getElementsByTagName('BUTTON')[1].classList.toggle('hidden-button')
     axios.post(`${API_URL}/upload`, uploadData)
     .then((res)=> {uppicture= res.data.image; axios.patch(`${API_URL}/doctor/${this.props.match.params.doctorId}`, {picture: res.data.image}, {withCredentials:true})})
     .then((res)=>{console.log (res);this.setState({doctor:{...this.state.doctor, picture: uppicture}})})
@@ -130,7 +132,9 @@ export default class DoctorProfile extends Component {
   
   handleEventClick = (clickInfo) => {
     console.log (clickInfo.event)
-    if (clickInfo.event.extendedProps.patient._id === this.props.loggedInUser._id || clickInfo.event.extendedProps.patient === this.props.loggedInUser._id){
+    if ((clickInfo.event.extendedProps.patient._id === this.props.loggedInUser._id || clickInfo.event.extendedProps.patient === this.props.loggedInUser._id)
+      // && moment(clickInfo.startTime)>moment(Date.now())
+      ){
       if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`))   {clickInfo.event.remove()}
      
   }}
@@ -181,7 +185,7 @@ export default class DoctorProfile extends Component {
               {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
                 <>
                   <button className="edit-profile" onClick={()=>this.handleImgEnable(document.getElementById('image-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
-                  <input  type="file" className="form-control hidden-button" name="image" id="image" />
+                  <input  autocomplete="off" type="file" className="form-control hidden-button" name="image" id="image" />
                 <button type='submit' className='hidden-button edit-profile' onClick={()=>this.handleImgEdit(document.getElementById('image-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
                 </>
               :null}
@@ -189,7 +193,7 @@ export default class DoctorProfile extends Component {
 
           <div className="profile-field" id='name-profile'>
             <label className="profile-label"><strong>Name</strong></label>
-            <input className='readonly-field' readOnly={true} name="username" type="text" value={username}  onChange={this.handleChange}></input>
+            <input autocomplete="off" className='readonly-field' readOnly={true} name="username" type="text" value={username}  onChange={this.handleChange}></input>
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
               <>
                 <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('name-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
@@ -201,7 +205,7 @@ export default class DoctorProfile extends Component {
 
           <div className="profile-field" id='speciality-profile'>
             <label className="profile-label"><strong>Speciality</strong></label>
-            <input className='readonly-field' readOnly={true} name="speciality" type="text" value={speciality}  onChange={this.handleChange}></input>
+            <input autocomplete="off" className='readonly-field' readOnly={true} name="speciality" type="text" value={speciality}  onChange={this.handleChange}></input>
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
               <>
                 <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('speciality-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
@@ -213,7 +217,7 @@ export default class DoctorProfile extends Component {
 
           <div className="profile-field" id='city-profile'>
             <label className="profile-label"><strong>City</strong></label>
-            <input className='readonly-field' readOnly={true} name="city" type="text" value={city} onChange={this.handleChange}></input>
+            <input autocomplete="off" className='readonly-field' readOnly={true} name="city" type="text" value={city} onChange={this.handleChange}></input>
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
               <>
                 <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('city-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
@@ -225,7 +229,7 @@ export default class DoctorProfile extends Component {
 
           <div className="profile-field" id='address-profile'>
             <label className="profile-label"><strong>Address</strong></label>
-            <input className='readonly-field' readOnly={true} name="address" type="text" value={address} onChange={this.handleChange}></input>
+            <input autocomplete="off" className='readonly-field' readOnly={true} name="address" type="text" value={address} onChange={this.handleChange}></input>
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
               <>
                 <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('address-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
@@ -237,7 +241,7 @@ export default class DoctorProfile extends Component {
 
           <div className="profile-field" id='email-profile'>
             <label className="profile-label"><strong>E-Mail</strong></label>
-            <input className='readonly-field' readOnly={true} name="email"  type="email" value={email} onChange={this.handleChange}></input>
+            <input autocomplete="off" className='readonly-field' readOnly={true} name="email"  type="email" value={email} onChange={this.handleChange}></input>
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
               <>
                 <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('email-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
@@ -249,7 +253,7 @@ export default class DoctorProfile extends Component {
 
           <div className="profile-field" id='phone-profile'>
             <label className="profile-label"><strong>Telephone</strong></label>
-            <input className='readonly-field' readOnly={true} name="phone" type="text" value={phone} onChange={this.handleChange}></input>
+            <input autocomplete="off" className='readonly-field' readOnly={true} name="phone" type="text" value={phone} onChange={this.handleChange}></input>
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
               <>
                 <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('phone-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
@@ -261,7 +265,7 @@ export default class DoctorProfile extends Component {
           
           <div className="profile-field" id='opening-profile'>
             <label className="profile-label"><strong>Opening time</strong></label>
-            <input className='readonly-field' readOnly={true} name="openingTime" type="text" value={openingTime} onChange={this.handleChange}></input>
+            <input autocomplete="off" className='readonly-field' readOnly={true} name="openingTime" type="text" value={openingTime} onChange={this.handleChange}></input>
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
               <>
                 <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('opening-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
@@ -273,7 +277,7 @@ export default class DoctorProfile extends Component {
           
           <div className="profile-field" id='closing-profile'>
             <label className="profile-label"><strong>Closing time</strong></label>
-            <input className='readonly-field' readOnly={true} name="closingTime" type="text" value={closingTime} onChange={this.handleChange}></input>
+            <input autocomplete="off" className='readonly-field' readOnly={true} name="closingTime" type="text" value={closingTime} onChange={this.handleChange}></input>
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
               <>
                 <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('closing-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
