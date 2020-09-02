@@ -6,7 +6,6 @@ export default class PrescriptionItem extends Component {
       <>
 
         <div className="added-med">
-
           <p><strong>Medication: </strong>{this.props.medication.name}</p>
           <p><strong>Dose per take: </strong>{this.props.medication.dosePerTake}</p>
           <p><strong>Takes per day: </strong>{this.props.medication.takesPerDay}</p>
@@ -16,7 +15,6 @@ export default class PrescriptionItem extends Component {
           <p><strong>Comments: </strong>{this.props.medication.comments}</p>
 
           <button className="button" onClick={()=>this.props.onDelete(this.props.id)}>Delete</button> 
-
         </div>
         
       </>

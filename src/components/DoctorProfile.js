@@ -260,7 +260,7 @@ export default class DoctorProfile extends Component {
           
           <div className="profile-field" id='opening-profile'>
             <label className="profile-label"><strong>Opening time</strong></label>
-            <input className='readonly-field' readOnly={true} name="city" type="text" value={openingTime} onChange={this.handleChange}></input>
+            <input className='readonly-field' readOnly={true} name="openingTime" type="text" value={openingTime} onChange={this.handleChange}></input>
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
               <>
                 <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('opening-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
@@ -272,7 +272,7 @@ export default class DoctorProfile extends Component {
           
           <div className="profile-field" id='closing-profile'>
             <label className="profile-label"><strong>Closing time</strong></label>
-            <input className='readonly-field' readOnly={true} name="city" type="text" value={closingTime} onChange={this.handleChange}></input>
+            <input className='readonly-field' readOnly={true} name="closingTime" type="text" value={closingTime} onChange={this.handleChange}></input>
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
               <>
                 <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('closing-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
@@ -289,11 +289,12 @@ export default class DoctorProfile extends Component {
           <FullCalendar
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
               headerToolbar={{
-                left: 'prev,next today',
+                left: 'prev,next',
                 center: 'title',
-                right: 'timeGridWeek'
+                right: ''
               }}
               initialView='timeGridWeek'
+              
               selectable={true}
               selectMirror={false}
               dayMaxEvents={true}

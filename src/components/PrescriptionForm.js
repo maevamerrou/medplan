@@ -20,18 +20,18 @@ export default class PrescriptionForm extends Component {
 
           <div className="presription-inputs">
             <label>Takes per day </label>
-            <input name='takesPerDay' id='takesPerDay' type='number'/>
+            <input name='takesPerDay' id='takesPerDay' type='number' min='0'/>
           </div>
 
           <div className="presription-inputs">
             <label>Days per take </label>
-            <input name='daysPerTake' id='daysPerTake' type='number'/>
+            <input name='daysPerTake' id='daysPerTake' type='number' min='0'/>
             <small>If the patient needs to take the medication every day, write 1. If once every two days, write 2 and so on.</small>
 
           </div>
           <div className="presription-inputs">
             <label>Start date </label>
-            <input name='startDate' id='startDate' type='date' placeholder='When should the patient start the treatment?'/>
+            <input name='startDate' id='startDate' min={Date.now().toLocaleString()} type='date' placeholder='When should the patient start the treatment?'/>
           </div>
 
           <div className="presription-inputs">

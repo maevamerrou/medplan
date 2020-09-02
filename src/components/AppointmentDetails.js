@@ -28,11 +28,11 @@ export default class AppointmentDetails extends Component {
   }
 
   loadReport=(e)=>{
-    let report = e.getElementsByTagName('INPUT')[0].files[0]
+    let image = e.getElementsByTagName('INPUT')[0].files[0]
     let uploadData = new FormData()
-    uploadData.append('imageUrl', report)
+    uploadData.append('imageUrl', image)
     axios.post(`${API_URL}/upload`, uploadData)
-      .then((res)=> {axios.patch(`${API_URL}/doctor/appointment/report/${this.props.match.params.appointmentId}`, {report: res.data.report}, {withCredentials:true})})
+      .then((res)=> {console.log(res.data);axios.patch(`${API_URL}/append-report/${this.props.match.params.appointmentId}`, {report: res.data.image}, {withCredentials:true})})
       .then(()=>this.toggleLoader(e))
   }
 
@@ -44,12 +44,11 @@ export default class AppointmentDetails extends Component {
   }
   const{username, phoneNumber, email, allergies, history} = this.state.appointment.patient
   const {time, reason} = this.state.appointment
-  let dateApp = time
-  let appYear = dateApp.slice(0, 4)
-  let appMonth = dateApp.slice(5, 7)
-  let appDay = dateApp.slice(8, 10)
-  let appTime= dateApp.slice(11, 16)
-  let fullAppDate = `${appDay}/${appMonth}/${appYear}`
+
+  let dateApp = moment(time).local().format('Do MMM YYYY')
+  let timeApp =  moment(time).local().format('HH:mm')
+  let timeToApp
+  moment(time)<moment(Date.now())? timeToApp=moment(time).local().toNow(): timeToApp=moment(time).local().fromNow()
 
     return (
       <>
@@ -59,7 +58,7 @@ export default class AppointmentDetails extends Component {
         <div className="main-content appointment-details-card">
           
           <div className="top-card-app-details">
-            <p>On: {fullAppDate} at {appTime}, {moment(fullAppDate, "DD/MM/YYYY/").fromNow()}</p>
+            <p>On: {dateApp} at {timeApp}, {timeToApp}</p>
             <p>Reason: {reason}</p>
           </div>
 
@@ -87,6 +86,9 @@ export default class AppointmentDetails extends Component {
               <input type='file' name='report' className="form-control"/>
               <button className="button" onClick={()=>this.loadReport(document.getElementById('report-group'))}>Submit</button>
             </div>
+
+            {(this.state.appointment.prescription)? <p>There is already a prescription associated to this appointment.</p>:null}
+
           </div>
                       
       </div>

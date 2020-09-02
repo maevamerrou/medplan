@@ -253,6 +253,11 @@ hr {
   width: 60%;
 }
 
+.event-content{
+  display:flex;
+  justify-content: space-around;
+}
+
 
 .profile-page-content {
   background-color: white;

@@ -27,7 +27,8 @@ class App extends React.Component {
     loggedInUser: null,
     usertype: null,
     errorMsg:'',
-    desiredUrl: null
+    desiredUrl: null,
+    passwordStrength: ''
   }
 
 
@@ -62,7 +63,6 @@ class App extends React.Component {
       // history: history.value
       // to check if withCredentials is needed and state change
     })
-    // ,  {withCredentials: true}
       .then((res) => {
         this.props.history.push('/login')
       })
@@ -77,7 +77,6 @@ class App extends React.Component {
   handleLogIn = (e) => {
     e.preventDefault(); 
     const {email, password, usertype} = e.currentTarget;
-    console.log(email.value, password.value, usertype.value)
     axios.post(`${API_URL}/auth/login`, {
       email: email.value, 
       password: password.value,
@@ -90,14 +89,12 @@ class App extends React.Component {
           errorMsg: null
         }, () => {       
           if (this.state.usertype === "patient"){
-            console.log("usertype is patient")
             if (window.location.pathname.includes('doctor')){
               this.props.history.push(window.location.pathname)
             } 
             else if (!window.location.pathname.includes('doctor')) (this.props.history.push('/profile'))
           } 
           else if (this.state.usertype === "doctor"){
-            console.log("usertype is doctor")
             this.props.history.push(`/doctor/${this.state.loggedInUser._id}`)
           }
         })
@@ -125,23 +122,44 @@ class App extends React.Component {
       })    
   }
 
+  handlePass=(e)=>{
+    let strength = 0
+    let lowerCase = new RegExp (/^(?=.*[a-z])/)
+    let upperCase = new RegExp (/(?=.*[A-Z])/)
+    let number = new RegExp (/(?=.*[0-9])/)
+    let especial = new RegExp (/(?=.*[!@#$%^&*])/)  
+    let amount = new RegExp (/(?=.{8,})/)
+    
+    let password= e.currentTarget.value
+    if (lowerCase.test(password)) {strength++}
+    if (upperCase.test(password)) {strength++}
+    if (number.test(password)) {strength++}
+    if (especial.test(password)) {strength++}
+    if (amount.test(password)) {strength++}
+    
+    if (strength===0) this.setState({passwordStrength: ''})
+    if (strength<3 && strength>0) this.setState({passwordStrength: 'Your password is too weak.'})
+    if (strength<5 && strength>=3) this.setState({passwordStrength: 'Almost there, you just need to increase your password strength a little more.'})
+    if (strength>=5) this.setState({passwordStrength: 'Your password is good to go!'})
 
+    if (e.currentTarget.value==='') this.setState({errorMsg: ''})
+  }
+
+  clearError=(e)=>{
+    if (e.currentTarget.value==='') this.setState({errorMsg: ''})
+  }
 
 
 
   render() {
     return (
 
-
-
       <div className="body">
 
         <NavBar />
                 
         {/* add condition to render only if logged in */}
-        <SideBar loggedInUser= {this.state.loggedInUser} usertype= {this.state.usertype} onLogout={this.handleLogOut}/>
-
-        
+        <SideBar loggedInUser= {this.state.loggedInUser} usertype= {this.state.usertype} onLogout={this.handleLogOut}/>     
 
         <Switch>
 
@@ -152,9 +170,9 @@ class App extends React.Component {
           {/* Routes for logged out users */}
           {(!this.state.loggedInUser) ?
             <>
-              <Route path="/login" render={() => <Login errorMsg={this.state.errorMsg} onLogIn={this.handleLogIn}/>}/> 
-              <Route path="/signup" render={() => <Signup errorMsg={this.state.errorMsg} onSignUp={this.handleSignUp}/>}/>
-              <Route path="/doctor/:doctorId" render={routeProps=> <Login errorMsg={this.state.errorMsg} onLogIn={this.handleLogIn}/>}/>
+              <Route path="/login" render={() => <Login errorMsg={this.state.errorMsg} onClear={this.clearError} onLogIn={this.handleLogIn}/>}/> 
+              <Route path="/signup" render={() => <Signup onPass={this.handlePass} passwordStrength={this.state.passwordStrength} onClear={this.clearError} errorMsg={this.state.errorMsg} onSignUp={this.handleSignUp}/>}/>
+              <Route path="/doctor/:doctorId" render={routeProps=> <Login onClear={this.clearError} errorMsg={this.state.errorMsg} onLogIn={this.handleLogIn}/>}/>
             </>
             : null}
           
@@ -202,9 +220,8 @@ class App extends React.Component {
         <footer>
           <p>Take care of your health!</p>
         </footer>
-
-
-    </div>
+      
+      </div>
     )
   }
 }

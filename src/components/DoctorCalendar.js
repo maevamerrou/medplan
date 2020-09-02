@@ -52,9 +52,9 @@ export default class DoctorCalendar extends Component {
                 <FullCalendar
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
               headerToolbar={{
-                left: 'prev,next today',
+                left: 'prev',
                 center: 'title',
-                right: 'timeGridDay'
+                right: 'next'
               }}
               initialView='timeGridDay'
               selectMirror={true}
@@ -75,6 +75,7 @@ export default class DoctorCalendar extends Component {
               eventContent={renderEventContent} // custom render function
               eventClick={this.handleEventClick}
               eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
+              defaultTimedEventDuration= '00:30'
             />
             </div>
         )
@@ -84,10 +85,10 @@ export default class DoctorCalendar extends Component {
 function renderEventContent(eventInfo) {
     console.log (eventInfo.event)
     return (
-      <>
+      <div className='event-content'>
         <b>{eventInfo.timeText}</b>
         <i>{eventInfo.event.extendedProps.patient.username}</i>
         <i>{eventInfo.event.title}</i>
-      </>
+        </div>
     )
   }

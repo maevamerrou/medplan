@@ -35,14 +35,16 @@ export default class HomePage extends Component {
         let docSearch = e.currentTarget.name
         let docSearchValue = e.currentTarget.value
         
+
+
         if (docSearch === "city"){
             this.setState({
-                cityQuery: docSearchValue
-            }, this.handleSearch())
+                cityQuery:  docSearchValue
+            }, ()=>this.handleSearch())
         } else {
             this.setState({
                 specialityQuery: docSearchValue
-            }, this.handleSearch())
+            }, ()=>this.handleSearch())
         }
     }
       
@@ -57,7 +59,7 @@ export default class HomePage extends Component {
             if (!doctor.speciality || !doctor.city){
                 return false
             } 
-            console.log("inside the map",doctor.speciality)
+            console.log("inside the map", doctor.speciality)
             return doctor.speciality.toLowerCase().includes(this.state.specialityQuery.toLowerCase()) 
             &&  doctor.city.toLowerCase().includes(this.state.cityQuery.toLowerCase()) 
 
@@ -100,7 +102,7 @@ export default class HomePage extends Component {
                 </div>
 
              
-                <MapContainer />
+                {/* <MapContainer /> */}
 
                 <HomeSeachResult doctorList={this.state.filteredDoctors} />
 

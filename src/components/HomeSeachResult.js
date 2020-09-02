@@ -10,8 +10,6 @@ export default class HomeSeachResult extends Component {
 
             <div className="main-content">
 
-
-
                 {
                     this.props.doctorList.map((doctor) => {
                         return  (
