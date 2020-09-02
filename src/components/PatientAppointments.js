@@ -67,18 +67,16 @@ export default class PatientAppointments extends Component {
 
 
                         // get the appointment date in correct format
-                        let dateApp = appointment.time
-                        let appYear = dateApp.slice(0, 4)
-                        let appMonth = dateApp.slice(5, 7)
-                        let appDay = dateApp.slice(8, 10)
-                        let appTime= dateApp.slice(11, 16)
-                        let fullAppDate = `${appDay}/${appMonth}/${appYear}`
+                        let dateApp = moment(appointment.time).local().format('Do MMM YYYY')
+                        let timeApp =  moment(appointment.time).local().format('HH:mm')
+                        let timeToApp
+                        moment(appointment.time)<moment(Date.now())? timeToApp=moment(appointment.time).local().toNow(): timeToApp=moment(appointment.time).local().fromNow()
 
                         return (
                             <div className="appointment-card">  
 
                             <div>
-                                <p>On: {fullAppDate} at {appTime}, {moment(fullAppDate, "DD/MM/YYYY/").fromNow()}</p>
+                                <p>On: {dateApp} at {timeToApp}, {timeToApp}</p>
 
                                 <p>Purpose: {appointment.reason}</p>
                                 <p>With Dr. {appointment.doctor.username}</p>
@@ -87,7 +85,7 @@ export default class PatientAppointments extends Component {
                             </div>
 
                                 {         
-                                    moment(fullAppDate, appTime).isBefore(today) ? (
+                                    moment(dateApp, timeApp).isBefore(today) ? (
                                         <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Edit/Cancel</button></Link>
 
                                         ) : (appointment.report? 

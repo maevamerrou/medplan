@@ -7,6 +7,7 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { createEventId } from './event-utils'
 import moment from 'moment'
+import momentPlugin from '@fullcalendar/moment'
 
 export default class DoctorProfile extends Component {
 
@@ -287,14 +288,14 @@ export default class DoctorProfile extends Component {
           {/*Calendar  */}
           {(this.props.usertype==='patient') ? 
            <FullCalendar
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, momentPlugin]}
               headerToolbar={{
                 left: 'prev,next',
                 center: 'title',
                 right: ''
               }}
               initialView='timeGridWeek'
-              
+              titleFormat = 'Do MMM YYYY'
               selectable={true}
               selectMirror={false}
               dayMaxEvents={true}
