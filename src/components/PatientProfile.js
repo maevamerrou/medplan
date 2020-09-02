@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Login from "./Login"
-
+import moment from 'moment'
 import axios from 'axios'
 import {API_URL} from '../config'
 
@@ -81,16 +81,17 @@ export default class PatientProfile extends Component {
 
 
     const {username, birthDate, height, weight, allergies, history, phoneNumber, address, email} = this.state.patient
+    console.log (birthDate)
 
     return (
       <>
         <h1>Patient Profile</h1>
 
 
-        <div className="profile-page-content">
+        <div className="main-content profile-page-content">
 
           <div className="profile-field" id='name-profile'>
-            <label>Full Name</label>
+            <label className="profile-label"><strong>Full Name</strong></label>
             <input className='readonly-field' readOnly={true} name="username" type="text" value={username}  onChange={this.handleChange}></input>
             <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('name-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
             <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('name-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
@@ -98,23 +99,23 @@ export default class PatientProfile extends Component {
           </div>
 
           <div className="profile-field" id='birthDate-profile'>
-            <label>Birth Date</label>
-            <input className='readonly-field' readOnly={true} name="birthDate" type="text" value={birthDate}  onChange={this.handleChange}></input>
+            <label className="profile-label"><strong>Birth Date</strong></label>
+            <input className='readonly-field' readOnly={true} name="birthDate" type="text" value={moment(birthDate).local().format('D/MM/YYYY')}  onChange={this.handleChange}></input>
             <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('birthDate-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
           <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('birthDate-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
             <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('birthDate-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
           </div>
     
           <div className="profile-field" id='address-profile'>
-            <label>Address</label>
-            <input className='readonly-field' readOnly={true} name="phone" type="text" value={address} onChange={this.handleChange}></input>
+            <label className="profile-label"><strong>Address</strong></label>
+            <input className='readonly-field' readOnly={true} name="address" type="text" value={address} onChange={this.handleChange}></input>
             <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('address-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
           <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('address-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
             <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('address-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
           </div>
 
           <div className="profile-field" id='email-profile'>
-            <label>E-Mail</label>
+            <label className="profile-label"><strong>E-Mail</strong></label>
             <input className='readonly-field' readOnly={true} name="email"  type="email" value={email} onChange={this.handleChange}></input>
             <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('email-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
           <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('email-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
@@ -122,7 +123,7 @@ export default class PatientProfile extends Component {
           </div>
 
           <div className="profile-field" id='phoneNumber-profile'>
-            <label>Telephone</label>
+            <label className="profile-label"><strong>Telephone</strong></label>
             <input className='readonly-field' readOnly={true} name="phoneNumber" type="text" value={phoneNumber} onChange={this.handleChange}></input>
             <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('phoneNumber-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
           <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('phoneNumber-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
@@ -130,7 +131,7 @@ export default class PatientProfile extends Component {
           </div>
 
           <div className="profile-field" id='height-profile'>
-            <label>Height</label>
+            <label className="profile-label"><strong>Height</strong></label>
             <input className='readonly-field' readOnly={true} name="height" type="text" value={height} onChange={this.handleChange}></input>
             <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('height-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
           <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('height-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
@@ -138,7 +139,7 @@ export default class PatientProfile extends Component {
           </div>
 
           <div className="profile-field" id='weight-profile'>
-            <label>Weight</label>
+            <label className="profile-label"><strong>Weight</strong></label>
             <input className='readonly-field' readOnly={true} name="weight" type="text" value={weight} onChange={this.handleChange}></input>
             <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('weight-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
           <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('weight-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
@@ -146,7 +147,7 @@ export default class PatientProfile extends Component {
           </div>
 
           <div className="profile-field" id='allergies-profile'>
-            <label>Allergies</label>
+            <label className="profile-label"><strong>Allergies</strong></label>
             <input className='readonly-field' readOnly={true} name="allergies" type="text" value={allergies} onChange={this.handleChange}></input>
             <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('allergies-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
             <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('allergies-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
@@ -154,7 +155,7 @@ export default class PatientProfile extends Component {
           </div>
 
           <div className="profile-field" id='history-profile'>
-            <label>Medical History</label>
+            <label className="profile-label"><strong>Medical History</strong></label>
             <input className='readonly-field' readOnly={true} name="history" type="text" value={history} onChange={this.handleChange}></input>
             <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('history-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
           <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('history-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>

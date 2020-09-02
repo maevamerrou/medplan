@@ -63,7 +63,6 @@ class App extends React.Component {
       // history: history.value
       // to check if withCredentials is needed and state change
     })
-    // ,  {withCredentials: true}
       .then((res) => {
         this.props.history.push('/login')
       })
@@ -78,7 +77,6 @@ class App extends React.Component {
   handleLogIn = (e) => {
     e.preventDefault(); 
     const {email, password, usertype} = e.currentTarget;
-    console.log(email.value, password.value, usertype.value)
     axios.post(`${API_URL}/auth/login`, {
       email: email.value, 
       password: password.value,
@@ -91,14 +89,12 @@ class App extends React.Component {
           errorMsg: null
         }, () => {       
           if (this.state.usertype === "patient"){
-            console.log("usertype is patient")
             if (window.location.pathname.includes('doctor')){
               this.props.history.push(window.location.pathname)
             } 
             else if (!window.location.pathname.includes('doctor')) (this.props.history.push('/profile'))
           } 
           else if (this.state.usertype === "doctor"){
-            console.log("usertype is doctor")
             this.props.history.push(`/doctor/${this.state.loggedInUser._id}`)
           }
         })
@@ -147,29 +143,23 @@ class App extends React.Component {
     if (strength>=5) this.setState({passwordStrength: 'Your password is good to go!'})
 
     if (e.currentTarget.value==='') this.setState({errorMsg: ''})
-}
+  }
 
-clearError=(e)=>{
-  if (e.currentTarget.value==='') this.setState({errorMsg: ''})
-}
-
-
+  clearError=(e)=>{
+    if (e.currentTarget.value==='') this.setState({errorMsg: ''})
+  }
 
 
 
   render() {
     return (
 
-
-
       <div className="body">
 
         <NavBar />
                 
         {/* add condition to render only if logged in */}
-        <SideBar loggedInUser= {this.state.loggedInUser} usertype= {this.state.usertype} onLogout={this.handleLogOut}/>
-
-        
+        <SideBar loggedInUser= {this.state.loggedInUser} usertype= {this.state.usertype} onLogout={this.handleLogOut}/>     
 
         <Switch>
 
@@ -230,9 +220,8 @@ clearError=(e)=>{
         <footer>
           <p>Take care of your health!</p>
         </footer>
-
-
-    </div>
+      
+      </div>
     )
   }
 }

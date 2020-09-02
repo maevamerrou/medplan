@@ -52,36 +52,49 @@ export default class AppointmentDetails extends Component {
 
     return (
       <>
+
         <h1> Appointment Details</h1>
 
-        <div>
-          <p>On: {dateApp} at {timeApp}, {timeToApp}</p>
-          <p>Reason: {reason}</p>
+        <div className="main-content appointment-details-card">
+          
+          <div className="top-card-app-details">
+            <p>On: {dateApp} at {timeApp}, {timeToApp}</p>
+            <p>Reason: {reason}</p>
+          </div>
 
-          <h2>Patient information</h2>
-          <p>Name: {username}</p>
-          <p>Phone: {phoneNumber}</p>
-          <p>Email: {email}</p>
-          <p>Allergies: {allergies}</p>
-          <p>Medical History: {history}</p>    
-        </div>
-        
-        <div>        
-          <button className="button" onClick={()=>this.toggleLoader(document.getElementById('report-group'))}>Load Report</button>
-          <Link to={`/create-prescription/${this.props.match.params.appointmentId}`}><button className="button">Create Prescription</button></Link>
-          <button className="button" onClick={()=>this.cancelAppointment(this.props.match.params.appointmentId)}>Cancel appointment</button>
-        </div>
+          <div className="bottom-card-app-details">
+          
+            <div>
+              <h3>Patient information</h3>
+              <p>Name: {username}</p>
+              <p>Phone: {phoneNumber}</p>
+              <p>Email: {email}</p>
+              <p>Allergies: {allergies}</p>
+              <p>Medical History: {history}</p>  
+            </div>
 
-        <div className='hidden-button button' id='report-group'>
-              <button className="button" onClick={()=>this.loadReport(document.getElementById('report-group'))}>Submit</button>
+            <div className="btn-app-details">
+              <Link to={`/create-prescription/${this.props.match.params.appointmentId}`}><button className="button">Create Prescription</button></Link>
+              <button className="button" onClick={()=>this.cancelAppointment(this.props.match.params.appointmentId)}>Cancel appointment</button>
+            </div>
+          </div>
+
+          <div className="report-upload">
+            <button className="button" onClick={()=>this.toggleLoader(document.getElementById('report-group'))}>Upload Report</button>
+
+            <div className='hidden-button' id='report-group'>
               <input type='file' name='report' className="form-control"/>
-        </div>
+              <button className="button" onClick={()=>this.loadReport(document.getElementById('report-group'))}>Submit</button>
+            </div>
 
-        {(this.state.appointment.prescription)? <p>There is already a prescription associated to this appointment.</p>:null}
+            {(this.state.appointment.prescription)? <p>There is already a prescription associated to this appointment.</p>:null}
+
+          </div>
+                      
+      </div>
+
 
       </>
-
-
     )
   }
 }

@@ -9,6 +9,7 @@ import { createEventId } from './event-utils'
 import moment from 'moment'
 import momentPlugin from '@fullcalendar/moment'
 
+
 export default class DoctorProfile extends Component {
 
   state={
@@ -173,117 +174,116 @@ export default class DoctorProfile extends Component {
 
         <h1>Doctor Profile</h1>
 
+        <div className="main-content profile-page-content">
 
-        <div>
+          <div className="profile-field" id='image-profile'>
+              <img src={picture} alt='' className="doc-img"/>
+              {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+                <>
+                  <button className="edit-profile" onClick={()=>this.handleImgEnable(document.getElementById('image-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+                  <input  type="file" className="form-control hidden-button" name="image" id="image" />
+                <button type='submit' className='hidden-button edit-profile' onClick={()=>this.handleImgEdit(document.getElementById('image-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+                </>
+              :null}
+          </div>
 
-        <div className="profile-field" id='image-profile'>
-            <img src={picture} alt='' className="doc-img"/>
+          <div className="profile-field" id='name-profile'>
+            <label className="profile-label"><strong>Name</strong></label>
+            <input className='readonly-field' readOnly={true} name="username" type="text" value={username}  onChange={this.handleChange}></input>
             {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
               <>
-                <button className="edit-profile" onClick={()=>this.handleImgEnable(document.getElementById('image-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
-                <input  type="file" className="form-control hidden-button" name="image" id="image" />
-               <button type='submit' className='hidden-button edit-profile' onClick={()=>this.handleImgEdit(document.getElementById('image-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+                <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('name-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+                <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('name-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+              <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('name-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
               </>
             :null}
-        </div>
+          </div>
 
-        <div className="profile-field" id='name-profile'>
-          <label>Name</label>
-          <input className='readonly-field' readOnly={true} name="username" type="text" value={username}  onChange={this.handleChange}></input>
-          {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
-            <>
-              <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('name-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
-              <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('name-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
-             <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('name-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
-            </>
+          <div className="profile-field" id='speciality-profile'>
+            <label className="profile-label"><strong>Speciality</strong></label>
+            <input className='readonly-field' readOnly={true} name="speciality" type="text" value={speciality}  onChange={this.handleChange}></input>
+            {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+              <>
+                <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('speciality-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+                <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('speciality-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+              <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('speciality-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+              </>
+            :null}
+          </div>
+
+          <div className="profile-field" id='city-profile'>
+            <label className="profile-label"><strong>City</strong></label>
+            <input className='readonly-field' readOnly={true} name="city" type="text" value={city} onChange={this.handleChange}></input>
+            {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+              <>
+                <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('city-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+                <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('city-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+              <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('city-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+              </>
           :null}
-        </div>
+          </div>
 
-        <div className="profile-field" id='speciality-profile'>
-          <label>Speciality</label>
-          <input className='readonly-field' readOnly={true} name="speciality" type="text" value={speciality}  onChange={this.handleChange}></input>
-          {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
-            <>
-              <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('speciality-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
-              <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('speciality-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
-             <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('speciality-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
-            </>
-          :null}
-        </div>
+          <div className="profile-field" id='address-profile'>
+            <label className="profile-label"><strong>Address</strong></label>
+            <input className='readonly-field' readOnly={true} name="address" type="text" value={address} onChange={this.handleChange}></input>
+            {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+              <>
+                <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('address-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+                <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('address-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+              <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('address-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+              </>
+            :null}
+          </div>
 
-        <div className="profile-field" id='city-profile'>
-          <label>City</label>
-          <input className='readonly-field' readOnly={true} name="city" type="text" value={city} onChange={this.handleChange}></input>
-          {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
-            <>
-              <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('city-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
-              <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('city-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
-             <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('city-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
-            </>
-         :null}
-        </div>
+          <div className="profile-field" id='email-profile'>
+            <label className="profile-label"><strong>E-Mail</strong></label>
+            <input className='readonly-field' readOnly={true} name="email"  type="email" value={email} onChange={this.handleChange}></input>
+            {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+              <>
+                <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('email-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+                <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('email-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+              <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('email-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>  
+              </>
+            :null}
+          </div>
 
-        <div className="profile-field" id='address-profile'>
-          <label>Address</label>
-          <input className='readonly-field' readOnly={true} name="address" type="text" value={address} onChange={this.handleChange}></input>
-          {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
-            <>
-              <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('address-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
-              <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('address-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
-             <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('address-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
-            </>
-          :null}
-        </div>
+          <div className="profile-field" id='phone-profile'>
+            <label className="profile-label"><strong>Telephone</strong></label>
+            <input className='readonly-field' readOnly={true} name="phone" type="text" value={phone} onChange={this.handleChange}></input>
+            {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+              <>
+                <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('phone-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+                <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('phone-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+              <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('phone-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+              </>
+            :null}        
+          </div>
+          
+          <div className="profile-field" id='opening-profile'>
+            <label className="profile-label"><strong>Opening time</strong></label>
+            <input className='readonly-field' readOnly={true} name="openingTime" type="text" value={openingTime} onChange={this.handleChange}></input>
+            {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+              <>
+                <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('opening-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+                <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('opening-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+              <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('opening-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+              </>
+            :null}
+          </div>
+          
+          <div className="profile-field" id='closing-profile'>
+            <label className="profile-label"><strong>Closing time</strong></label>
+            <input className='readonly-field' readOnly={true} name="closingTime" type="text" value={closingTime} onChange={this.handleChange}></input>
+            {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
+              <>
+                <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('closing-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+                <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('closing-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+              <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('closing-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+              </>
+            :null}
+          </div>
 
-        <div className="profile-field" id='email-profile'>
-          <label>E-Mail</label>
-          <input className='readonly-field' readOnly={true} name="email"  type="email" value={email} onChange={this.handleChange}></input>
-          {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
-            <>
-              <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('email-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
-              <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('email-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
-             <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('email-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>  
-            </>
-          :null}
-        </div>
-
-        <div className="profile-field" id='phone-profile'>
-        <label>Telephone</label>
-          <input className='readonly-field' readOnly={true} name="phone" type="text" value={phone} onChange={this.handleChange}></input>
-          {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
-            <>
-              <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('phone-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
-              <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('phone-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
-             <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('phone-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
-            </>
-          :null}        
-        </div>
-        
-        <div className="profile-field" id='opening-profile'>
-          <label>Opening time</label>
-          <input className='readonly-field' readOnly={true} name="city" type="text" value={openingTime} onChange={this.handleChange}></input>
-          {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
-            <>
-              <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('opening-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
-              <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('opening-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
-             <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('opening-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
-            </>
-          :null}
-        </div>
-        
-        <div className="profile-field" id='closing-profile'>
-          <label>Closing time</label>
-          <input className='readonly-field' readOnly={true} name="city" type="text" value={closingTime} onChange={this.handleChange}></input>
-          {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
-            <>
-              <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('closing-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
-              <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('closing-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
-             <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('closing-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
-            </>
-          :null}
-        </div>
-
-        
+          
 
           {/*Calendar  */}
           {(this.props.usertype==='patient') ? 
@@ -320,18 +320,10 @@ export default class DoctorProfile extends Component {
               defaultTimedEventDuration= '00:30'
             />
             :null}
-          
 
-
-
-        </div>
-
-        
-         
-          
-        </>
-
-        
+        </div>     
+                   
+      </>        
       )
     
     }

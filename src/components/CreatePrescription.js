@@ -70,21 +70,20 @@ export default class CreatePrescription extends Component {
     return (
       <>
         <h1>Prescription Form</h1>
-
         
-        <p>Please fill in all the fields</p>
-        
-        <br/>
+        <div className="main-content prescrition-form-card">
 
-        <div>
           <PrescriptionForm onCommit={this.handleSubmit}/>
 
           <button className="button save-pres-btn" onClick={this.handleCreate}>Save prescription</button>
 
-          <p>{this.state.errorMsg}</p>
+          <div className="medications-added-card">            
+            {(this.state.prescription.medications) ? this.state.prescription.medications.map((medication, id)=>{return <><PrescriptionItem key={id} id={id} medication={medication} onDelete={this.handleDelete}/> <hr/></>}): null
+            }
+          </div>
+
+          <p>{this.state.errorMsg}</p>          
           
-          {(this.state.prescription.medications) ? this.state.prescription.medications.map((medication, id)=>{return <><PrescriptionItem key={id} id={id} medication={medication} onDelete={this.handleDelete}/> <hr/></>}): null
-          }
 
         </div>
 

@@ -6,6 +6,8 @@ export default class PrescriptionForm extends Component {
       <>
 
         <form className='prescription-form' onSubmit={this.props.onCommit}>
+          <small>Please fill in all the fields</small>
+
           <div className="presription-inputs">
             <label>Medication name </label>
             <input name='name' id='name' type='text'/>
@@ -42,9 +44,11 @@ export default class PrescriptionForm extends Component {
             <textarea name='comments' id='comments' type='text' placeholder='Additional comment' rows="3" cols="30"></textarea>
           </div>
 
-          <button className="button" type='submit'>Add</button>
+          
 
-        </form>
+          <button className="add-med-btn" type='submit'><img src="/images/btn-add.png" alt="btn"/></button>
+
+        </form>        
         
       </>
     )

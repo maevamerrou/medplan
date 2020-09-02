@@ -53,12 +53,12 @@ export default class PatientMedPlanner extends Component {
                 <h1>Medication Planner</h1>
 
                 <div className="patient-cal-date-field">
-                    <button className="button" onClick={()=>this.previousDay()}>Previous day</button>
+                    <button className="button calendar-day" onClick={()=>this.previousDay()}>&lt;</button>
                     <h4>{this.state.currentday.format("Do MMM, YYYY").toString()}</h4>
-                    <button className="button" onClick={()=>this.nextDay()}>Next day</button>
+                    <button className="button calendar-day" onClick={()=>this.nextDay()}>&gt;</button>
                 </div>
 
-                <div className="patient-cal-day-times">
+                <div className="main-content patient-cal-day-times">
 
                     <h4>Morning</h4>
                     {this.state.currentmeds.map(med=> {if (med.takesPerDay===3 ||med.takesPerDay===2){return <div><h5>{med.name} -  {med.dosePerTake}</h5><small>{med.comments}</small></div>}})}
