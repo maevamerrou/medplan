@@ -38,7 +38,7 @@ export default class CreatePrescription extends Component {
     clonePrescription.medications.push(newMedication)
     this.setState({prescription: clonePrescription})
     let inputs = e.currentTarget.getElementsByTagName('INPUT')
-    // for (let input of inputs) input.value=''
+    for (let input of inputs) input.value=''
     
   }
 
