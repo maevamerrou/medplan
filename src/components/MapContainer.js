@@ -6,12 +6,17 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 
 export class MapContainer extends Component {
+
+
+  state = {
+    mapPlaces: [
+      { lat: 52.370292, lng: 4.897403},
+      { lat: 52.370282, lng: 4.897503}
+    ]
+  }
+
+
   render() {
-
-    // state = {
-    //   mapPlaces: []
-    // }
-
 
     const mapStyles = {
       width: '350px',
@@ -31,7 +36,7 @@ export class MapContainer extends Component {
           initialCenter={{ lat: 52.372471, lng: 4.890983}}
         >
 
-          <Marker position={{ lat: 52.370292, lng: 4.897403}} />
+          <Marker position={{lat: 52.370292, lng: 4.897403},{lat: 52.361236, lng: 4.880148}} />
 
         </Map>
         

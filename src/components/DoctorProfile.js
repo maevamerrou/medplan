@@ -32,7 +32,7 @@ export default class DoctorProfile extends Component {
       .then((res)=>{
         this.setState({appointments: res.data, events: res.data.map(appointment=>{
           console.log ('ids:', appointment.patient, this.props.loggedInUser._id)
-          let eventColor= appointment.patient._id===this.props.loggedInUser._id? '#3788d8': 'gray'
+          let eventColor= appointment.patient._id===this.props.loggedInUser._id? '#51B8F9': 'gray'
           let proper = appointment.patient_id===this.props.loggedInUser._id? true : false
           return {title: appointment.reason, start:appointment.time, id:appointment.eventId, startEditable: proper, patient: appointment.patient, color: eventColor}})},
          ()=>{console.log(this.state)}
@@ -181,7 +181,7 @@ export default class DoctorProfile extends Component {
 
         <div className="main-content profile-page-content">
 
-          <div className="profile-field" id='image-profile'>
+          <div className="profile-field profile-field-img" id='image-profile'>
               <img src={picture} alt='' className="doc-img"/>
               {(this.props.loggedInUser._id=== this.props.match.params.doctorId)?
                 <>
@@ -288,52 +288,84 @@ export default class DoctorProfile extends Component {
             :null}
           </div>
 
-          
 
-          {/*Calendar  */}
-          {(this.props.usertype==='patient') ? 
-           <FullCalendar
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, momentPlugin]}
-              headerToolbar={{
-                left: 'prev',
-                center: 'title',
-                right: 'next'
-              }}
-              initialView='timeGridWeek'
-              titleFormat = 'Do MMM YYYY'
-              selectable={true}
-              selectMirror={false}
-              dayMaxEvents={true}
-              allDaySlot= {false}
-              eventStartEditable={true}
-              slotMinTime= '08:00'
-              slotMaxTime= '20:00'
-              businessHours = {{
-                  daysOfWeek: [ 1, 2, 3, 4, 5 ], 
-                  startTime: this.state.doctor.openingTime, 
-                  endTime: this.state.doctor.closingTime, 
-                }}
-              eventConstraint= {{
-                  start: Date.now(),
-                  end: '2100-01-01',
-                  businessHours: {
-                    daysOfWeek: [ 1, 2, 3, 4, 5 ], 
-                    startTime: this.state.doctor.openingTime, 
-                    endTime: this.state.doctor.closingTime, 
-                  }
-                }}
-              weekends={this.state.weekendsVisible}
-              events={this.state.events} 
-              select={this.handleDateSelect}
-              eventContent={renderEventContent} 
-              eventClick={this.handleEventClick}
-              eventsSet={this.handleEvents} 
-              eventAdd={(event)=>this.appoCreate(event)}
-              eventChange={(event)=>this.appoEdit(event)}
-              eventRemove={(event)=>this.appoCancel(event)}
-              defaultTimedEventDuration= '00:30'
-            />
-            :null}
+
+          <div className="booking-card">
+
+            {(this.props.usertype==='patient') ? (
+              <>
+
+                <div className="booking-instr-card">
+
+                  <h4>Booking Instructions</h4>
+                  
+                  <ul className="booking-instructions-text">
+                    <li>Select the time slot by clicking on it</li>
+                    <li>A pop-up appears, enter the purpose of the appointment</li>
+                    <li>Click "ok" to valid the booking</li>
+                    <li>You can:</li>
+                    <ul>
+                      <li>Modify the appointment time and date by dragging it to another available slot</li> 
+                      <li>Cancel the appointment, by clicking on it a pop will appear to confirm the cancellation</li>
+                    </ul>                
+                  </ul>
+
+                </div>
+                
+
+
+                <div className="calendar-card">
+
+
+                  <FullCalendar
+                    plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, momentPlugin]}
+                    headerToolbar={{
+                      left: 'prev',
+                      center: 'title',
+                      right: 'next'
+                    }}
+                    initialView='timeGridWeek'
+                    titleFormat = 'Do MMM YYYY'
+                    dayHeaderFormat = 'DD/MM'
+                    selectable={true}
+                    selectMirror={false}
+                    dayMaxEvents={true}
+                    allDaySlot= {false}
+                    eventStartEditable={true}
+                    slotMinTime= '08:00'
+                    slotMaxTime= '20:00'
+                    businessHours = {{
+                      daysOfWeek: [ 1, 2, 3, 4, 5 ], 
+                      startTime: this.state.doctor.openingTime, 
+                      endTime: this.state.doctor.closingTime, 
+                    }}
+                    eventConstraint= {{
+                      start: Date.now(),
+                      end: '2100-01-01',
+                      businessHours: {
+                      daysOfWeek: [ 1, 2, 3, 4, 5 ], 
+                      startTime: this.state.doctor.openingTime, 
+                      endTime: this.state.doctor.closingTime, 
+                      }
+                    }}
+                    weekends={this.state.weekendsVisible}
+                    events={this.state.events} 
+                    select={this.handleDateSelect}
+                    eventContent={renderEventContent} 
+                    eventClick={this.handleEventClick}
+                    eventsSet={this.handleEvents} 
+                    eventAdd={(event)=>this.appoCreate(event)}
+                    eventChange={(event)=>this.appoEdit(event)}
+                    eventRemove={(event)=>this.appoCancel(event)}
+                    defaultTimedEventDuration= '00:30'
+                  />
+                </div>
+              </>
+              )
+              :null}
+
+          </div>      
+          
 
         </div>     
                    

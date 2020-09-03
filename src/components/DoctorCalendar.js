@@ -10,7 +10,6 @@ import moment from 'moment'
 
 
 export default class DoctorCalendar extends Component {
-
     state={
         doctor: {},
         weekendsVisible: false,
@@ -21,7 +20,6 @@ export default class DoctorCalendar extends Component {
         appointments: [],
         events:[]
       }
-
       componentDidMount(){
         axios.get(`${API_URL}/doctor/${this.props.loggedInUser._id}`, {withCredentials: true})
           .then((res)=>{
@@ -32,20 +30,15 @@ export default class DoctorCalendar extends Component {
             this.setState({appointments: res.data, events: res.data.map(appointment=>{return {title: appointment.reason, start:appointment.time, id:appointment.eventId, editable: false, patient: appointment.patient, appointment: appointment._id}})}) 
           })
       }
-
       handleEventClick = (clickInfo) => {
           console.log (clickInfo)
         this.props.history.push(`/calendar/${clickInfo.event.extendedProps.appointment}`)
-         
       }
-        
-      
       handleEvents = (events) => {
         this.setState({
           currentEvents: events
         })
       }
-
     render() {
       console.log (this.state.doctor.openingTime)
         return (
@@ -84,7 +77,6 @@ export default class DoctorCalendar extends Component {
         )
     }
 }
-
 function renderEventContent(eventInfo) {
     console.log (eventInfo.event)
     return (

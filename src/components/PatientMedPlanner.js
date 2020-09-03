@@ -50,7 +50,7 @@ export default class PatientMedPlanner extends Component {
 
         return (
             <>
-                <h1>Medication Planner</h1>
+                <h4>Medication Planner</h4>
 
                 <div className="patient-cal-date-field">
                     <button className="button calendar-day" onClick={()=>this.previousDay()}>&lt;</button>

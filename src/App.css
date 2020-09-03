@@ -6,6 +6,12 @@ body {
 
 }
 
+a, a:hover, a:focus, a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+
 *:focus {
   outline: none;
 }
@@ -38,13 +44,22 @@ h4 {
 
 
 footer {
-  margin-top: 30px;
-  height: 30px;
+  position: fixed;
+  bottom: 0px;
+  height: 40px;
   width: 100%;
+  background-color: white;
   color: #51B8F9;
   font-size: 15px;
-  text-align: center;
-  align-content: center;
+  display: flex;
+  /* border-top: 1px solid grey; */
+  align-items: center;
+  justify-content: center;
+}
+
+.Navbar {
+  position: fixed;
+  top: 0px;
 }
 
 input {
@@ -56,10 +71,6 @@ input {
 
 p {
   margin: 3px 0px;
-}
-
-.header-logo {
-  width: 250px;
 }
 
 .button {
@@ -123,12 +134,12 @@ p {
 
 .home-doctor-card {
   width: 100%;
-  border: 2px solid #51B8F9;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.26);
   margin: 10px 0px;
+  border: 2px solid #51B8F9;
   border-radius: 10px;
   background-color: white;
 }
@@ -151,30 +162,25 @@ p {
 }
 
 .index-info-card img {
-  width: 125px;
+  width: 170px;
 }
+
 
 .index-img-card {
   max-width: 200px;
   width: 30%;
-  font-size: 12px;
+  font-size: 15px;
+  font-weight: bold;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+
 }
 
 .hidden-button{
   display: none
 }
-
-.readonly-field{
-  background-color:transparent;
-  border: none;
-  padding: 4px;
-  outline:none;
-}
-
 
 
 .appointment-card {
@@ -217,17 +223,43 @@ p {
 }
 
 
+
+/* DOCTOR / PATIENT PROFILE */
+
 .profile-field {
   display: flex;
   justify-content: space-between;
   margin: 10px 0px;
 }
 
+.readonly-field{
+  background-color:transparent;
+  border: none;
+  /* padding: 4px; */
+  outline:none;
+  width: 60%;
+
+}
+
+
+.profile-label {
+  width: 20%;
+}
+
+.profile-field-img {
+  justify-content: center;
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+
+.profile-field-img > img {
+  width: 130px;
+}
+
 
 .patient-cal-date-field {
   display: flex;
-  align-items: center;
-  
+  align-items: center;  
 }
 
 hr {
@@ -301,10 +333,6 @@ hr {
   margin: 0 10px;
   width: 20px;
   height: 20px;
-}
-
-.profile-label {
-  width: 30%;
 }
 
 
@@ -382,9 +410,127 @@ hr {
 }
 
 
+.booking-instr-card {
+  margin-top: 40px;
+  border: 2px solid red;
+  border-radius: 10px;
+  /* padding: 5px; */
+}
+
+.booking-instructions-text {
+  padding-left: 25px;
+  padding-right: 10px;
+  text-align: justify;
+}
+
+
+/* NAVBAR */
+
+.navbar-all {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .nav-link:hover{
+  outline: violet;
+  text-decoration: none;
+} */
+
+
+.nav-link{
+  background-color: #51B8F9;
+}
+
+
+/* .Nav.Link:hover {
+  text-decoration: none;
+  color: inherit
+} */
+
+
+.nav-link-react {
+  border: 3px solid black;
+}
+
+
+.navbar-logo {
+  display: flex;
+  justify-content: center;
+}
+
+
+.header-logo {
+  width: 300px;
+}
+
+.navbar-menu {
+  /* border: 2px solid palevioletred; */
+}
+
+.nav-link{
+  background-color: #51B8F9;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin: 0 1px;
+} 
+
+
+/* .nav-item {
+  background-color: #51B8F9;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin: 0 1px;
+} */
+
+
+/* .nav-link:active {
+  background-color: white;
+  color: #0079c4;
+} */
+
+
+.nav-link:hover {
+  background-color: white;
+  color: #0079c4;
+} 
+
+
+
+
+
 /* FULL CALENDAR */
 
-/* Here you can style the title of the calendar */
+.fc {
+  width: 480px;
+  height: 500px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding: 8px;
+  border: 1px solid rgb(192, 192, 192);
+  border-radius: 10px;
+  background-color: white;
+}
+
+
+.fc a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
+.fc .fc-timegrid-slot {
+  border: 1px solid rgb(192, 192, 192);
+}
+
+.calendar-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+}
+
 .fc-toolbar-title{
   font-size: 1em!important;
 }
@@ -393,6 +539,20 @@ hr {
   background-color: white!important
 }
 
+
+.fc-timegrid-bg-harness {
+  /* background: red; */
+  background-color: #bfe7ff;
+}
+
+/* .fc-event-main {
+  background-color: #51B8F9;
+} */
+
+.fc-button-group {
+  width: 100px;
+  margin-right: 5px;
+}
 
 /* .fc-non-business {
   background-color: red;
@@ -411,6 +571,21 @@ nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
   color: black;
   background-color: #51B8F9;
   border-color: #dee2e6 #dee2e6 #fff;
+}
+
+
+/* MEDIA QUERY FOR RESPONSIVENESS */
+
+@media only screen and (max-width: 500px) {
+
+  .fc {
+    width: 350px;
+    height: 400px;
+  }
+
+  .index-info-card img {
+    width: 130px;
+  }
 }
 
 
