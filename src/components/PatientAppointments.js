@@ -70,26 +70,30 @@ export default class PatientAppointments extends Component {
                             <div className="main-content">  
 
                                 <div className="appointment-card">
-                                    <div>
-                                        <p><strong>On: {dateApp} at {timeApp}, {timeToApp}</strong></p>
+                                    {/* <Link to={`/doctor/${appointment.doctor._id}`}> */}
 
-                                        <p>With <strong>Dr. {appointment.doctor.username}</strong></p>
-                                        <p><strong>Specialized in: </strong>{appointment.doctor.speciality}</p>
-                                        <p><strong>Purpose: </strong>{appointment.reason}</p>
-                                        <p><strong>Located at: </strong>{appointment.doctor.address}</p>
-                                    </div>
+                                        <div>
+                                            <p><strong>On: {dateApp} at {timeApp}, {timeToApp}</strong></p>
 
-                                    {         
-                                    !moment(appointment.time).isBefore(Date.now()) ? (
-                                        <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Cancel</button></Link>
+                                            <p>With <strong>Dr. {appointment.doctor.username}</strong></p>
+                                            <p><strong>Specialized in: </strong>{appointment.doctor.speciality}</p>
+                                            <p><strong>Purpose: </strong>{appointment.reason}</p>
+                                            <p><strong>Located at: </strong>{appointment.doctor.address}</p>
+                                        </div>
 
-                                            ) : (appointment.report? 
-                                            
-                                                <button className="button" onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>:
-                                                <button className="button disabled" disabled>No Report</button>
+                                        {         
+                                        !moment(appointment.time).isBefore(Date.now()) ? (
+                                            <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Cancel</button></Link>
 
-                                                )
-                                    } 
+                                                ) : (appointment.report? 
+                                                
+                                                    <button className="button" onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>:
+                                                    <button className="button disabled" disabled>No Report</button>
+
+                                                    )
+                                        } 
+
+                                    {/* </Link> */}
                                 </div>
                             </div>
                         )                      

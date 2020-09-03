@@ -196,7 +196,7 @@ p {
 
 .doc-img {
   width: 80px;
-  min-height: 80px;  
+  height: 80px;  
   object-fit: cover;
   border-radius: 50%;
 }
@@ -254,6 +254,8 @@ p {
 
 .profile-field-img > img {
   width: 130px;
+  height: 130px;
+  object-fit: cover;
 }
 
 
@@ -431,28 +433,6 @@ hr {
   flex-direction: column;
 }
 
-/* .nav-link:hover{
-  outline: violet;
-  text-decoration: none;
-} */
-
-
-.nav-link{
-  background-color: #51B8F9;
-}
-
-
-/* .Nav.Link:hover {
-  text-decoration: none;
-  color: inherit
-} */
-
-
-.nav-link-react {
-  border: 3px solid black;
-}
-
-
 .navbar-logo {
   display: flex;
   justify-content: center;
@@ -463,16 +443,49 @@ hr {
   width: 300px;
 }
 
-.navbar-menu {
-  /* border: 2px solid palevioletred; */
+ .navbar-menu {
+  display: flex;
+  align-items: flex-end;
+  border: 2px solid palevioletred;
+} 
+
+
+.nav-link:hover{
+  background-color: white;
+  text-decoration: none;
+  height: 50px;
+  }
+  
+  
+.nav-link{
+  background-color: #51B8F9;
 }
 
-.nav-link{
+.nav-link:active{
+  background-color: white;
+  text-decoration: none;
+  }
+  
+
+
+/* .Nav.Link:hover {
+  text-decoration: none;
+  color: inherit
+} */
+
+
+/* .nav-link-react {
+  border: 3px solid black;
+} */
+
+
+
+/* .nav-link{
   background-color: #51B8F9;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin: 0 1px;
-} 
+}  */
 
 
 /* .nav-item {
@@ -489,10 +502,10 @@ hr {
 } */
 
 
-.nav-link:hover {
+/* .nav-link:hover {
   background-color: white;
   color: #0079c4;
-} 
+}  */
 
 
 
