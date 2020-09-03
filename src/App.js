@@ -154,7 +154,13 @@ class App extends React.Component {
   render() {
     return (
 
+
+
       <div className="body">
+
+      <style>
+      @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
+      </style>
 
                 
         {/* add condition to render only if logged in */}

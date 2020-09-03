@@ -19,12 +19,12 @@ export default class HomeSeachResult extends Component {
                                 <div className="search-doc-details-text">
                                     <p><strong>{doctor.username}</strong></p>
                                     <p>{doctor.speciality}</p>
-                                    <p><em>{doctor.city}</em></p>
+                                    <p>Located in {doctor.city}</p>
                                     <p>From {doctor.openingTime} to {doctor.closingTime}</p>
                                 </div>                                
 
                                 <Link to={`/doctor/${doctor._id}`}>
-                                <button className="button">Book an appointment</button>
+                                <button className="myButton">BOOK</button>
                                 </Link>
 
                             </div>

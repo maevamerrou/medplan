@@ -85,8 +85,6 @@ export default class PatientProfile extends Component {
 
     return (
       <>
-        <h1>Profile</h1>
-
 
         <div className="main-content profile-page-content">
 
@@ -97,15 +95,7 @@ export default class PatientProfile extends Component {
             <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('name-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
             <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('name-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
           </div>
-
-          <div className="profile-field" id='birthDate-profile'>
-            <label className="profile-label"><strong>Birth Date</strong></label>
-            <input autocomplete="off" className='readonly-field' readOnly={true} name="birthDate" type="text" value={birthDate}  onChange={this.handleChange}></input>
-            <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('birthDate-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
-          <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('birthDate-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
-            <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('birthDate-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
-          </div>
-    
+          
           <div className="profile-field" id='address-profile'>
             <label className="profile-label"><strong>Address</strong></label>
             <input autocomplete="off" className='readonly-field' readOnly={true} name="address" type="text" value={address} onChange={this.handleChange}></input>
@@ -128,6 +118,18 @@ export default class PatientProfile extends Component {
             <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('phoneNumber-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
           <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('phoneNumber-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
             <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('phoneNumber-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
+          </div>
+
+          <br/>
+          <p><em><small>Please fill in the information below as they are useful for the health practicians.</small></em></p>
+
+
+          <div className="profile-field" id='birthDate-profile'>
+            <label className="profile-label"><strong>Birth Date</strong></label>
+            <input autocomplete="off" className='readonly-field' readOnly={true} name="birthDate" type="text" value={birthDate}  onChange={this.handleChange}></input>
+            <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('birthDate-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
+          <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('birthDate-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
+            <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('birthDate-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
           </div>
 
           <div className="profile-field" id='height-profile'>

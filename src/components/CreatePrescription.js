@@ -77,7 +77,7 @@ export default class CreatePrescription extends Component {
 
           <PrescriptionForm onCommit={this.handleSubmit}/>
 
-          <button className="button save-pres-btn" onClick={this.handleCreate}>Save prescription</button>
+          <button className="myButton save-pres-btn" onClick={this.handleCreate}>Save prescription</button>
 
           <div className="medications-added-card">            
             {(this.state.prescription.medications) ? this.state.prescription.medications.map((medication, id)=>{return <><PrescriptionItem key={id} id={id} medication={medication} onDelete={this.handleDelete}/> <hr/></>}): null

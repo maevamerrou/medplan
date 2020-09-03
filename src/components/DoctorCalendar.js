@@ -43,7 +43,6 @@ export default class DoctorCalendar extends Component {
       console.log (this.state.doctor.openingTime)
         return (
           <>
-            <h1>Calendar</h1>
 
             <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, momentPlugin]}
