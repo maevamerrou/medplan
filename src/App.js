@@ -218,6 +218,7 @@ class App extends React.Component {
 
         <footer>
           <h4><strong>Take care of your health!</strong></h4>
+          <small>In case of emergency, please call 112</small>
         </footer>
       
       </div>

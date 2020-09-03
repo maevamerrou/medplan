@@ -33,7 +33,7 @@ export default class DoctorProfile extends Component {
         this.setState({appointments: res.data, events: res.data.map(appointment=>{
           console.log ('ids:', appointment.patient, this.props.loggedInUser._id)
           let eventColor= appointment.patient._id===this.props.loggedInUser._id? '#3788d8': 'gray'
-          let proper = appointment.patient._id===this.props.loggedInUser._id? true : false
+          let proper = appointment.patient_id===this.props.loggedInUser._id? true : false
           return {title: appointment.reason, start:appointment.time, id:appointment.eventId, startEditable: proper, patient: appointment.patient, color: eventColor}})},
          ()=>{console.log(this.state)}
          ) 
@@ -317,10 +317,10 @@ export default class DoctorProfile extends Component {
                   start: Date.now(),
                   end: '2100-01-01',
                   businessHours: {
-                  daysOfWeek: [ 1, 2, 3, 4, 5 ], 
-                  startTime: this.state.doctor.openingTime, 
-                  endTime: this.state.doctor.closingTime, 
-                }
+                    daysOfWeek: [ 1, 2, 3, 4, 5 ], 
+                    startTime: this.state.doctor.openingTime, 
+                    endTime: this.state.doctor.closingTime, 
+                  }
                 }}
               weekends={this.state.weekendsVisible}
               events={this.state.events} 

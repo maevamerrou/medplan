@@ -33,7 +33,11 @@ export default class AppointmentDetails extends Component {
     uploadData.append('imageUrl', image)
     axios.post(`${API_URL}/upload`, uploadData)
       .then((res)=> {console.log(res.data);axios.patch(`${API_URL}/append-report/${this.props.match.params.appointmentId}`, {report: res.data.image}, {withCredentials:true})})
-      .then(()=>this.toggleLoader(e))
+      .then(()=>{
+      this.toggleLoader(e)
+      window.location.reload()
+    })
+    
   }
 
 
@@ -73,7 +77,12 @@ export default class AppointmentDetails extends Component {
             </div>
 
             <div className="btn-app-details">
+            {!(this.state.appointment.prescription)? 
               <Link to={`/create-prescription/${this.props.match.params.appointmentId}`}><button className="button">Create Prescription</button></Link>
+              :<button disabled className="button disabled">Prescription added</button>}
+            
+              
+              
               {moment(this.state.appointment.time)>moment(Date.now())?
               <button className="button" onClick={()=>this.cancelAppointment(this.props.match.params.appointmentId)}>Cancel appointment</button>: <button disabled className="button disabled" onClick={()=>this.cancelAppointment(this.props.match.params.appointmentId)}>Cancel appointment</button>}
             </div>
@@ -87,7 +96,7 @@ export default class AppointmentDetails extends Component {
               <button className="button" onClick={()=>this.loadReport(document.getElementById('report-group'))}>Submit</button>
             </div>
 
-            {(this.state.appointment.prescription)? <p>There is already a prescription associated to this appointment.</p>:null}
+            {/* {(this.state.appointment.prescription)? <p>There is already a prescription associated to this appointment.</p>:null} */}
 
           </div>
                       
