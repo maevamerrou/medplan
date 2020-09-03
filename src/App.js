@@ -1,6 +1,5 @@
 import React from 'react';
-import SideBar from './components/SideBar'
-import Navbar from './components/Navbar'
+import NavBar from './components/NavBar'
 import HomePage from './components/HomePage'
 import Signup from './components/Signup'
 import Login from './components/Login'
@@ -10,8 +9,9 @@ import PatientMedPlanner from './components/PatientMedPlanner'
 import DoctorProfile from './components/DoctorProfile'
 import DoctorCalendar from './components/DoctorCalendar'
 import AppointmentDetails from './components/AppointmentDetails'
+import Footer from './components/Footer'
 
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import {API_URL} from './config'
 import axios from 'axios'
@@ -156,10 +156,9 @@ class App extends React.Component {
 
       <div className="body">
 
-        <Navbar />
                 
         {/* add condition to render only if logged in */}
-        <SideBar loggedInUser= {this.state.loggedInUser} usertype= {this.state.usertype} onLogout={this.handleLogOut}/>     
+        <NavBar loggedInUser= {this.state.loggedInUser} usertype= {this.state.usertype} onLogout={this.handleLogOut}/>     
 
         <Switch>
 
@@ -217,9 +216,9 @@ class App extends React.Component {
            
         </Switch>
 
-        <footer>
-          <h4><strong>Take care of your health!</strong></h4>
-        </footer>
+        <Footer />
+
+      
       
       </div>
     )
