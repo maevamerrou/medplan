@@ -123,12 +123,12 @@ p {
 
 .home-doctor-card {
   width: 100%;
-  border: 2px solid #51B8F9;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.26);
   margin: 10px 0px;
+  border: 2px solid #51B8F9;
   border-radius: 10px;
   background-color: white;
 }
@@ -151,7 +151,7 @@ p {
 }
 
 .index-info-card img {
-  width: 180px;
+  width: 200px;
 }
 
 
@@ -171,14 +171,6 @@ p {
 .hidden-button{
   display: none
 }
-
-.readonly-field{
-  background-color:transparent;
-  border: none;
-  padding: 4px;
-  outline:none;
-}
-
 
 
 .appointment-card {
@@ -221,17 +213,43 @@ p {
 }
 
 
+
+/* DOCTOR / PATIENT PROFILE */
+
 .profile-field {
   display: flex;
   justify-content: space-between;
   margin: 10px 0px;
 }
 
+.readonly-field{
+  background-color:transparent;
+  border: none;
+  /* padding: 4px; */
+  outline:none;
+  width: 60%;
+
+}
+
+
+.profile-label {
+  width: 20%;
+}
+
+.profile-field-img {
+  justify-content: center;
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+
+.profile-field-img > img {
+  width: 130px;
+}
+
 
 .patient-cal-date-field {
   display: flex;
-  align-items: center;
-  
+  align-items: center;  
 }
 
 hr {
@@ -305,10 +323,6 @@ hr {
   margin: 0 10px;
   width: 20px;
   height: 20px;
-}
-
-.profile-label {
-  width: 30%;
 }
 
 
@@ -386,9 +400,47 @@ hr {
 }
 
 
+.booking-instr-card {
+  margin-top: 40px;
+  border: 2px solid red;
+  border-radius: 10px;
+  /* padding: 5px; */
+}
+
+.booking-instructions-text {
+  padding-left: 25px;
+  padding-right: 10px;
+  text-align: justify;
+}
+
+
+
 /* FULL CALENDAR */
 
-/* Here you can style the title of the calendar */
+.fc {
+  width: 480px;
+  height: 500px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding: 8px;
+  border: 1px solid rgb(192, 192, 192);
+  border-radius: 10px;
+  background-color: white;
+}
+
+
+.fc .fc-timegrid-slot {
+  border: 1px solid rgb(192, 192, 192);
+}
+
+.calendar-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+}
+
 .fc-toolbar-title{
   font-size: 1em!important;
 }
@@ -398,9 +450,38 @@ hr {
 }
 
 
+.fc-timegrid-bg-harness {
+  /* background: red; */
+  background-color: #bfe7ff;
+}
+
+.fc-event-main {
+  background-color: #51B8F9;
+}
+
+.fc-button-group {
+  width: 100px;
+  margin-right: 5px;
+}
+
 /* .fc-non-business {
   background-color: red;
 } */
+
+
+/* MEDIA QUERY FOR RESPONSIVENESS */
+
+@media only screen and (max-width: 500px) {
+
+  .fc {
+    width: 350px;
+    height: 400px;
+  }
+
+  .index-info-card img {
+    width: 130px;
+  }
+}
 
 
 

@@ -19,7 +19,7 @@ export default class HomeSeachResult extends Component {
                                 <div className="search-doc-details-text">
                                     <p><strong>{doctor.username}</strong></p>
                                     <p>{doctor.speciality}</p>
-                                    <p><em>{doctor.address}</em></p>
+                                    <p><em>{doctor.city}</em></p>
                                     <p>From {doctor.openingTime} to {doctor.closingTime}</p>
                                 </div>                                
 

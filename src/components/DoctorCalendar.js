@@ -40,38 +40,38 @@ export default class DoctorCalendar extends Component {
         return (
           <>
             <h1>Calendar</h1>
-            <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, momentPlugin]}
-            headerToolbar={{
-              left: 'prev',
-              center: 'title',
-              right: 'next'
-            }}
-<<<<<<< HEAD
-            // titleFormat = 'Do MMM YYYY'
-=======
-            titleFormat = 'DD/MM/YYYY'
->>>>>>> origin/rafael
-            initialView='timeGridDay'
-            selectMirror={true}
-            dayMaxEvents={true}
-            allDaySlot= {false}
-            eventDurationEditable={false}
-            slotMinTime= '08:00'
-            slotMaxTime= '20:00'
-            businessHours = {{businessHours: {
-                // days of week. an array of zero-based day of week integers (0=Sunday)
-                daysOfWeek: [ 1, 2, 3, 4, 5 ], // Monday - Thursday
-                startTime: this.state.doctor.openingTime, // a start time (10am in this example)
-                endTime: this.state.doctor.closingTime, // an end time (6pm in this example)
-              }}}
-            weekends={this.state.weekendsVisible}
-            events={this.state.events} // alternatively, use the `events` setting to fetch from a feed
-            eventContent={renderEventContent} // custom render function
-            eventClick={this.handleEventClick}
-            eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
-            defaultTimedEventDuration= '00:30'
-            />
+
+            <div className="calendar-card">
+              <FullCalendar
+                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, momentPlugin]}
+                headerToolbar={{
+                  left: 'prev',
+                  center: 'title',
+                  right: 'next'
+                }}
+                titleFormat = 'DD/MM/YYYY'
+                initialView='timeGridDay'
+                selectMirror={true}
+                dayMaxEvents={true}
+                allDaySlot= {false}
+                eventDurationEditable={false}
+                slotMinTime= '08:00'
+                slotMaxTime= '20:00'
+                businessHours = {{businessHours: {
+                    // days of week. an array of zero-based day of week integers (0=Sunday)
+                    daysOfWeek: [ 1, 2, 3, 4, 5 ], // Monday - Thursday
+                    startTime: this.state.doctor.openingTime, // a start time (10am in this example)
+                    endTime: this.state.doctor.closingTime, // an end time (6pm in this example)
+                  }}}
+                weekends={this.state.weekendsVisible}
+                events={this.state.events} // alternatively, use the `events` setting to fetch from a feed
+                eventContent={renderEventContent} // custom render function
+                eventClick={this.handleEventClick}
+                eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
+                defaultTimedEventDuration= '00:30'
+                />
+            </div>
+            
           </>
         )
     }
