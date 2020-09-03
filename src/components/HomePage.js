@@ -52,14 +52,11 @@ export default class HomePage extends Component {
 
     handleSearch = (e) => {
 
-        console.log("state in handle search", this.state.cityQuery)
-        console.log("state in handle search", this.state.specialityQuery)
-
         let searchResult = this.state.doctors.filter(doctor => {
             if (!doctor.speciality || !doctor.city){
                 return false
             } 
-            console.log("inside the map", doctor.speciality)
+
             return doctor.speciality.toLowerCase().includes(this.state.specialityQuery.toLowerCase()) 
             &&  doctor.city.toLowerCase().includes(this.state.cityQuery.toLowerCase()) 
 

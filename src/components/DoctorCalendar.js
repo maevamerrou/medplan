@@ -23,7 +23,7 @@ export default class DoctorCalendar extends Component {
       componentDidMount(){
         axios.get(`${API_URL}/doctor/${this.props.loggedInUser._id}`, {withCredentials: true})
           .then((res)=>{
-            this.setState({doctor: res.data}, ()=>{console.log(this.state.doctor, this.state.doctor.openingTime)})
+            this.setState({doctor: res.data})
           })
           axios.get(`${API_URL}/doctor/appointments/${this.props.loggedInUser._id}`, {withCredentials: true})
           .then((res)=>{
@@ -31,7 +31,6 @@ export default class DoctorCalendar extends Component {
           })
       }
       handleEventClick = (clickInfo) => {
-          console.log (clickInfo)
         this.props.history.push(`/calendar/${clickInfo.event.extendedProps.appointment}`)
       }
       handleEvents = (events) => {
@@ -40,7 +39,6 @@ export default class DoctorCalendar extends Component {
         })
       }
     render() {
-      console.log (this.state.doctor.openingTime)
         return (
           <>
             <h1>Calendar</h1>
@@ -78,7 +76,6 @@ export default class DoctorCalendar extends Component {
     }
 }
 function renderEventContent(eventInfo) {
-    console.log (eventInfo.event)
     return (
       <div className='event-content'>
         <b>{eventInfo.timeText}</b>

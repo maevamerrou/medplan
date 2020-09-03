@@ -5,6 +5,9 @@ import PrescriptionForm from './PrescriptionForm'
 import axios from 'axios'
 import {API_URL} from '../config'
 import moment from 'moment'
+import {Modal, Button} from 'react-bootstrap'
+
+
 
  
 
@@ -12,7 +15,9 @@ import moment from 'moment'
 export default class CreatePrescription extends Component {
 
   state={
-    prescription: {medications:[]}
+    prescription: {medications:[]},
+    showCreate: false,
+    showSubmit: false
   }
 
 
@@ -30,7 +35,7 @@ export default class CreatePrescription extends Component {
       comments: comments.value}
 
     if (moment(startDate.value).isBefore(moment(Date.now())) || takesPerDay<=0 || daysPerTake<=0){
-      alert('Impossible parameters. Please double check the prescription')
+      this.setState({showSubmit: true})
       return
 
     }
@@ -38,34 +43,36 @@ export default class CreatePrescription extends Component {
     clonePrescription.medications.push(newMedication)
     this.setState({prescription: clonePrescription})
     let inputs = e.currentTarget.getElementsByTagName('INPUT')
+    let commentfield = e.currentTarget.getElementsByTagName('TEXTAREA')[0]
     for (let input of inputs) input.value=''
+    commentfield.value= ''
     
   }
 
   
 
   handleDelete=(id)=>{
-    console.log(id)
     let newPrescription= this.state.prescription.medications.filter((medication, index) => {
       return index !== id
     })
-    console.log ( newPrescription)
-    
     this.setState({prescription: {medications: newPrescription}})
-
   }
 
   handleCreate=()=>{
-    console.log(this.state.prescription.medications)
     axios.post(`${API_URL}/create-prescription/${this.props.match.params.appointmentId}`, {medications:
       this.state.prescription.medications}, {withCredentials:true})
       .then(res=> {
-        this.props.history.push('/calendar')
+        this.props.history.push(`/calendar/${this.props.match.params.appointmentId}`)
       })
       .catch(err=> {
-        console.log (err)
-        this.setState({errorMsg: 'Could not create prescription. Please check that everything is filled out and try again.'})})
+        this.setState({showCreate: true})
+      })
   }
+
+  handleClose=()=>{
+    this.setState({showCreate: false, showSubmit: false})
+  }
+
 
 
   render() {
@@ -84,7 +91,26 @@ export default class CreatePrescription extends Component {
             }
           </div>
 
-          <p>{this.state.errorMsg}</p>          
+          <p>{this.state.errorMsg}</p>   
+
+          <Modal show={this.state.showCreate} onHide={this.handleClose}>
+            <Modal.Body>All fields except for the comments are mandatory.</Modal.Body>
+            <Modal.Footer>
+              <Button variant="primary" onClick={this.handleClose}>
+                In understood
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
+          <Modal show={this.state.showSubmit} onHide={this.handleClose}>
+            <Modal.Body>Impossible parameters. Please double check the prescription</Modal.Body>
+            <Modal.Footer>
+              <Button variant="primary" onClick={this.handleClose}>
+                In understood
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
           
 
         </div>

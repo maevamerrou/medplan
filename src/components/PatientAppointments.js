@@ -21,10 +21,9 @@ export default class PatientAppointments extends Component {
         .then((res) => {
             let ordered = JSON.parse(JSON.stringify(res.data))
             ordered.sort((a, b)=> moment(b.time) - moment(a.time)) 
-            console.log (ordered)
             this.setState({
             appointments: ordered           
-            }, ()=> console.log(this.state.appointments))
+            })
         })
     }
     
@@ -35,7 +34,6 @@ export default class PatientAppointments extends Component {
         e.preventDefault();
         axios.get(`${API_URL}/patient/appointment/report/${appointmentId}`, {withCredentials: true})
         .then((res) => {
-            console.log(res.data.report)
             this.setState({
                 report: res.data.report,
             })

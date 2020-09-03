@@ -69,7 +69,7 @@ class App extends React.Component {
       .catch(err=>{
         this.setState({
           errorMsg: err.response.data.errorMessage
-        }, ()=>console.log(this.state.errorMsg, err.response))
+        })
       }) 
   }
 
