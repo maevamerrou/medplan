@@ -6,10 +6,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import axios from 'axios'
 import {API_URL} from '../config'
 import momentPlugin from '@fullcalendar/moment'
-
-
 export default class DoctorCalendar extends Component {
-
     state={
         doctor: {},
         weekendsVisible: false,
@@ -20,7 +17,6 @@ export default class DoctorCalendar extends Component {
         appointments: [],
         events:[]
       }
-
       componentDidMount(){
         axios.get(`${API_URL}/doctor/${this.props.loggedInUser._id}`, {withCredentials: true})
           .then((res)=>{
@@ -31,25 +27,19 @@ export default class DoctorCalendar extends Component {
             this.setState({appointments: res.data, events: res.data.map(appointment=>{return {title: appointment.reason, start:appointment.time, id:appointment.eventId, editable: false, patient: appointment.patient, appointment: appointment._id}})}, ()=>console.log(this.state)) 
           })
       }
-
       handleEventClick = (clickInfo) => {
           console.log (clickInfo)
         this.props.history.push(`/calendar/${clickInfo.event.extendedProps.appointment}`)
-         
       }
-        
-      
       handleEvents = (events) => {
         this.setState({
           currentEvents: events
         })
       }
-
     render() {
         return (
           <>
             <h1>Calendar</h1>
-
             <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             headerToolbar={{
@@ -57,7 +47,7 @@ export default class DoctorCalendar extends Component {
               center: 'title',
               right: 'next'
             }}
-            titleFormat = 'Do MMM YYYY'
+            // titleFormat = 'Do MMM YYYY'
             initialView='timeGridDay'
             selectMirror={true}
             dayMaxEvents={true}
@@ -68,7 +58,6 @@ export default class DoctorCalendar extends Component {
             businessHours = {{businessHours: {
                 // days of week. an array of zero-based day of week integers (0=Sunday)
                 daysOfWeek: [ 1, 2, 3, 4, 5 ], // Monday - Thursday
-
                 startTime: this.state.doctor.openingTime, // a start time (10am in this example)
                 endTime: this.state.doctor.closingTime, // an end time (6pm in this example)
               }}}
@@ -79,12 +68,10 @@ export default class DoctorCalendar extends Component {
             eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
             defaultTimedEventDuration= '00:30'
             />
-            
           </>
         )
     }
 }
-
 function renderEventContent(eventInfo) {
     console.log (eventInfo.event)
     return (

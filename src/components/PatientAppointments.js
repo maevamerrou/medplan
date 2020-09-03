@@ -20,7 +20,7 @@ export default class PatientAppointments extends Component {
         axios.get(`${API_URL}/patient/appointments` , {withCredentials: true})
         .then((res) => {
             let ordered = JSON.parse(JSON.stringify(res.data))
-            ordered.sort((a, b)=> moment(a.time) - moment(b.time)) 
+            ordered.sort((a, b)=> moment(b.time) - moment(a.time)) 
             console.log (ordered)
             this.setState({
             appointments: ordered           
@@ -80,8 +80,8 @@ export default class PatientAppointments extends Component {
                                     </div>
 
                                     {         
-                                    moment(appointment.time).isBefore(Date.now()) ? (
-                                        <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Edit/Cancel</button></Link>
+                                    !moment(appointment.time).isBefore(Date.now()) ? (
+                                        <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Cancel</button></Link>
 
                                             ) : (appointment.report? 
                                             
