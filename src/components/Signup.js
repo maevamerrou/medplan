@@ -18,7 +18,7 @@ export default class Signup extends Component {
 
 
                     <div className="user-type-choice">
-                        <label className="label-user" for="usertype">I am a </label> 
+                        <label className="label-user" htmlfor="usertype">I am a </label> 
                         <select className="button" name="usertype">
                             <option className="user-type-choice" value="patient">Patient</option> 
                             <option className="user-type-choice" value="doctor">Doctor</option>                            
