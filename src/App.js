@@ -10,7 +10,7 @@ import DoctorProfile from './components/DoctorProfile'
 import DoctorCalendar from './components/DoctorCalendar'
 import AppointmentDetails from './components/AppointmentDetails'
 
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import {API_URL} from './config'
 import axios from 'axios'
@@ -155,6 +155,7 @@ class App extends React.Component {
 
       <div className="body">
 
+        {/* <NavBar /> */}
                 
         {/* add condition to render only if logged in */}
         <SideBar loggedInUser= {this.state.loggedInUser} usertype= {this.state.usertype} onLogout={this.handleLogOut}/>     

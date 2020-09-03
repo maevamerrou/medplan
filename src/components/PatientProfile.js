@@ -100,7 +100,7 @@ export default class PatientProfile extends Component {
 
           <div className="profile-field" id='birthDate-profile'>
             <label className="profile-label"><strong>Birth Date</strong></label>
-            <input autocomplete="off" className='readonly-field' readOnly={true} name="birthDate" type="text" value={moment(birthDate).local().format('D/MM/YYYY')}  onChange={this.handleChange}></input>
+            <input autocomplete="off" className='readonly-field' readOnly={true} name="birthDate" type="text" value={birthDate}  onChange={this.handleChange}></input>
             <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('birthDate-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
           <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('birthDate-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
             <button type='submit' className='hidden-button edit-profile' onClick={() => this.handleEdit(this.state.updatedField, document.getElementById('birthDate-profile'))}><img className="img-edit-btn-profile" src="/images/btn-valid.png" alt="tbt"/></button>
