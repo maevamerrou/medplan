@@ -295,9 +295,9 @@ export default class DoctorProfile extends Component {
            <FullCalendar
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, momentPlugin]}
               headerToolbar={{
-                left: 'prev,next',
+                left: 'prev',
                 center: 'title',
-                right: ''
+                right: 'next'
               }}
               initialView='timeGridWeek'
               titleFormat = 'Do MMM YYYY'
