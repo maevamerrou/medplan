@@ -290,8 +290,7 @@ export default class DoctorProfile extends Component {
 
 
 
-          <div className="booking-card">        
-
+          <div className="booking-card">
 
             {(this.props.usertype==='patient') ? (
               <>
@@ -335,15 +334,20 @@ export default class DoctorProfile extends Component {
                     eventStartEditable={true}
                     slotMinTime= '08:00'
                     slotMaxTime= '20:00'
-                    businessHours = {{businessHours: {
-                        daysOfWeek: [ 1, 2, 3, 4, 5 ], 
-                        startTime: this.state.doctor.openingTime, 
-                        endTime: this.state.doctor.closingTime, 
-                      }}}
+                    businessHours = {{
+                      daysOfWeek: [ 1, 2, 3, 4, 5 ], 
+                      startTime: this.state.doctor.openingTime, 
+                      endTime: this.state.doctor.closingTime, 
+                    }}
                     eventConstraint= {{
-                        start: Date.now(),
-                        end: '2100-01-01' // hard coded goodness unfortunately
-                      }}
+                      start: Date.now(),
+                      end: '2100-01-01',
+                      businessHours: {
+                      daysOfWeek: [ 1, 2, 3, 4, 5 ], 
+                      startTime: this.state.doctor.openingTime, 
+                      endTime: this.state.doctor.closingTime, 
+                      }
+                    }}
                     weekends={this.state.weekendsVisible}
                     events={this.state.events} 
                     select={this.handleDateSelect}

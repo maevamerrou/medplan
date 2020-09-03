@@ -6,6 +6,9 @@ import interactionPlugin from '@fullcalendar/interaction'
 import axios from 'axios'
 import {API_URL} from '../config'
 import momentPlugin from '@fullcalendar/moment'
+import moment from 'moment'
+
+
 export default class DoctorCalendar extends Component {
     state={
         doctor: {},
@@ -20,11 +23,11 @@ export default class DoctorCalendar extends Component {
       componentDidMount(){
         axios.get(`${API_URL}/doctor/${this.props.loggedInUser._id}`, {withCredentials: true})
           .then((res)=>{
-            this.setState({doctor: res.data}, ()=>{console.log(this.state.doctor, new Date(this.state.doctor.openingTime))})
+            this.setState({doctor: res.data}, ()=>{console.log(this.state.doctor, this.state.doctor.openingTime)})
           })
           axios.get(`${API_URL}/doctor/appointments/${this.props.loggedInUser._id}`, {withCredentials: true})
           .then((res)=>{
-            this.setState({appointments: res.data, events: res.data.map(appointment=>{return {title: appointment.reason, start:appointment.time, id:appointment.eventId, editable: false, patient: appointment.patient, appointment: appointment._id}})}, ()=>console.log(this.state)) 
+            this.setState({appointments: res.data, events: res.data.map(appointment=>{return {title: appointment.reason, start:appointment.time, id:appointment.eventId, editable: false, patient: appointment.patient, appointment: appointment._id}})}) 
           })
       }
       handleEventClick = (clickInfo) => {
@@ -37,40 +40,38 @@ export default class DoctorCalendar extends Component {
         })
       }
     render() {
+      console.log (this.state.doctor.openingTime)
         return (
           <>
             <h1>Calendar</h1>
 
-            <div className="calendar-card">
-              <FullCalendar
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, momentPlugin]}
-                headerToolbar={{
-                  left: 'prev',
-                  center: 'title',
-                  right: 'next'
-                }}
-                titleFormat = 'DD/MM/YYYY'
-                initialView='timeGridDay'
-                selectMirror={true}
-                dayMaxEvents={true}
-                allDaySlot= {false}
-                eventDurationEditable={false}
-                slotMinTime= '08:00'
-                slotMaxTime= '20:00'
-                businessHours = {{businessHours: {
-                    // days of week. an array of zero-based day of week integers (0=Sunday)
-                    daysOfWeek: [ 1, 2, 3, 4, 5 ], // Monday - Thursday
-                    startTime: this.state.doctor.openingTime, // a start time (10am in this example)
-                    endTime: this.state.doctor.closingTime, // an end time (6pm in this example)
-                  }}}
-                weekends={this.state.weekendsVisible}
-                events={this.state.events} // alternatively, use the `events` setting to fetch from a feed
-                eventContent={renderEventContent} // custom render function
-                eventClick={this.handleEventClick}
-                eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
-                defaultTimedEventDuration= '00:30'
-                />
-            </div>
+            <FullCalendar
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, momentPlugin]}
+            headerToolbar={{
+              left: 'prev',
+              center: 'title',
+              right: 'next'
+            }}
+            titleFormat = 'DD/MM/YYYY'
+            initialView='timeGridDay'
+            selectMirror={true}
+            dayMaxEvents={true}
+            allDaySlot= {false}
+            eventDurationEditable={false}
+            slotMinTime= '08:00'
+            slotMaxTime= '20:00'
+            businessHours = {{businessHours: {
+                daysOfWeek: [ 1, 2, 3, 4, 5 ], 
+                startTime: `${this.state.doctor.openingTime}`,
+                endTime: this.state.doctor.closingTime,
+              }}}
+            weekends={this.state.weekendsVisible}
+            events={this.state.events} 
+            eventContent={renderEventContent} 
+            eventClick={this.handleEventClick}
+            eventsSet={this.handleEvents} 
+            defaultTimedEventDuration= '00:30'
+            />
             
           </>
         )
