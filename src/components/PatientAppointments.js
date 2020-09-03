@@ -80,7 +80,11 @@ export default class PatientAppointments extends Component {
                                     </div>
 
                                     {         
+<<<<<<< HEAD
                                     !moment(appointment.time).isBefore(Date.now()) ? (
+=======
+                                    moment(appointment.time).isBefore(Date.now()) ? (
+>>>>>>> origin/rafael
                                         <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Cancel</button></Link>
 
                                             ) : (appointment.report? 

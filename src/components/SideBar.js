@@ -7,6 +7,7 @@ export default class SideBar extends Component {
     render() {
 
 
+
         if (this.props.usertype === "patient"){
             return (
                 <>    

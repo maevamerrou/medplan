@@ -131,7 +131,7 @@ export default class PatientProfile extends Component {
           </div>
 
           <div className="profile-field" id='height-profile'>
-            <label className="profile-label"><strong>Height</strong></label>
+            <label className="profile-label"><strong>Height (cm)</strong></label>
             <input autocomplete="off" className='readonly-field' readOnly={true} name="height" type="text" value={height} onChange={this.handleChange}></input>
             <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('height-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
           <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('height-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>
@@ -139,7 +139,7 @@ export default class PatientProfile extends Component {
           </div>
 
           <div className="profile-field" id='weight-profile'>
-            <label className="profile-label"><strong>Weight</strong></label>
+            <label className="profile-label"><strong>Weight (kg)</strong></label>
             <input autocomplete="off" className='readonly-field' readOnly={true} name="weight" type="text" value={weight} onChange={this.handleChange}></input>
             <button className="edit-profile" onClick={()=>this.handleEnable(document.getElementById('weight-profile'))}><img className="img-edit-btn-profile" src="/images/btn-edit.png" alt="tbt"/></button>
           <button className='hidden-button edit-profile' onClick={()=>this.handleDisable(document.getElementById('weight-profile'))}><img className="img-edit-btn-profile" src="/images/btn-delete.png" alt="tbt"/></button>

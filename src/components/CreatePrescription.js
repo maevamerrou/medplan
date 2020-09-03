@@ -38,7 +38,7 @@ export default class CreatePrescription extends Component {
     clonePrescription.medications.push(newMedication)
     this.setState({prescription: clonePrescription})
     let inputs = e.currentTarget.getElementsByTagName('INPUT')
-    for (let input of inputs) input.value=''
+    // for (let input of inputs) input.value=''
     
   }
 
@@ -60,9 +60,11 @@ export default class CreatePrescription extends Component {
     axios.post(`${API_URL}/create-prescription/${this.props.match.params.appointmentId}`, {medications:
       this.state.prescription.medications}, {withCredentials:true})
       .then(res=> {
-        this.props.history('/')
+        this.props.history.push('/calendar')
       })
-      .catch(err=> this.setState({errorMsg: 'Could not create prescription. Please check that everything is filled out and try again.'}))
+      .catch(err=> {
+        console.log (err)
+        this.setState({errorMsg: 'Could not create prescription. Please check that everything is filled out and try again.'})})
   }
 
 

@@ -41,13 +41,17 @@ export default class DoctorCalendar extends Component {
           <>
             <h1>Calendar</h1>
             <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, momentPlugin]}
             headerToolbar={{
               left: 'prev',
               center: 'title',
               right: 'next'
             }}
+<<<<<<< HEAD
             // titleFormat = 'Do MMM YYYY'
+=======
+            titleFormat = 'DD/MM/YYYY'
+>>>>>>> origin/rafael
             initialView='timeGridDay'
             selectMirror={true}
             dayMaxEvents={true}
