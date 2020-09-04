@@ -6,7 +6,6 @@ import interactionPlugin from '@fullcalendar/interaction'
 import axios from 'axios'
 import {API_URL} from '../config'
 import momentPlugin from '@fullcalendar/moment'
-import moment from 'moment'
 
 
 export default class DoctorCalendar extends Component {

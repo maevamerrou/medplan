@@ -63,8 +63,9 @@ class App extends React.Component {
       // history: history.value
       // to check if withCredentials is needed and state change
     })
-      .then((res) => {
-        this.props.history.push('/login')
+      .then((res) => 
+      {this.setState({errorMsg: ''}, ()=> this.props.history.push('/login'))
+        
       })
       .catch(err=>{
         this.setState({

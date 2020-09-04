@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Login from "./Login"
-import moment from 'moment'
 import axios from 'axios'
 import {API_URL} from '../config'
 

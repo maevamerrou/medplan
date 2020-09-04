@@ -46,13 +46,13 @@ export default class AppointmentDetails extends Component {
     if (!this.state.appointment){
       return <img src="../images/loader.gif" alt="loader"/>
   }
-  const{username, phoneNumber, email, allergies, history} = this.state.appointment.patient
-  const {time, reason} = this.state.appointment
+    const{username, phoneNumber, email, allergies, history} = this.state.appointment.patient
+    const {time, reason} = this.state.appointment
 
-  let dateApp = moment(time).local().format('Do MMM YYYY')
-  let timeApp =  moment(time).local().format('HH:mm')
-  let timeToApp
-  (time > Date.now())? timeToApp=moment(time).local().toNow(): timeToApp=moment(time).local().fromNow()
+    let dateApp = moment(time).local().format('Do MMM YYYY')
+    let timeApp =  moment(time).local().format('HH:mm')
+    let timeToApp
+    (time > Date.now())? timeToApp=moment(time).local().toNow(): timeToApp=moment(time).local().fromNow()
 
     return (
       <>

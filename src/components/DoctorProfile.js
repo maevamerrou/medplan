@@ -9,7 +9,7 @@ import { createEventId } from './event-utils'
 import moment from 'moment'
 import momentPlugin from '@fullcalendar/moment'
 import {Button, Modal} from 'react-bootstrap'
-import { Next } from 'react-bootstrap/esm/PageItem'
+
 
 
 export default class DoctorProfile extends Component {

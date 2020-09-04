@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
 import {API_URL} from '../config'
-// import { DayCellContent } from '@fullcalendar/react'
 import moment from 'moment'
 
 export default class PatientMedPlanner extends Component {
@@ -22,9 +21,6 @@ export default class PatientMedPlanner extends Component {
             })
     }
 
-    // componentDidUpdate(prevProps, prevState){
-
-    // }
     
 
     previousDay(){

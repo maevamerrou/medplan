@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-import googleMapStyle from "../googleMapStyle";
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {API_URL} from '../config';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
 import moment from 'moment';
 
 export default class PatientAppointments extends Component {
@@ -78,15 +77,12 @@ export default class PatientAppointments extends Component {
                                     </div>
 
                                              
-                                        {(appointment.time > Date.now()) ? (
-                                        <Link to={`/doctor/${appointment.doctor._id}`}><button className="button">Cancel</button></Link>
-
-                                            ) : (appointment.report? 
+                                        { appointment.report? 
                                             
                                                 <button className="button" onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>:
                                                 <button className="button disabled" disabled>No Report</button>
 
-                                                )}
+                                                }
                                      
                                 </div>
                             </div>

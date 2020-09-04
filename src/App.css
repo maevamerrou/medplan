@@ -44,17 +44,18 @@ h4 {
 
 
 footer {
-  position: fixed;
+  /* position: fixed;
   bottom: 0px;
   height: 40px;
-  width: 100%;
-  background-color: white;
+  width: 100vw;
+  background-color: white; */
   color: #51B8F9;
   font-size: 15px;
   display: flex;
   /* border-top: 1px solid grey; */
   align-items: center;
   justify-content: center;
+  margin:0
 }
 
 .Navbar {

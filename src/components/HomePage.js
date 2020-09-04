@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import HomeSeachResult from './HomeSeachResult'
 
-
-import MapContainer from './MapContainer'
-import { Map, GoogleApiWrapper } from 'google-maps-react';
-
 import {API_URL} from '../config'
 import axios from 'axios'
 
