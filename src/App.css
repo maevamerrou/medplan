@@ -524,6 +524,10 @@ hr {
 }
 
 
+.navbar-collapse {
+  flex-grow: 0!important;
+}
+
 
 .log-sign-btn {
   background-color: #51B8F9;
