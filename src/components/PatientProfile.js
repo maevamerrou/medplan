@@ -65,7 +65,6 @@ export default class PatientProfile extends Component {
     d.getElementsByTagName('INPUT')[0].classList.toggle('readonly-field')
     for (let button of buttons){button.classList.toggle('hidden-button')}
     this.setState({editing: !this.state.editing})
-    console.log(this.state.patient)
   }
 
 
@@ -81,7 +80,6 @@ export default class PatientProfile extends Component {
 
 
     const {username, birthDate, height, weight, allergies, history, phoneNumber, address, email} = this.state.patient
-    console.log (birthDate)
 
     return (
       <>

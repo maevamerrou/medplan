@@ -12,7 +12,7 @@ export default class AppointmentDetails extends Component {
 
   componentDidMount(){
     axios.get(`${API_URL}/doctor/appointment/${this.props.match.params.appointmentId}`, {withCredentials: true})
-    .then((res)=>this.setState({appointment: res.data}, ()=>console.log (this.state.appointment)))
+    .then((res)=>this.setState({appointment: res.data}))
 
   }
 
@@ -32,7 +32,7 @@ export default class AppointmentDetails extends Component {
     let uploadData = new FormData()
     uploadData.append('imageUrl', image)
     axios.post(`${API_URL}/upload`, uploadData)
-      .then((res)=> {console.log(res.data);axios.patch(`${API_URL}/append-report/${this.props.match.params.appointmentId}`, {report: res.data.image}, {withCredentials:true})})
+      .then((res)=> {axios.patch(`${API_URL}/append-report/${this.props.match.params.appointmentId}`, {report: res.data.image}, {withCredentials:true})})
       .then(()=>{
       this.toggleLoader(e)
       window.location.reload()

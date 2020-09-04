@@ -8,6 +8,8 @@ import interactionPlugin from '@fullcalendar/interaction'
 import { createEventId } from './event-utils'
 import moment from 'moment'
 import momentPlugin from '@fullcalendar/moment'
+import {Button, Modal} from 'react-bootstrap'
+import { Next } from 'react-bootstrap/esm/PageItem'
 
 
 export default class DoctorProfile extends Component {
@@ -20,22 +22,23 @@ export default class DoctorProfile extends Component {
     editing: false,
     unedited: '',
     appointments: [],
-    events:[]
+    events:[],
+    showError:false,
+    showReason:false,
+    showDelete: false,
+    showLength: false,
   }
-
   componentDidMount(){
     axios.get(`${API_URL}/doctor/${this.props.match.params.doctorId}`, {withCredentials: true})
       .then((res)=>{
-        this.setState({doctor: res.data}, ()=>{console.log(this.state.doctor, new Date(this.state.doctor.openingTime))})
+        this.setState({doctor: res.data})
       })
       axios.get(`${API_URL}/doctor/appointments/${this.props.match.params.doctorId}`, {withCredentials: true})
       .then((res)=>{
         this.setState({appointments: res.data, events: res.data.map(appointment=>{
-          console.log ('ids:', appointment.patient, this.props.loggedInUser._id)
           let eventColor= appointment.patient._id===this.props.loggedInUser._id? '#51B8F9': 'gray'
           let proper = appointment.patient_id===this.props.loggedInUser._id? true : false
-          return {title: appointment.reason, start:appointment.time, id:appointment.eventId, startEditable: proper, patient: appointment.patient, color: eventColor}})},
-         ()=>{console.log(this.state)}
+          return {title: appointment.reason, start:appointment.time, id:appointment.eventId, startEditable: proper, patient: appointment.patient, color: eventColor}})}
          ) 
       })
       
@@ -98,45 +101,45 @@ export default class DoctorProfile extends Component {
     e.getElementsByTagName('BUTTON')[1].classList.toggle('hidden-button')
     axios.post(`${API_URL}/upload`, uploadData)
     .then((res)=> {uppicture= res.data.image; axios.patch(`${API_URL}/doctor/${this.props.match.params.doctorId}`, {picture: res.data.image}, {withCredentials:true})})
-    .then((res)=>{console.log (res);this.setState({doctor:{...this.state.doctor, picture: uppicture}})})
+    .then((res)=>{this.setState({doctor:{...this.state.doctor, picture: uppicture}})})
     
   }}
 
   //Calendar methods 
   handleDateSelect = (selectInfo) => {
+    let calendarApi = selectInfo.view.calendar
+    calendarApi.unselect()
     if (!moment(new Date(selectInfo.startStr)).isBefore(Date.now())) {
-      let calendarApi = selectInfo.view.calendar
-      calendarApi.unselect()
       
       if (selectInfo.end-selectInfo.start>1800000) {
-        alert('Appointments must have a duration of half an hour')
+        this.setState({showLength: true})
         return
       }
-
-    let title = prompt('Please enter the reason for the appointment: ')
-    if (title) {
-      calendarApi.addEvent({
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        patient: this.props.loggedInUser._id,
-        startEditable: true,
-        editable: false
-      })
-    }}
+    this.setState({showReason:true, calendarApi: calendarApi, selectInfo: selectInfo})
+    // let title = prompt('Please enter the reason for the appointment: ')
+    // if (title) {
+    //   calendarApi.addEvent({
+    //     id: createEventId(),
+    //     title,
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     patient: this.props.loggedInUser._id,
+    //     startEditable: true,
+    //     editable: false
+    //   })
+    // }
+  }
     else{
-      selectInfo.view.calendar.unselect()
-      alert('Please, select a valid date')
+      this.setState({showError:true})
     }
   }
   
   handleEventClick = (clickInfo) => {
-    console.log (clickInfo.event.startStr)
     if ((clickInfo.event.extendedProps.patient._id === this.props.loggedInUser._id || clickInfo.event.extendedProps.patient === this.props.loggedInUser._id)
       && moment(clickInfo.event.startStr).isAfter(moment(Date.now()))
       ){
-      if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`))   {clickInfo.event.remove()}
+      // if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`))   {clickInfo.event.remove()}
+      this.setState({showDelete: true, eventDelete: clickInfo.event})
      
   }}
   
@@ -148,7 +151,6 @@ export default class DoctorProfile extends Component {
 
   //Linking of calendar with database
   appoCreate= (event) =>{
-    console.log (event.event)
     axios.post(`${API_URL}/patient/appointments/${this.props.match.params.doctorId}`, 
       {time: event.event.start, eventId: event.event.id, reason: event.event.title}, {withCredentials:true})
   }
@@ -159,9 +161,34 @@ export default class DoctorProfile extends Component {
   }
 
   appoCancel= (event) =>{
-    console.log (event.event)
     axios.delete(`${API_URL}/patient/appointments/${this.props.match.params.doctorId}/${event.event.id}`, {withCredentials:true})
   }
+
+  handleClose=()=>{
+    this.setState({showError: false, showReason: false, showDelete: false, showLength: false})
+  }
+
+  handleCloseDelete=()=>{
+    this.setState({showDelete: false})
+    this.state.eventDelete.remove()
+    this.setState({eventDelete: {}})
+  }
+
+  handleCloseReason=(title)=>{
+    if (title) {
+      this.state.calendarApi.addEvent({
+        id: createEventId(),
+        title,
+        start: this.state.selectInfo.startStr,
+        end: this.state.selectInfo.endStr,
+        patient: this.props.loggedInUser._id,
+        startEditable: true,
+        editable: false
+      })
+    }
+    this.setState({showReason:false})
+  }
+  
   
   render() {
 
@@ -365,7 +392,51 @@ export default class DoctorProfile extends Component {
               )
               :null}
 
-          </div>      
+          </div>     
+
+          <Modal show={this.state.showError} onHide={this.handleClose}>
+            <Modal.Body>Please enter a valid date.</Modal.Body>
+            <Modal.Footer>
+              <Button variant="primary" onClick={this.handleClose}>
+                OK
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
+          <Modal show={this.state.showLength} onHide={this.handleClose}>
+            <Modal.Body>Appointments can't be longer than thirty minutes.</Modal.Body>
+            <Modal.Footer>
+              <Button variant="primary" onClick={this.handleClose}>
+                OK
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
+          <Modal show={this.state.showDelete} onHide={this.handleClose}>
+            <Modal.Body>Are you sure you want to cancel your appointment?</Modal.Body>
+            <Modal.Footer>
+            <Button variant="primary" onClick={this.handleClose}>
+                BACK
+              </Button>
+              <Button variant="danger" onClick={this.handleCloseDelete}>
+                I AM SURE
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
+          <Modal show={this.state.showReason} onHide={this.handleClose}>
+            <Modal.Body>
+            <p>What is the reason for your appointment?</p>
+            <input name='reason' id='reasonAppo'></input></Modal.Body>
+            <Modal.Footer>
+              <Button variant="primary" onClick={this.handleClose}>
+                BACK
+              </Button>
+              <Button variant="success" onClick={()=>this.handleCloseReason(document.getElementById('reasonAppo').value)}>
+                OK
+              </Button>
+            </Modal.Footer>
+          </Modal>
           
 
         </div>     

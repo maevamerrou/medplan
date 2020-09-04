@@ -15,10 +15,9 @@ export default class PatientMedPlanner extends Component {
         Axios.get(`${API_URL}/planner`, {withCredentials:true})
             .then((res)=>{
                 this.setState({patient: res.data}, ()=>{
-                    console.log(this.state.patient)
                     let arraymeds = this.state.patient.prescriptions.map(prescription=> prescription.medications).flat()
                     let filteredmeds= arraymeds.filter(medication=> moment(this.state.currentday).isBefore(medication.endDate) && moment(medication.startDate).isBefore(this.state.currentday) && (this.state.currentday.diff(moment(medication.startDate), 'days'))%medication.daysPerTake===0)
-                    this.setState({currentmeds: filteredmeds}, ()=>console.log(this.state))
+                    this.setState({currentmeds: filteredmeds})
                 })
             })
     }
@@ -29,17 +28,17 @@ export default class PatientMedPlanner extends Component {
     
 
     previousDay(){
-        this.setState({currentday: this.state.currentday.subtract(1, 'day')}, console.log (this.state.currentday.toString()))
+        this.setState({currentday: this.state.currentday.subtract(1, 'day')})
         let arraymeds = this.state.patient.prescriptions.map(prescription=> prescription.medications).flat()
         let filteredmeds= arraymeds.filter(medication=> moment(this.state.currentday).isBefore(medication.endDate) && moment(medication.startDate).isBefore(this.state.currentday) && (this.state.currentday.diff(moment(medication.startDate), 'days'))%medication.daysPerTake===0)
-        this.setState({currentmeds: filteredmeds}, ()=>console.log(this.state))
+        this.setState({currentmeds: filteredmeds})
     }
 
     nextDay(){
-        this.setState({currentday: this.state.currentday.add(1, 'day')}, console.log (this.state.currentday.toString()))
+        this.setState({currentday: this.state.currentday.add(1, 'day')})
         let arraymeds = this.state.patient.prescriptions.map(prescription=> prescription.medications).flat()
         let filteredmeds= arraymeds.filter(medication=> moment(this.state.currentday).isBefore(medication.endDate) && moment(medication.startDate).isBefore(this.state.currentday) && (this.state.currentday.diff(moment(medication.startDate), 'days'))%medication.daysPerTake===0)
-        this.setState({currentmeds: filteredmeds}, ()=>console.log(this.state))
+        this.setState({currentmeds: filteredmeds})
     }
 
     render() {
