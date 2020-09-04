@@ -40,7 +40,6 @@ export default class DoctorCalendar extends Component {
     render() {
         return (
           <>
-            <h1>Calendar</h1>
 
             <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, momentPlugin]}

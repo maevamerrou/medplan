@@ -19,7 +19,7 @@ export default class Signup extends Component {
 
                     <div className="user-type-choice">
                         <label className="label-user" htmlfor="usertype">I am a </label> 
-                        <select className="button" name="usertype">
+                        <select className="myButton" name="usertype">
                             <option className="user-type-choice" value="patient">Patient</option> 
                             <option className="user-type-choice" value="doctor">Doctor</option>                            
                         </select>
@@ -38,8 +38,8 @@ export default class Signup extends Component {
 
 
                     <div className="sign-log-btn-line">
-                        <button className="button" type="submit">Submit</button>
-                        <Link to="/login"><button className="button">Or Log In!</button></Link>
+                        <button className="myButton" type="submit">Submit</button>
+                        <Link to="/login"><button className="myButton">Or Log In!</button></Link>
                     </div>                    
 
                 </form>

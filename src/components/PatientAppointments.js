@@ -53,7 +53,6 @@ export default class PatientAppointments extends Component {
         return (
             <>
 
-                <h1>Appointments</h1>
 
                 {
                     this.state.appointments.map(appointment => {
@@ -76,11 +75,17 @@ export default class PatientAppointments extends Component {
                                         <p><strong>Located at: </strong>{appointment.doctor.address}</p>
                                     </div>
 
+
+
+
+
+
+
                                              
                                         { appointment.report? 
                                             
-                                                <button className="button" onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>:
-                                                <button className="button disabled" disabled>No Report</button>
+                                                <button className="myButton" onClick={(e) => this.handleDownload(e, appointment._id)}>See Report</button>:
+                                                <button className="myButton disabled" disabled>No Report</button>
 
                                                 }
                                      

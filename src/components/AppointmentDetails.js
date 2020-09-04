@@ -78,22 +78,22 @@ export default class AppointmentDetails extends Component {
 
             <div className="btn-app-details">
             {!(this.state.appointment.prescription)? 
-              <Link to={`/create-prescription/${this.props.match.params.appointmentId}`}><button className="button">Create Prescription</button></Link>
-              :<button disabled className="button disabled">Prescription added</button>}
+              <Link to={`/create-prescription/${this.props.match.params.appointmentId}`}><button className="myButton">Create Prescription</button></Link>
+              :<button disabled className="myButton disabled">Prescription added</button>}
             
               
               
               {moment(this.state.appointment.time)>moment(Date.now())?
-              <button className="button" onClick={()=>this.cancelAppointment(this.props.match.params.appointmentId)}>Cancel appointment</button>: <button disabled className="button disabled" onClick={()=>this.cancelAppointment(this.props.match.params.appointmentId)}>Cancel appointment</button>}
+              <button className="myButton" onClick={()=>this.cancelAppointment(this.props.match.params.appointmentId)}>Cancel appointment</button>: <button disabled className="myButton disabled" onClick={()=>this.cancelAppointment(this.props.match.params.appointmentId)}>Cancel appointment</button>}
             </div>
           </div>
 
           <div className="report-upload">
-            <button className="button" onClick={()=>this.toggleLoader(document.getElementById('report-group'))}>{this.state.appointment.report? 'Replace Report':'Upload Report'}</button>
+            <button className="myButton" onClick={()=>this.toggleLoader(document.getElementById('report-group'))}>{this.state.appointment.report? 'Replace Report':'Upload Report'}</button>
 
             <div className='hidden-button' id='report-group'>
               <input type='file' name='report' className="form-control"/>
-              <button className="button" onClick={()=>this.loadReport(document.getElementById('report-group'))}>Submit</button>
+              <button className="myButton" onClick={()=>this.loadReport(document.getElementById('report-group'))}>Submit</button>
             </div>
 
             {/* {(this.state.appointment.prescription)? <p>There is already a prescription associated to this appointment.</p>:null} */}
