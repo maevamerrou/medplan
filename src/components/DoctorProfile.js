@@ -177,7 +177,7 @@ export default class DoctorProfile extends Component {
   handleCloseReason=(title)=>{
     if (title) {
       this.state.calendarApi.addEvent({
-        id: createEventId(),
+        id: (createEventId()+1)*Math.floor(Math.random()*10000),
         title,
         start: this.state.selectInfo.startStr,
         end: this.state.selectInfo.endStr,
